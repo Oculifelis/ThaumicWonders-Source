@@ -1,0 +1,67 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.bone_bow.title",
+  "parents": [
+    "thaumaturgicwonders:flying_carpet"
+  ],
+  "column": 2,
+  "row": -4,
+  "icons": [
+    "thaumaturgicwonders:bone_bow"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.bone_bow.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        },
+        {
+          "type": "observation",
+          "category": "thaumaturge:golemancy",
+          "amount": 1
+        }
+      ],
+      "obtain": [
+        {
+          "items": [
+            "minecraft:bone"
+          ],
+          "amount": 1
+        },
+        {
+          "items": [
+            "minecraft:bow"
+          ],
+          "amount": 1
+        }
+      ],
+      "required_research": [
+        "thaumaturge:scanned/aspect/thaumaturge/volatus"
+      ]
+    },
+    {
+      "text": "thaumaturgicwonders.research.bone_bow.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:arcane/bone_bow"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:volatus",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:mortuus",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:instrumentum",
+      "amount": 2
+    }
+  ],
+  "complexity": 2
+}

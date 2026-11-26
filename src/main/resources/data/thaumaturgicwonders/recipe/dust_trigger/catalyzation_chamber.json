@@ -1,0 +1,11 @@
+{
+  "type": "thaumaturge:dust_trigger_multiblock",
+  "blueprint": "thaumaturgicwonders:catalyzation_chamber",
+  "research": {
+    "entry": "thaumaturgicwonders:catalyzation_chamber",
+    "stage": 1
+  },
+  "result": {
+    "id": "thaumaturgicwonders:catalyzation_chamber"
+  }
+}

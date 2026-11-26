@@ -1,0 +1,39 @@
+{
+  "type": "thaumaturge:infusion",
+  "research": {
+    "entry": "thaumaturgicwonders:primordial_accelerator"
+  },
+  "catalyst": "minecraft:dispenser",
+  "components": [
+    "thaumaturgicwonders:primordial_accelerator_tunnel",
+    "#c:plates/void_metal",
+    "thaumaturge:mechanism_complex",
+    "#c:plates/void_metal",
+    "thaumaturge:advanced_alchemical_construct",
+    "#c:plates/void_metal",
+    "thaumaturge:mechanism_complex",
+    "#c:plates/void_metal"
+  ],
+  "instability": 10,
+  "aspects": [
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 250
+    },
+    {
+      "aspect": "thaumaturge:machina",
+      "amount": 200
+    },
+    {
+      "aspect": "thaumaturge:potentia",
+      "amount": 200
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 100
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:primordial_accelerator"
+  }
+}

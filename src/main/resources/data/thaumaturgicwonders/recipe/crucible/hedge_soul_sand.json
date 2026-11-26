@@ -1,0 +1,24 @@
+{
+  "type": "thaumaturge:crucible",
+  "research": {
+    "entry": "thaumaturgicwonders:nether_hedge"
+  },
+  "catalyst": "minecraft:sand",
+  "aspects": [
+    {
+      "aspect": "thaumaturge:spiritus",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:vinculum",
+      "amount": 1
+    }
+  ],
+  "result": {
+    "id": "minecraft:soul_sand"
+  }
+}

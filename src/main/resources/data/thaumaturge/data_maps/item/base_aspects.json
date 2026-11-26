@@ -1,0 +1,251 @@
+{
+  "replace": false,
+  "values": {
+    "thaumaturgicwonders:catalyzation_chamber": [
+      {
+        "aspect": "thaumaturge:alkimia",
+        "amount": 20
+      },
+      {
+        "aspect": "thaumaturge:metallum",
+        "amount": 10
+      },
+      {
+        "aspect": "thaumaturge:praecantatio",
+        "amount": 10
+      },
+      {
+        "aspect": "thaumaturge:terra",
+        "amount": 10
+      }
+    ],
+    "thaumaturgicwonders:coalescence_matrix": [
+      {
+        "aspect": "thaumaturge:vitium",
+        "amount": 20
+      },
+      {
+        "aspect": "thaumaturge:praecantatio",
+        "amount": 20
+      },
+      {
+        "aspect": "thaumaturge:alienis",
+        "amount": 10
+      },
+      {
+        "aspect": "thaumaturge:metallum",
+        "amount": 10
+      }
+    ],
+    "thaumaturgicwonders:corruption_avatar_spawn_egg": [
+      {
+        "aspect": "thaumaturge:alienis",
+        "amount": 10
+      },
+      {
+        "aspect": "thaumaturge:vitium",
+        "amount": 10
+      },
+      {
+        "aspect": "thaumaturge:humanus",
+        "amount": 5
+      }
+    ],
+    "thaumaturgicwonders:creative_essentia_jar": [
+      {
+        "aspect": "thaumaturge:vitreus",
+        "amount": 5
+      },
+      {
+        "aspect": "thaumaturge:vacuos",
+        "amount": 5
+      },
+      {
+        "aspect": "thaumaturge:praecantatio",
+        "amount": 50
+      }
+    ],
+    "thaumaturgicwonders:eldritch_cluster_cinnabar": [
+      {
+        "aspect": "thaumaturge:metallum",
+        "amount": 20
+      },
+      {
+        "aspect": "thaumaturge:terra",
+        "amount": 5
+      },
+      {
+        "aspect": "thaumaturge:vitium",
+        "amount": 10
+      },
+      {
+        "aspect": "thaumaturge:alkimia",
+        "amount": 10
+      },
+      {
+        "aspect": "thaumaturge:mortuus",
+        "amount": 10
+      }
+    ],
+    "thaumaturgicwonders:eldritch_cluster_copper": [
+      {
+        "aspect": "thaumaturge:metallum",
+        "amount": 20
+      },
+      {
+        "aspect": "thaumaturge:terra",
+        "amount": 5
+      },
+      {
+        "aspect": "thaumaturge:vitium",
+        "amount": 10
+      },
+      {
+        "aspect": "thaumaturge:permutatio",
+        "amount": 15
+      }
+    ],
+    "thaumaturgicwonders:eldritch_cluster_gold": [
+      {
+        "aspect": "thaumaturge:metallum",
+        "amount": 20
+      },
+      {
+        "aspect": "thaumaturge:terra",
+        "amount": 5
+      },
+      {
+        "aspect": "thaumaturge:vitium",
+        "amount": 10
+      },
+      {
+        "aspect": "thaumaturge:desiderium",
+        "amount": 15
+      }
+    ],
+    "thaumaturgicwonders:eldritch_cluster_iron": [
+      {
+        "aspect": "thaumaturge:metallum",
+        "amount": 20
+      },
+      {
+        "aspect": "thaumaturge:terra",
+        "amount": 5
+      },
+      {
+        "aspect": "thaumaturge:vitium",
+        "amount": 10
+      }
+    ],
+    "thaumaturgicwonders:eldritch_cluster_lead": [
+      {
+        "aspect": "thaumaturge:metallum",
+        "amount": 20
+      },
+      {
+        "aspect": "thaumaturge:terra",
+        "amount": 5
+      },
+      {
+        "aspect": "thaumaturge:vitium",
+        "amount": 10
+      },
+      {
+        "aspect": "thaumaturge:ordo",
+        "amount": 15
+      }
+    ],
+    "thaumaturgicwonders:eldritch_cluster_quartz": [
+      {
+        "aspect": "thaumaturge:vitium",
+        "amount": 10
+      },
+      {
+        "aspect": "thaumaturge:vitreus",
+        "amount": 15
+      }
+    ],
+    "thaumaturgicwonders:eldritch_cluster_silver": [
+      {
+        "aspect": "thaumaturge:metallum",
+        "amount": 20
+      },
+      {
+        "aspect": "thaumaturge:terra",
+        "amount": 5
+      },
+      {
+        "aspect": "thaumaturge:vitium",
+        "amount": 10
+      },
+      {
+        "aspect": "thaumaturge:desiderium",
+        "amount": 15
+      }
+    ],
+    "thaumaturgicwonders:eldritch_cluster_tin": [
+      {
+        "aspect": "thaumaturge:metallum",
+        "amount": 20
+      },
+      {
+        "aspect": "thaumaturge:terra",
+        "amount": 5
+      },
+      {
+        "aspect": "thaumaturge:vitium",
+        "amount": 10
+      },
+      {
+        "aspect": "thaumaturge:vitreus",
+        "amount": 15
+      }
+    ],
+    "thaumaturgicwonders:eldritch_cluster_void": [
+      {
+        "aspect": "thaumaturge:metallum",
+        "amount": 10
+      },
+      {
+        "aspect": "thaumaturge:vitium",
+        "amount": 20
+      }
+    ],
+    "thaumaturgicwonders:primordial_accretion_chamber": [
+      {
+        "aspect": "thaumaturge:alkimia",
+        "amount": 20
+      },
+      {
+        "aspect": "thaumaturge:metallum",
+        "amount": 20
+      },
+      {
+        "aspect": "thaumaturge:praecantatio",
+        "amount": 15
+      },
+      {
+        "aspect": "thaumaturge:ordo",
+        "amount": 10
+      }
+    ],
+    "thaumaturgicwonders:quicksilver_bucket": [
+      {
+        "aspect": "thaumaturge:vacuos",
+        "amount": 5
+      },
+      {
+        "aspect": "thaumaturge:metallum",
+        "amount": 3
+      },
+      {
+        "aspect": "thaumaturge:mortuus",
+        "amount": 15
+      },
+      {
+        "aspect": "thaumaturge:alkimia",
+        "amount": 15
+      }
+    ]
+  }
+}

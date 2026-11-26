@@ -1,0 +1,25 @@
+{
+  "type": "thaumaturge:crucible",
+  "research": {
+    "entry": "thaumaturgicwonders:nether_hedge"
+  },
+  "catalyst": "minecraft:ghast_tear",
+  "aspects": [
+    {
+      "aspect": "thaumaturge:spiritus",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:alkimia",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:exanimis",
+      "amount": 5
+    }
+  ],
+  "result": {
+    "id": "minecraft:ghast_tear",
+    "count": 2
+  }
+}

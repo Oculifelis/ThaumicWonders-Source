@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": {
+    "thaumaturgicwonders:corruption_avatar": [
+      {
+        "aspect": "thaumaturge:alienis",
+        "amount": 40
+      },
+      {
+        "aspect": "thaumaturge:humanus",
+        "amount": 40
+      },
+      {
+        "aspect": "thaumaturge:vitium",
+        "amount": 40
+      }
+    ]
+  }
+}

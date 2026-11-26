@@ -1,0 +1,63 @@
+{
+  "type": "thaumaturge:infusion",
+  "research": {
+    "entry": "thaumaturgicwonders:void_beacon"
+  },
+  "catalyst": "minecraft:beacon",
+  "components": [
+    "thaumaturge:primordial_pearl",
+    "#c:plates/void_metal",
+    "thaumaturge:primordial_pearl",
+    "#c:plates/void_metal",
+    "thaumaturge:primordial_pearl",
+    "#c:plates/void_metal",
+    "thaumaturge:primordial_pearl",
+    "#c:plates/void_metal"
+  ],
+  "instability": 10,
+  "aspects": [
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 250
+    },
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 250
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 250
+    },
+    {
+      "aspect": "thaumaturge:vitium",
+      "amount": 200
+    },
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 100
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:void_beacon"
+  }
+}

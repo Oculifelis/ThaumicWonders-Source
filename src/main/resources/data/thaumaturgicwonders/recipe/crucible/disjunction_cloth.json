@@ -1,0 +1,24 @@
+{
+  "type": "thaumaturge:crucible",
+  "research": {
+    "entry": "thaumaturgicwonders:disjunction_cloth"
+  },
+  "catalyst": "thaumaturge:fabric",
+  "aspects": [
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 40
+    },
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 40
+    },
+    {
+      "aspect": "thaumaturge:auram",
+      "amount": 20
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:disjunction_cloth"
+  }
+}

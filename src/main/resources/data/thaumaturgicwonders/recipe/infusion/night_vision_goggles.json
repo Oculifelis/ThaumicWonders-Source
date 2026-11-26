@@ -1,0 +1,51 @@
+{
+  "type": "thaumaturge:infusion",
+  "research": {
+    "entry": "thaumaturgicwonders:night_vision_goggles"
+  },
+  "catalyst": "thaumaturge:goggles_revealing",
+  "components": [
+    "minecraft:golden_carrot",
+    "#thaumaturge:nitors",
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "thaumaturge:essentia_crystal",
+      "components": {
+        "thaumaturge:crystal_aspect": {
+          "aspect": "thaumaturge:sensus"
+        }
+      }
+    },
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "thaumaturge:essentia_crystal",
+      "components": {
+        "thaumaturge:crystal_aspect": {
+          "aspect": "thaumaturge:sensus"
+        }
+      }
+    }
+  ],
+  "instability": 4,
+  "aspects": [
+    {
+      "aspect": "thaumaturge:sensus",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 25
+    },
+    {
+      "aspect": "thaumaturge:potentia",
+      "amount": 25
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:night_vision_goggles"
+  }
+}

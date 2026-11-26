@@ -1,0 +1,48 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.transmuter_stone.title",
+  "parents": [
+    "thaumaturgicwonders:catalyzation_chamber"
+  ],
+  "column": -4,
+  "row": 6,
+  "icons": [
+    "thaumaturgicwonders:transmuter_stone"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.transmuter_stone.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:alchemy",
+          "amount": 2
+        }
+      ],
+      "required_research": [
+        "thaumaturge:scanned/aspect/thaumaturge/permutatio"
+      ]
+    },
+    {
+      "text": "thaumaturgicwonders.research.transmuter_stone.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:crucible/transmuter_stone"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:permutatio",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:metallum",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:alkimia",
+      "amount": 2
+    }
+  ],
+  "complexity": 2
+}

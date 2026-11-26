@@ -1,0 +1,50 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.lethe_water.title",
+  "parents": [
+    "thaumaturgicwonders:disjunction_cloth"
+  ],
+  "column": 4,
+  "row": 0,
+  "icons": [
+    "thaumaturgicwonders:lethe_water"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.lethe_water.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        },
+        {
+          "type": "theory",
+          "category": "thaumaturge:auromancy",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "text": "thaumaturgicwonders.research.lethe_water.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:crucible/lethe_water"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:cognitio",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 2
+    }
+  ],
+  "complexity": 2
+}

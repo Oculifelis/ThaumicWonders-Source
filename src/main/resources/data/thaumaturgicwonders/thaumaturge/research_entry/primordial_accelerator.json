@@ -1,0 +1,68 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.primordial_accelerator.title",
+  "parents": [
+    "thaumaturgicwonders:flux_capacitor",
+    "thaumaturge:essentia_smelter_void@1"
+  ],
+  "column": -8,
+  "row": -3,
+  "meta": [
+    "spiky"
+  ],
+  "icons": [
+    "thaumaturgicwonders:primordial_accelerator"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.primordial_accelerator.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 2
+        },
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 2
+        }
+      ],
+      "warp": 3
+    },
+    {
+      "text": "thaumaturgicwonders.research.primordial_accelerator.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:infusion/primordial_accelerator",
+        "thaumaturgicwonders:arcane/primordial_accelerator_tunnel",
+        "thaumaturgicwonders:arcane/primordial_accelerator_terminus"
+      ]
+    }
+  ],
+  "addenda": [
+    {
+      "text": "thaumaturgicwonders.research.primordial_accelerator.text.addenda.1",
+      "required_research": [
+        "thaumaturgicwonders:scanned/primordial_grain"
+      ],
+      "recipes": [
+        "thaumaturgicwonders:crucible/primordial_pearl_reconstitution"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:potentia",
+      "amount": 2
+    }
+  ],
+  "complexity": 3
+}

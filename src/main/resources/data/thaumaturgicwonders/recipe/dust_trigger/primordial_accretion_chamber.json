@@ -1,0 +1,11 @@
+{
+  "type": "thaumaturge:dust_trigger_multiblock",
+  "blueprint": "thaumaturgicwonders:primordial_accretion_chamber",
+  "research": {
+    "entry": "thaumaturgicwonders:primordial_accretion_chamber",
+    "stage": 1
+  },
+  "result": {
+    "id": "thaumaturgicwonders:primordial_accretion_chamber"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "thaumaturge:primordial_pearl"
+        }
+      ]
+    },
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "thaumaturge:loot_bag_rare"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "thaumaturgicwonders:entities/corruption_avatar"
+}

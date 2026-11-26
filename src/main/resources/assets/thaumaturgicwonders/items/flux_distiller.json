@@ -1,0 +1,103 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:block_state",
+    "block_state_property": "charge",
+    "cases": [
+      {
+        "when": [
+          "1"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "thaumaturgicwonders:block/flux_distiller_1"
+        }
+      },
+      {
+        "when": [
+          "2"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "thaumaturgicwonders:block/flux_distiller_2"
+        }
+      },
+      {
+        "when": [
+          "3"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "thaumaturgicwonders:block/flux_distiller_3"
+        }
+      },
+      {
+        "when": [
+          "4"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "thaumaturgicwonders:block/flux_distiller_4"
+        }
+      },
+      {
+        "when": [
+          "5"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "thaumaturgicwonders:block/flux_distiller_5"
+        }
+      },
+      {
+        "when": [
+          "6"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "thaumaturgicwonders:block/flux_distiller_6"
+        }
+      },
+      {
+        "when": [
+          "7"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "thaumaturgicwonders:block/flux_distiller_7"
+        }
+      },
+      {
+        "when": [
+          "8"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "thaumaturgicwonders:block/flux_distiller_8"
+        }
+      },
+      {
+        "when": [
+          "9"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "thaumaturgicwonders:block/flux_distiller_9"
+        }
+      },
+      {
+        "when": [
+          "10"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "thaumaturgicwonders:block/flux_distiller_10"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "thaumaturgicwonders:block/flux_distiller_0"
+    }
+  }
+}

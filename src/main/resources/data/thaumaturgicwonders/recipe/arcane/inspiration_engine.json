@@ -1,0 +1,37 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "research": {
+    "entry": "thaumaturgicwonders:inspiration_engine"
+  },
+  "vis": 50,
+  "crystals": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 1
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 1
+    }
+  ],
+  "pattern": [
+    "BRB",
+    "VMV",
+    "SZS"
+  ],
+  "key": {
+    "B": "#c:plates/brass",
+    "R": "thaumaturge:morphic_resonator",
+    "V": "thaumaturge:vis_resonator",
+    "M": "thaumaturge:mechanism_simple",
+    "S": "thaumaturge:stone_arcane",
+    "Z": "thaumaturge:brain"
+  },
+  "result": {
+    "id": "thaumaturgicwonders:inspiration_engine"
+  }
+}

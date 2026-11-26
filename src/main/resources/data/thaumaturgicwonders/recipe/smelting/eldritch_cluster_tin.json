@@ -1,0 +1,17 @@
+{
+  "type": "thaumaturgicwonders:tag_smelting",
+  "ingredient": "thaumaturgicwonders:eldritch_cluster_tin",
+  "result_tag": "c:ingots/tin",
+  "count": 3,
+  "experience": 1.0,
+  "cookingtime": 200,
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/tin"
+      }
+    }
+  ]
+}

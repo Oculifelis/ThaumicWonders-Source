@@ -1,0 +1,18 @@
+{
+  "model": {
+    "type": "minecraft:composite",
+    "models": [
+      {
+        "type": "minecraft:model",
+        "model": "thaumaturgicwonders:block/creative_essentia_jar"
+      },
+      {
+        "type": "minecraft:special",
+        "base": "thaumaturgicwonders:block/creative_essentia_jar",
+        "model": {
+          "type": "thaumaturge:jar"
+        }
+      }
+    ]
+  }
+}

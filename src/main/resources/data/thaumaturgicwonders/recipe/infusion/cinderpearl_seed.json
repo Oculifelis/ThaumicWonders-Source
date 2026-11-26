@@ -1,0 +1,30 @@
+{
+  "type": "thaumaturge:infusion",
+  "research": {
+    "entry": "thaumaturgicwonders:mystic_gardening"
+  },
+  "catalyst": "minecraft:wheat_seeds",
+  "components": [
+    "thaumaturge:cinderpearl",
+    "thaumaturge:salis_mundus"
+  ],
+  "instability": 2,
+  "aspects": [
+    {
+      "aspect": "thaumaturge:herba",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:victus",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 5
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:cinderpearl_seed",
+    "count": 8
+  }
+}

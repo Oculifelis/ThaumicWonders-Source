@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "thaumaturgicwonders:primal_arrow_air",
+    "thaumaturgicwonders:primal_arrow_earth",
+    "thaumaturgicwonders:primal_arrow_entropy",
+    "thaumaturgicwonders:primal_arrow_fire",
+    "thaumaturgicwonders:primal_arrow_order",
+    "thaumaturgicwonders:primal_arrow_water"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.void_beacon.title",
+  "parents": [
+    "thaumaturgicwonders:void_portal",
+    "thaumaturgicwonders:void_fortress_armor",
+    "thaumaturge:void_siphon"
+  ],
+  "column": -8,
+  "row": 0,
+  "meta": [
+    "spiky"
+  ],
+  "icons": [
+    "thaumaturgicwonders:void_beacon"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.void_beacon.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:auromancy",
+          "amount": 2
+        },
+        {
+          "type": "theory",
+          "category": "thaumaturge:infusion",
+          "amount": 2
+        },
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 2
+        }
+      ],
+      "warp": 4
+    },
+    {
+      "text": "thaumaturgicwonders.research.void_beacon.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:infusion/void_beacon"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 2
+    }
+  ],
+  "complexity": 2
+}

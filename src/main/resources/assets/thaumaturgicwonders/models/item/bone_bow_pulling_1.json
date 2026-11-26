@@ -1,0 +1,6 @@
+{
+  "parent": "thaumaturgicwonders:item/bone_bow",
+  "textures": {
+    "layer0": "thaumaturgicwonders:item/bone_bow_pulling_1"
+  }
+}

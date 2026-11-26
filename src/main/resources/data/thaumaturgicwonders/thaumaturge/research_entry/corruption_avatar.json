@@ -1,0 +1,36 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.corruption_avatar.title",
+  "parents": [
+    "thaumaturgicwonders:scanned/corruption_avatar"
+  ],
+  "column": -10,
+  "row": 2,
+  "meta": [
+    "round",
+    "hidden"
+  ],
+  "icons": [
+    "thaumaturgicwonders:textures/research/r_corruption_avatar.png"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.corruption_avatar.text.stage.1"
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:vitium",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:humanus",
+      "amount": 2
+    }
+  ],
+  "complexity": 1
+}

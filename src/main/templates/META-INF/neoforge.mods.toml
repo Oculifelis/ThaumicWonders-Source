@@ -1,0 +1,40 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="${mod_license}"
+
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+logoFile="thaumaturgicwonders_logo.png"
+logoBlur=false
+authors="daedalus4096 (original Thaumic Wonders), Oculifelis (port to Thaumaturge)"
+credits="Original Thaumic Wonders (Thaumcraft 6, 1.12.2) by daedalus4096, MIT licence; art from the original used under that licence. Thaumaturge by Leclowndu93150 and contributors."
+description='''
+A port of Thaumic Wonders (Thaumcraft 6 addon) to Thaumaturge on NeoForge 26.1.2, rebuilt on Thaumaturge's mechanics.
+'''
+
+[[dependencies.${mod_id}]]
+    modId="neoforge"
+    type="required"
+    versionRange="[26.1.2.71,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.${mod_id}]]
+    modId="thaumaturge"
+    type="required"
+    versionRange="${thaumaturge_version_range}"
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.${mod_id}]]
+    modId="jei"
+    type="optional"
+    versionRange="[29,)"
+    ordering="AFTER"
+    side="BOTH"

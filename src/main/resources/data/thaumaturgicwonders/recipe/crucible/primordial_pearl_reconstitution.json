@@ -1,0 +1,39 @@
+{
+  "type": "thaumaturge:crucible",
+  "research": {
+    "entry": "thaumaturgicwonders:primordial_accelerator"
+  },
+  "catalyst": "thaumaturgicwonders:primordial_grain",
+  "aspects": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 250
+    },
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 250
+    },
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 250
+    },
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 250
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 250
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 250
+    }
+  ],
+  "result": {
+    "id": "thaumaturge:primordial_pearl",
+    "components": {
+      "minecraft:damage": 7
+    }
+  }
+}

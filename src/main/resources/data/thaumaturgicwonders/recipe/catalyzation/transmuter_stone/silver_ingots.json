@@ -1,0 +1,22 @@
+{
+  "type": "thaumaturgicwonders:catalyzation",
+  "stone": "thaumaturgicwonders:transmuter_stone",
+  "input": "#c:ingots/silver",
+  "result_tag": "c:ingots/lead",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/lead"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/silver"
+      }
+    }
+  ]
+}

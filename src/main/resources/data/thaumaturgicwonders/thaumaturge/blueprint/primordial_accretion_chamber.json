@@ -1,0 +1,79 @@
+{
+  "keys": {
+    "T": {
+      "source": {
+        "type": "block",
+        "block": "thaumaturge:metal_thaumium"
+      },
+      "target": {
+        "type": "block",
+        "block": "thaumaturgicwonders:placeholder_thaumium_block"
+      }
+    },
+    "V": {
+      "source": {
+        "type": "block",
+        "block": "thaumaturge:metal_void"
+      },
+      "target": {
+        "type": "block",
+        "block": "thaumaturgicwonders:placeholder_void_metal_block"
+      }
+    },
+    "C": {
+      "source": {
+        "type": "block",
+        "block": "thaumaturge:advanced_alchemical_construct"
+      },
+      "target": {
+        "type": "block",
+        "block": "thaumaturgicwonders:placeholder_adv_alch_construct"
+      }
+    },
+    "I": {
+      "source": {
+        "type": "block",
+        "block": "minecraft:iron_bars"
+      },
+      "target": {
+        "type": "air"
+      }
+    },
+    "Q": {
+      "source": {
+        "type": "state",
+        "state": {
+          "Name": "thaumaturgicwonders:fluid_quicksilver",
+          "Properties": {
+            "level": "0"
+          }
+        }
+      },
+      "target": {
+        "type": "block",
+        "block": "thaumaturgicwonders:primordial_accretion_chamber",
+        "opposite": true
+      }
+    }
+  },
+  "pattern": [
+    [
+      "VTV",
+      "T T",
+      "VTV"
+    ],
+    [
+      "CTC",
+      "CQC",
+      "CIC"
+    ],
+    [
+      "VTV",
+      "TTT",
+      "VTV"
+    ]
+  ],
+  "x_size": 3,
+  "y_size": 3,
+  "z_size": 3
+}

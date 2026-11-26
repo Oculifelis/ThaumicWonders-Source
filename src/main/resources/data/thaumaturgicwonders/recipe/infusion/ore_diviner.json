@@ -1,0 +1,39 @@
+{
+  "type": "thaumaturge:infusion",
+  "research": {
+    "entry": "thaumaturgicwonders:ore_diviner"
+  },
+  "catalyst": "minecraft:quartz_block",
+  "components": [
+    "#c:ores/iron",
+    "#c:ores/gold",
+    "#c:ores/coal",
+    "#c:ores/redstone",
+    "#c:ores/lapis",
+    "#c:ores/diamond",
+    "#c:ores/emerald",
+    "#c:ores/cinnabar"
+  ],
+  "instability": 6,
+  "aspects": [
+    {
+      "aspect": "thaumaturge:sensus",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:metallum",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 50
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:ore_diviner"
+  }
+}

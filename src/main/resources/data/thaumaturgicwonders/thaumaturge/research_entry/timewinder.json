@@ -1,0 +1,57 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.timewinder.title",
+  "parents": [
+    "thaumaturgicwonders:end_hedge",
+    "thaumaturge:first_steps",
+    "thaumaturge:recharge_pedestal"
+  ],
+  "column": 2,
+  "row": 4,
+  "icons": [
+    "thaumaturgicwonders:timewinder"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.timewinder.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:infusion",
+          "amount": 1
+        },
+        {
+          "type": "theory",
+          "category": "thaumaturge:auromancy",
+          "amount": 1
+        },
+        {
+          "type": "observation",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "text": "thaumaturgicwonders.research.timewinder.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:infusion/timewinder"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:tenebrae",
+      "amount": 2
+    }
+  ],
+  "complexity": 2
+}

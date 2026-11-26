@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 1.0,
+  "ingredient": "thaumaturgicwonders:eldritch_cluster_cinnabar",
+  "result": {
+    "id": "thaumaturge:quicksilver",
+    "count": 3
+  }
+}

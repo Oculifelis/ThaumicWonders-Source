@@ -1,0 +1,67 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.dimensional_ripper.title",
+  "parents": [
+    "thaumaturgicwonders:base",
+    "thaumaturge:flux",
+    "thaumaturge:arcane_bore",
+    "thaumaturge:base_eldritch",
+    "thaumaturge:primordial_pearl"
+  ],
+  "column": -4,
+  "row": -1,
+  "meta": [
+    "spiky",
+    "hidden"
+  ],
+  "icons": [
+    "thaumaturgicwonders:dimensional_ripper"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.dimensional_ripper.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        },
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        },
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ],
+      "required_research": [
+        "thaumaturge:scanned/aspect/thaumaturge/vitium"
+      ],
+      "warp": 4
+    },
+    {
+      "text": "thaumaturgicwonders.research.dimensional_ripper.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:arcane/dimensional_ripper"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:vitium",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 2
+    }
+  ],
+  "complexity": 2
+}

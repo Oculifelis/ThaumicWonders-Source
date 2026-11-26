@@ -1,0 +1,81 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.mystic_gardening.title",
+  "parents": [
+    "thaumaturgicwonders:base",
+    "thaumaturge:infusion",
+    "thaumaturge:scanned/plantcinderpearl",
+    "thaumaturge:scanned/plantshimmerleaf",
+    "thaumaturge:scanned/plantvishroom"
+  ],
+  "column": 2,
+  "row": -2,
+  "meta": [
+    "hidden"
+  ],
+  "icons": [
+    "thaumaturgicwonders:shimmerleaf_seed",
+    "thaumaturgicwonders:cinderpearl_seed",
+    "thaumaturgicwonders:vishroom_spore"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.mystic_gardening.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:infusion",
+          "amount": 1
+        },
+        {
+          "type": "observation",
+          "category": "thaumaturge:basics",
+          "amount": 1
+        }
+      ],
+      "obtain": [
+        {
+          "items": [
+            "thaumaturge:shimmerleaf"
+          ],
+          "amount": 1
+        },
+        {
+          "items": [
+            "thaumaturge:cinderpearl"
+          ],
+          "amount": 1
+        },
+        {
+          "items": [
+            "thaumaturge:vishroom"
+          ],
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "text": "thaumaturgicwonders.research.mystic_gardening.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:infusion/shimmerleaf_seed",
+        "thaumaturgicwonders:infusion/cinderpearl_seed",
+        "thaumaturgicwonders:infusion/vishroom_spore"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:herba",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:victus",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 2
+    }
+  ],
+  "complexity": 2
+}

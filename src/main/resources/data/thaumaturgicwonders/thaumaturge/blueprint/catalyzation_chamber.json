@@ -1,0 +1,69 @@
+{
+  "keys": {
+    "A": {
+      "source": {
+        "type": "block",
+        "block": "thaumaturge:stone_arcane"
+      },
+      "target": {
+        "type": "block",
+        "block": "thaumaturgicwonders:placeholder_arcane_stone"
+      }
+    },
+    "O": {
+      "source": {
+        "type": "block",
+        "block": "minecraft:obsidian"
+      },
+      "target": {
+        "type": "block",
+        "block": "thaumaturgicwonders:placeholder_obsidian"
+      }
+    },
+    "I": {
+      "source": {
+        "type": "block",
+        "block": "minecraft:iron_bars"
+      },
+      "target": {
+        "type": "air"
+      }
+    },
+    "Q": {
+      "source": {
+        "type": "state",
+        "state": {
+          "Name": "thaumaturgicwonders:fluid_quicksilver",
+          "Properties": {
+            "level": "0"
+          }
+        }
+      },
+      "target": {
+        "type": "block",
+        "block": "thaumaturgicwonders:catalyzation_chamber",
+        "opposite": true
+      }
+    }
+  },
+  "pattern": [
+    [
+      "AOA",
+      "O O",
+      "AOA"
+    ],
+    [
+      "AOA",
+      "OQO",
+      "AIA"
+    ],
+    [
+      "AOA",
+      "OOO",
+      "AOA"
+    ]
+  ],
+  "x_size": 3,
+  "y_size": 3,
+  "z_size": 3
+}

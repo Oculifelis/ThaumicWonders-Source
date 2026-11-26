@@ -1,0 +1,128 @@
+{
+  "replace": false,
+  "values": {
+    "thaumaturgicwonders:eldritch_cluster_iron": [
+      {
+        "chance": 0.33,
+        "items": "#c:nuggets/iron"
+      },
+      {
+        "chance": 0.025,
+        "items": "thaumaturge:rare_earth"
+      }
+    ],
+    "thaumaturgicwonders:eldritch_cluster_gold": [
+      {
+        "chance": 0.33,
+        "items": "#c:nuggets/gold"
+      },
+      {
+        "chance": 0.025,
+        "items": "thaumaturge:rare_earth"
+      }
+    ],
+    "thaumaturgicwonders:eldritch_cluster_copper": [
+      {
+        "chance": 0.33,
+        "items": "#c:nuggets/copper"
+      },
+      {
+        "chance": 0.025,
+        "items": "thaumaturge:rare_earth"
+      }
+    ],
+    "thaumaturgicwonders:eldritch_cluster_tin": {
+      "neoforge:conditions": [
+        {
+          "type": "neoforge:not",
+          "value": {
+            "type": "neoforge:tag_empty",
+            "tag": "c:nuggets/tin"
+          }
+        }
+      ],
+      "neoforge:value": [
+        {
+          "chance": 0.33,
+          "items": "#c:nuggets/tin"
+        },
+        {
+          "chance": 0.025,
+          "items": "thaumaturge:rare_earth"
+        }
+      ]
+    },
+    "thaumaturgicwonders:eldritch_cluster_silver": {
+      "neoforge:conditions": [
+        {
+          "type": "neoforge:not",
+          "value": {
+            "type": "neoforge:tag_empty",
+            "tag": "c:nuggets/silver"
+          }
+        }
+      ],
+      "neoforge:value": [
+        {
+          "chance": 0.33,
+          "items": "#c:nuggets/silver"
+        },
+        {
+          "chance": 0.025,
+          "items": "thaumaturge:rare_earth"
+        }
+      ]
+    },
+    "thaumaturgicwonders:eldritch_cluster_lead": {
+      "neoforge:conditions": [
+        {
+          "type": "neoforge:not",
+          "value": {
+            "type": "neoforge:tag_empty",
+            "tag": "c:nuggets/lead"
+          }
+        }
+      ],
+      "neoforge:value": [
+        {
+          "chance": 0.33,
+          "items": "#c:nuggets/lead"
+        },
+        {
+          "chance": 0.025,
+          "items": "thaumaturge:rare_earth"
+        }
+      ]
+    },
+    "thaumaturgicwonders:eldritch_cluster_cinnabar": [
+      {
+        "chance": 0.33,
+        "items": "#c:nuggets/quicksilver"
+      },
+      {
+        "chance": 0.025,
+        "items": "thaumaturge:rare_earth"
+      }
+    ],
+    "thaumaturgicwonders:eldritch_cluster_quartz": [
+      {
+        "chance": 0.33,
+        "items": "#c:nuggets/quartz"
+      },
+      {
+        "chance": 0.025,
+        "items": "thaumaturge:rare_earth"
+      }
+    ],
+    "thaumaturgicwonders:eldritch_cluster_void": [
+      {
+        "chance": 0.33,
+        "items": "#c:nuggets/void_metal"
+      },
+      {
+        "chance": 0.025,
+        "items": "thaumaturge:rare_earth"
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "enabled=false": {
+      "model": "thaumaturgicwonders:block/portal_generator"
+    },
+    "enabled=true": {
+      "model": "thaumaturgicwonders:block/portal_generator"
+    }
+  }
+}

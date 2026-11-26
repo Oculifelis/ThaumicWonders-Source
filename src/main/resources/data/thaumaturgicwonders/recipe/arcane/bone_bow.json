@@ -1,0 +1,38 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "research": {
+    "entry": "thaumaturgicwonders:bone_bow"
+  },
+  "vis": 50,
+  "crystals": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 2
+    }
+  ],
+  "pattern": [
+    " BS",
+    "BVS",
+    " BS"
+  ],
+  "key": {
+    "B": "minecraft:bone",
+    "S": "#c:strings",
+    "V": {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "thaumaturge:essentia_crystal",
+      "components": {
+        "thaumaturge:crystal_aspect": {
+          "aspect": "thaumaturge:perditio"
+        }
+      }
+    }
+  },
+  "result": {
+    "id": "thaumaturgicwonders:bone_bow"
+  }
+}

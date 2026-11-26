@@ -1,0 +1,22 @@
+{
+  "type": "thaumaturgicwonders:catalyzation",
+  "stone": "thaumaturgicwonders:transmuter_stone",
+  "input": "#c:storage_blocks/tin",
+  "result_tag": "c:storage_blocks/copper",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/copper"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/tin"
+      }
+    }
+  ]
+}

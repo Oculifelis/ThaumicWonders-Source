@@ -1,0 +1,6 @@
+{
+  "parent": "thaumaturgicwonders:item/flying_carpet",
+  "textures": {
+    "layer0": "thaumaturgicwonders:item/flying_carpet_silver"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.disjunction_cloth.title",
+  "parents": [
+    "thaumaturgicwonders:base"
+  ],
+  "column": 2,
+  "row": 0,
+  "icons": [
+    "thaumaturgicwonders:disjunction_cloth"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.disjunction_cloth.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        },
+        {
+          "type": "theory",
+          "category": "thaumaturge:auromancy",
+          "amount": 1
+        }
+      ],
+      "obtain": [
+        {
+          "items": [
+            "minecraft:enchanted_book"
+          ],
+          "amount": 1
+        }
+      ],
+      "required_research": [
+        "thaumaturge:scanned/aspect/thaumaturge/auram"
+      ]
+    },
+    {
+      "text": "thaumaturgicwonders.research.disjunction_cloth.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:crucible/disjunction_cloth",
+        "thaumaturgicwonders:disenchant"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:auram",
+      "amount": 2
+    }
+  ],
+  "complexity": 2
+}

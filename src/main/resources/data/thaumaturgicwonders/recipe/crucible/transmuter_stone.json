@@ -1,0 +1,20 @@
+{
+  "type": "thaumaturge:crucible",
+  "research": {
+    "entry": "thaumaturgicwonders:transmuter_stone"
+  },
+  "catalyst": "thaumaturgicwonders:alchemist_stone",
+  "aspects": [
+    {
+      "aspect": "thaumaturge:permutatio",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:alkimia",
+      "amount": 10
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:transmuter_stone"
+  }
+}

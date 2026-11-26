@@ -1,0 +1,36 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "research": {
+    "entry": "thaumaturgicwonders:flux_distiller"
+  },
+  "vis": 750,
+  "crystals": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 8
+    },
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 8
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 8
+    }
+  ],
+  "pattern": [
+    "VLV",
+    "MCM",
+    "VAV"
+  ],
+  "key": {
+    "V": "thaumaturge:plate_void",
+    "L": "thaumaturge:condenser_lattice",
+    "M": "thaumaturge:mechanism_complex",
+    "C": "thaumaturge:condenser",
+    "A": "thaumaturge:advanced_alchemical_construct"
+  },
+  "result": {
+    "id": "thaumaturgicwonders:flux_distiller"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "research": {
+    "entry": "thaumaturgicwonders:dimensional_ripper"
+  },
+  "vis": 250,
+  "crystals": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 3
+    }
+  ],
+  "pattern": [
+    "BPB",
+    "VAV",
+    "VMV"
+  ],
+  "key": {
+    "B": "#c:plates/brass",
+    "P": "thaumaturge:primordial_pearl",
+    "V": "#c:plates/void_metal",
+    "A": "thaumaturge:arcane_bore",
+    "M": "thaumaturge:mechanism_complex"
+  },
+  "result": {
+    "id": "thaumaturgicwonders:dimensional_ripper"
+  }
+}

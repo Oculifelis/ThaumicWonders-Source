@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "thaumaturgicwonders:block/meteorb"
+    },
+    "facing=east": {
+      "model": "thaumaturgicwonders:block/meteorb",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "thaumaturgicwonders:block/meteorb",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "thaumaturgicwonders:block/meteorb",
+      "y": 270
+    }
+  }
+}

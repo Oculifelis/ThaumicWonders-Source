@@ -1,0 +1,46 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.panacea.title",
+  "parents": [
+    "thaumaturgicwonders:end_hedge"
+  ],
+  "column": 0,
+  "row": 6,
+  "icons": [
+    "thaumaturgicwonders:panacea"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.panacea.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "text": "thaumaturgicwonders.research.panacea.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:crucible/panacea",
+        "thaumaturgicwonders:crucible/enchanted_panacea"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:victus",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 2
+    }
+  ],
+  "complexity": 2
+}

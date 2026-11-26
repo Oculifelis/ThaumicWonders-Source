@@ -1,0 +1,35 @@
+{
+  "type": "thaumaturge:infusion",
+  "research": {
+    "entry": "thaumaturgicwonders:cleansing_charm"
+  },
+  "catalyst": "minecraft:ender_pearl",
+  "components": [
+    "thaumaturge:primordial_pearl",
+    "#c:ingots/gold",
+    "#c:ingots/gold",
+    "#c:ingots/gold"
+  ],
+  "instability": 8,
+  "aspects": [
+    {
+      "aspect": "thaumaturge:cognitio",
+      "amount": 225
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 225
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 150
+    },
+    {
+      "aspect": "thaumaturge:victus",
+      "amount": 150
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:cleansing_charm"
+  }
+}

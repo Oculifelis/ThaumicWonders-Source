@@ -1,0 +1,32 @@
+{
+  "type": "thaumaturge:infusion",
+  "research": {
+    "entry": "thaumaturgicwonders:alienist_stone"
+  },
+  "catalyst": "thaumaturgicwonders:alchemist_stone",
+  "components": [
+    "thaumaturge:primordial_pearl",
+    "thaumaturge:cluster_iron",
+    "thaumaturge:cluster_gold",
+    "thaumaturge:cluster_copper",
+    "thaumaturge:cluster_cinnabar"
+  ],
+  "instability": 7,
+  "aspects": [
+    {
+      "aspect": "thaumaturge:metallum",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:vitium",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:alkimia",
+      "amount": 25
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:alienist_stone"
+  }
+}

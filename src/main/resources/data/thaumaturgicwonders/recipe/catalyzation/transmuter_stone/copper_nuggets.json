@@ -1,0 +1,22 @@
+{
+  "type": "thaumaturgicwonders:catalyzation",
+  "stone": "thaumaturgicwonders:transmuter_stone",
+  "input": "#c:nuggets/copper",
+  "result_tag": "c:nuggets/tin",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:nuggets/tin"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:nuggets/copper"
+      }
+    }
+  ]
+}

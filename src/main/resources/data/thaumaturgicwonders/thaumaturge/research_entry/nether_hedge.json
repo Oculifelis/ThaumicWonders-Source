@@ -1,0 +1,51 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.nether_hedge.title",
+  "parents": [
+    "thaumaturgicwonders:base",
+    "thaumaturge:hedge_alchemy"
+  ],
+  "column": 0,
+  "row": 2,
+  "icons": [
+    "minecraft:soul_sand"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.nether_hedge.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        }
+      ],
+      "required_research": [
+        "thaumaturge:m_hellandback"
+      ]
+    },
+    {
+      "text": "thaumaturgicwonders.research.nether_hedge.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:crucible/hedge_soul_sand",
+        "thaumaturgicwonders:crucible/hedge_ghast_tear",
+        "thaumaturgicwonders:crucible/hedge_wither_skull"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:alkimia",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:spiritus",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 2
+    }
+  ],
+  "complexity": 2
+}

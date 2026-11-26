@@ -1,0 +1,20 @@
+{
+  "type": "thaumaturge:crucible",
+  "research": {
+    "entry": "thaumaturgicwonders:end_hedge"
+  },
+  "catalyst": "minecraft:stone",
+  "aspects": [
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:tenebrae",
+      "amount": 5
+    }
+  ],
+  "result": {
+    "id": "minecraft:end_stone"
+  }
+}

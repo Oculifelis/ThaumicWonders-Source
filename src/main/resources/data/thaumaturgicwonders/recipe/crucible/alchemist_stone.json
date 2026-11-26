@@ -1,0 +1,24 @@
+{
+  "type": "thaumaturge:crucible",
+  "research": {
+    "entry": "thaumaturgicwonders:catalyzation_chamber"
+  },
+  "catalyst": "minecraft:diamond",
+  "aspects": [
+    {
+      "aspect": "thaumaturge:metallum",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:alkimia",
+      "amount": 10
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:alchemist_stone"
+  }
+}

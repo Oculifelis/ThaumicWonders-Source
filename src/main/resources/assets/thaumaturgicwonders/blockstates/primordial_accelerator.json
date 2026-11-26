@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "enabled=false,facing=north": {
+      "model": "thaumaturgicwonders:block/primordial_accelerator"
+    },
+    "enabled=true,facing=north": {
+      "model": "thaumaturgicwonders:block/primordial_accelerator"
+    },
+    "enabled=false,facing=east": {
+      "model": "thaumaturgicwonders:block/primordial_accelerator",
+      "y": 90
+    },
+    "enabled=true,facing=east": {
+      "model": "thaumaturgicwonders:block/primordial_accelerator",
+      "y": 90
+    },
+    "enabled=false,facing=south": {
+      "model": "thaumaturgicwonders:block/primordial_accelerator",
+      "y": 180
+    },
+    "enabled=true,facing=south": {
+      "model": "thaumaturgicwonders:block/primordial_accelerator",
+      "y": 180
+    },
+    "enabled=false,facing=west": {
+      "model": "thaumaturgicwonders:block/primordial_accelerator",
+      "y": 270
+    },
+    "enabled=true,facing=west": {
+      "model": "thaumaturgicwonders:block/primordial_accelerator",
+      "y": 270
+    }
+  }
+}

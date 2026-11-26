@@ -1,0 +1,33 @@
+{
+  "type": "thaumaturge:infusion",
+  "research": {
+    "entry": "thaumaturgicwonders:meaty_orb"
+  },
+  "catalyst": "thaumaturgicwonders:meteorb",
+  "components": [
+    "thaumaturge:primordial_pearl",
+    "minecraft:beef",
+    "minecraft:porkchop",
+    "minecraft:chicken",
+    "minecraft:mutton",
+    "minecraft:rabbit"
+  ],
+  "instability": 8,
+  "aspects": [
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 250
+    },
+    {
+      "aspect": "thaumaturge:victus",
+      "amount": 250
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 250
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:meaty_orb"
+  }
+}

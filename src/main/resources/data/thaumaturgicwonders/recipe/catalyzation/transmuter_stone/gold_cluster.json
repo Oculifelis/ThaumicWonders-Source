@@ -1,0 +1,8 @@
+{
+  "type": "thaumaturgicwonders:catalyzation",
+  "stone": "thaumaturgicwonders:transmuter_stone",
+  "input": "thaumaturge:cluster_gold",
+  "result": {
+    "id": "thaumaturge:cluster_iron"
+  }
+}

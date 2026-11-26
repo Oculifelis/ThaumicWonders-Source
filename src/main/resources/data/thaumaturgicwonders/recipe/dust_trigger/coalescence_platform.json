@@ -1,0 +1,11 @@
+{
+  "type": "thaumaturge:dust_trigger_multiblock",
+  "blueprint": "thaumaturgicwonders:coalescence_platform",
+  "research": {
+    "entry": "thaumaturgicwonders:coalescence_matrix",
+    "stage": 1
+  },
+  "result": {
+    "id": "thaumaturgicwonders:coalescence_matrix"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "type": "thaumaturge:infusion",
+  "research": {
+    "entry": "thaumaturgicwonders:void_fortress_armor"
+  },
+  "catalyst": "thaumaturge:void_helm",
+  "components": [
+    "thaumaturge:primordial_pearl",
+    "#c:plates/void_metal",
+    "#c:plates/void_metal",
+    "thaumaturge:goggles_revealing",
+    "minecraft:ghast_tear",
+    "thaumaturge:salis_mundus",
+    "#c:leathers"
+  ],
+  "instability": 8,
+  "aspects": [
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 45
+    },
+    {
+      "aspect": "thaumaturge:metallum",
+      "amount": 45
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:potentia",
+      "amount": 25
+    },
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 25
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 25
+    },
+    {
+      "aspect": "thaumaturge:sensus",
+      "amount": 25
+    },
+    {
+      "aspect": "thaumaturge:exanimis",
+      "amount": 40
+    },
+    {
+      "aspect": "thaumaturge:victus",
+      "amount": 40
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:void_fortress_helm"
+  }
+}

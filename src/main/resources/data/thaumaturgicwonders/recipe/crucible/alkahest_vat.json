@@ -1,0 +1,28 @@
+{
+  "type": "thaumaturge:crucible",
+  "research": {
+    "entry": "thaumaturgicwonders:alkahest"
+  },
+  "catalyst": "thaumaturge:crucible",
+  "aspects": [
+    {
+      "aspect": "thaumaturge:alkimia",
+      "amount": 25
+    },
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 25
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 25
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:alkahest_vat"
+  }
+}

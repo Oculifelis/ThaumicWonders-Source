@@ -1,0 +1,33 @@
+{
+  "background": "thaumaturgicwonders:textures/gui/research_back.png",
+  "formula": [
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 20
+    },
+    {
+      "aspect": "thaumaturge:alkimia",
+      "amount": 15
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 15
+    },
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:machina",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:vitium",
+      "amount": 5
+    }
+  ],
+  "icon": "thaumaturgicwonders:textures/gui/wonder_chest.png",
+  "index": 25,
+  "overlay_background": "thaumaturge:textures/gui/gui_research_back_over.png",
+  "required_research": "thaumaturge:first_steps"
+}

@@ -1,0 +1,30 @@
+{
+  "replace": false,
+  "values": [
+    "thaumaturgicwonders:alkahest_vat",
+    "thaumaturgicwonders:catalyzation_chamber",
+    "thaumaturgicwonders:coalescence_matrix",
+    "thaumaturgicwonders:coalescence_matrix_precursor",
+    "thaumaturgicwonders:creative_essentia_jar",
+    "thaumaturgicwonders:dimensional_ripper",
+    "thaumaturgicwonders:everburning_urn",
+    "thaumaturgicwonders:flux_capacitor",
+    "thaumaturgicwonders:flux_distiller",
+    "thaumaturgicwonders:inspiration_engine",
+    "thaumaturgicwonders:madness_engine",
+    "thaumaturgicwonders:meteorb",
+    "thaumaturgicwonders:ore_diviner",
+    "thaumaturgicwonders:placeholder_adv_alch_construct",
+    "thaumaturgicwonders:placeholder_arcane_stone",
+    "thaumaturgicwonders:placeholder_obsidian",
+    "thaumaturgicwonders:placeholder_thaumium_block",
+    "thaumaturgicwonders:placeholder_void_metal_block",
+    "thaumaturgicwonders:portal_anchor",
+    "thaumaturgicwonders:portal_generator",
+    "thaumaturgicwonders:primordial_accelerator",
+    "thaumaturgicwonders:primordial_accelerator_terminus",
+    "thaumaturgicwonders:primordial_accelerator_tunnel",
+    "thaumaturgicwonders:primordial_accretion_chamber",
+    "thaumaturgicwonders:void_beacon"
+  ]
+}

@@ -1,0 +1,424 @@
+{
+  "textures": {
+    "everburning_urn_side": "thaumaturgicwonders:block/everburning_urn_side",
+    "everburning_urn_top": "thaumaturgicwonders:block/everburning_urn_top",
+    "everburning_urn_bottom": "thaumaturgicwonders:block/everburning_urn_bottom",
+    "particle": "thaumaturgicwonders:block/everburning_urn_bottom"
+  },
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "head": {
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        315,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        315,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    }
+  },
+  "elements": [
+    {
+      "name": "bottom_bezel",
+      "from": [
+        3,
+        0,
+        3
+      ],
+      "to": [
+        13,
+        1,
+        13
+      ],
+      "faces": {
+        "north": {
+          "texture": "#everburning_urn_side",
+          "uv": [
+            1,
+            15,
+            11,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#everburning_urn_side",
+          "uv": [
+            1,
+            15,
+            11,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#everburning_urn_side",
+          "uv": [
+            1,
+            15,
+            11,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#everburning_urn_side",
+          "uv": [
+            1,
+            15,
+            11,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#everburning_urn_bottom",
+          "uv": [
+            1,
+            1,
+            11,
+            11
+          ],
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "name": "body",
+      "from": [
+        2,
+        1,
+        2
+      ],
+      "to": [
+        14,
+        9,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#everburning_urn_side",
+          "uv": [
+            0,
+            7,
+            12,
+            15
+          ]
+        },
+        "east": {
+          "texture": "#everburning_urn_side",
+          "uv": [
+            0,
+            7,
+            12,
+            15
+          ]
+        },
+        "south": {
+          "texture": "#everburning_urn_side",
+          "uv": [
+            0,
+            7,
+            12,
+            15
+          ]
+        },
+        "west": {
+          "texture": "#everburning_urn_side",
+          "uv": [
+            0,
+            7,
+            12,
+            15
+          ]
+        },
+        "up": {
+          "texture": "#everburning_urn_bottom",
+          "uv": [
+            0,
+            0,
+            12,
+            12
+          ]
+        },
+        "down": {
+          "texture": "#everburning_urn_bottom",
+          "uv": [
+            0,
+            0,
+            12,
+            12
+          ]
+        }
+      }
+    },
+    {
+      "name": "top_bezel",
+      "from": [
+        3,
+        9,
+        3
+      ],
+      "to": [
+        13,
+        10,
+        13
+      ],
+      "faces": {
+        "north": {
+          "texture": "#everburning_urn_side",
+          "uv": [
+            1,
+            6,
+            11,
+            7
+          ]
+        },
+        "east": {
+          "texture": "#everburning_urn_side",
+          "uv": [
+            1,
+            6,
+            11,
+            7
+          ]
+        },
+        "south": {
+          "texture": "#everburning_urn_side",
+          "uv": [
+            1,
+            6,
+            11,
+            7
+          ]
+        },
+        "west": {
+          "texture": "#everburning_urn_side",
+          "uv": [
+            1,
+            6,
+            11,
+            7
+          ]
+        },
+        "up": {
+          "texture": "#everburning_urn_bottom",
+          "uv": [
+            1,
+            1,
+            11,
+            11
+          ]
+        }
+      }
+    },
+    {
+      "name": "neck",
+      "from": [
+        5,
+        10,
+        5
+      ],
+      "to": [
+        11,
+        14,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#everburning_urn_side",
+          "uv": [
+            3,
+            2,
+            9,
+            6
+          ]
+        },
+        "east": {
+          "texture": "#everburning_urn_side",
+          "uv": [
+            3,
+            2,
+            9,
+            6
+          ]
+        },
+        "south": {
+          "texture": "#everburning_urn_side",
+          "uv": [
+            3,
+            2,
+            9,
+            6
+          ]
+        },
+        "west": {
+          "texture": "#everburning_urn_side",
+          "uv": [
+            3,
+            2,
+            9,
+            6
+          ]
+        }
+      }
+    },
+    {
+      "name": "lip",
+      "from": [
+        4,
+        14,
+        4
+      ],
+      "to": [
+        12,
+        16,
+        12
+      ],
+      "faces": {
+        "north": {
+          "texture": "#everburning_urn_side",
+          "uv": [
+            2,
+            0,
+            10,
+            2
+          ]
+        },
+        "east": {
+          "texture": "#everburning_urn_side",
+          "uv": [
+            2,
+            0,
+            10,
+            2
+          ]
+        },
+        "south": {
+          "texture": "#everburning_urn_side",
+          "uv": [
+            2,
+            0,
+            10,
+            2
+          ]
+        },
+        "west": {
+          "texture": "#everburning_urn_side",
+          "uv": [
+            2,
+            0,
+            10,
+            2
+          ]
+        },
+        "up": {
+          "texture": "#everburning_urn_top",
+          "uv": [
+            0,
+            0,
+            8,
+            8
+          ]
+        },
+        "down": {
+          "texture": "#everburning_urn_top",
+          "uv": [
+            0,
+            0,
+            8,
+            8
+          ]
+        }
+      }
+    }
+  ]
+}

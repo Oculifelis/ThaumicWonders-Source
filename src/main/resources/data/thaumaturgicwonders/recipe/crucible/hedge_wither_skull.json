@@ -1,0 +1,28 @@
+{
+  "type": "thaumaturge:crucible",
+  "research": {
+    "entry": "thaumaturgicwonders:nether_hedge"
+  },
+  "catalyst": "minecraft:skeleton_skull",
+  "aspects": [
+    {
+      "aspect": "thaumaturge:exanimis",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:mortuus",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:spiritus",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:tenebrae",
+      "amount": 5
+    }
+  ],
+  "result": {
+    "id": "minecraft:wither_skeleton_skull"
+  }
+}

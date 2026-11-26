@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "thaumaturgicwonders:creative_essentia_jar",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "source": "block_entity",
+              "include": [
+                "thaumaturge:essentia_contents",
+                "thaumaturge:aspect_filter"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

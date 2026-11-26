@@ -1,0 +1,30 @@
+{
+  "type": "thaumaturge:infusion",
+  "research": {
+    "entry": "thaumaturgicwonders:void_portal"
+  },
+  "catalyst": "thaumaturgicwonders:portal_anchor",
+  "components": [
+    "thaumaturge:primordial_pearl",
+    "thaumaturge:mirror",
+    "#c:ender_pearls"
+  ],
+  "instability": 8,
+  "aspects": [
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 150
+    },
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 150
+    },
+    {
+      "aspect": "thaumaturge:permutatio",
+      "amount": 100
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:portal_generator"
+  }
+}

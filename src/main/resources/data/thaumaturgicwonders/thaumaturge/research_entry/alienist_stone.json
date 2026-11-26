@@ -1,0 +1,59 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.alienist_stone.title",
+  "parents": [
+    "thaumaturgicwonders:catalyzation_chamber",
+    "thaumaturge:base_eldritch",
+    "thaumaturge:primordial_pearl"
+  ],
+  "column": -2,
+  "row": 8,
+  "meta": [
+    "hidden"
+  ],
+  "icons": [
+    "thaumaturgicwonders:alienist_stone"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.alienist_stone.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:alchemy",
+          "amount": 2
+        },
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        }
+      ],
+      "required_research": [
+        "thaumaturge:scanned/aspect/thaumaturge/vitium"
+      ],
+      "warp": 2
+    },
+    {
+      "text": "thaumaturgicwonders.research.alienist_stone.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:infusion/alienist_stone"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:vitium",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:metallum",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 2
+    }
+  ],
+  "complexity": 3
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "enabled=false": {
+      "model": "thaumaturgicwonders:block/void_beacon"
+    },
+    "enabled=true": {
+      "model": "thaumaturgicwonders:block/void_beacon"
+    }
+  }
+}

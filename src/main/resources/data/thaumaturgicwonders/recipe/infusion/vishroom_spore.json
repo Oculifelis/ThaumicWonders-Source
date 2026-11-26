@@ -1,0 +1,30 @@
+{
+  "type": "thaumaturge:infusion",
+  "research": {
+    "entry": "thaumaturgicwonders:mystic_gardening"
+  },
+  "catalyst": "minecraft:wheat_seeds",
+  "components": [
+    "thaumaturge:vishroom",
+    "thaumaturge:salis_mundus"
+  ],
+  "instability": 2,
+  "aspects": [
+    {
+      "aspect": "thaumaturge:herba",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:victus",
+      "amount": 10
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 5
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:vishroom_spore",
+    "count": 8
+  }
+}

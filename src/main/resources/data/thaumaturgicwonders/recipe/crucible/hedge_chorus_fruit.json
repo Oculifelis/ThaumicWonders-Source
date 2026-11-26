@@ -1,0 +1,24 @@
+{
+  "type": "thaumaturge:crucible",
+  "research": {
+    "entry": "thaumaturgicwonders:end_hedge"
+  },
+  "catalyst": "minecraft:apple",
+  "aspects": [
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:sensus",
+      "amount": 5
+    },
+    {
+      "aspect": "thaumaturge:herba",
+      "amount": 5
+    }
+  ],
+  "result": {
+    "id": "minecraft:chorus_fruit"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "thaumaturgicwonders:void_fortress"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "thaumaturgicwonders:void_fortress"
+      }
+    ]
+  }
+}

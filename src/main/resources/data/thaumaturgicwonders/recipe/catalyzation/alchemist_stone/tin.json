@@ -1,0 +1,17 @@
+{
+  "type": "thaumaturgicwonders:catalyzation",
+  "stone": "thaumaturgicwonders:alchemist_stone",
+  "input": "#c:ores/tin",
+  "result": {
+    "id": "thaumaturge:cluster_tin"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/tin"
+      }
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.flux_distiller.title",
+  "parents": [
+    "thaumaturgicwonders:flux_capacitor"
+  ],
+  "column": -6,
+  "row": -5,
+  "icons": [
+    "thaumaturgicwonders:flux_distiller"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.flux_distiller.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:auromancy",
+          "amount": 1
+        },
+        {
+          "type": "theory",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        },
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "text": "thaumaturgicwonders.research.flux_distiller.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:arcane/flux_distiller"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:vitium",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:alkimia",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:machina",
+      "amount": 2
+    }
+  ],
+  "complexity": 3
+}

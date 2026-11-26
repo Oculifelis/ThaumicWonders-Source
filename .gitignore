@@ -1,0 +1,9 @@
+.gradle/
+build/
+run/
+libs/*.jar
+*.log
+.idea/
+out/
+docs/WORKER-BRIEF.md
+dist/

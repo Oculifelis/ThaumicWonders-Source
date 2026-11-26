@@ -1,0 +1,43 @@
+{
+  "type": "thaumaturge:infusion",
+  "research": {
+    "entry": "thaumaturgicwonders:meteorb"
+  },
+  "catalyst": "minecraft:ender_pearl",
+  "components": [
+    "thaumaturge:stone_arcane",
+    "thaumaturge:slab_arcane_stone",
+    "thaumaturge:tube",
+    "thaumaturge:stone_arcane",
+    "thaumaturge:slab_arcane_stone",
+    "thaumaturge:tube",
+    "thaumaturge:stone_arcane",
+    "thaumaturge:slab_arcane_stone",
+    "thaumaturge:tube",
+    "thaumaturge:stone_arcane",
+    "thaumaturge:slab_arcane_stone",
+    "minecraft:stone_button"
+  ],
+  "instability": 6,
+  "aspects": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:potentia",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 50
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:meteorb"
+  }
+}

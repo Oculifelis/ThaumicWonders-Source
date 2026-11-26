@@ -1,0 +1,69 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.primal_destroyer.title",
+  "parents": [
+    "thaumaturgicwonders:base",
+    "thaumaturge:base_eldritch",
+    "thaumaturge:primordial_pearl"
+  ],
+  "column": -4,
+  "row": 1,
+  "meta": [
+    "hidden"
+  ],
+  "icons": [
+    "thaumaturgicwonders:primal_destroyer"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.primal_destroyer.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        },
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        },
+        {
+          "type": "theory",
+          "category": "thaumaturge:infusion",
+          "amount": 1
+        }
+      ],
+      "warp": 3
+    },
+    {
+      "text": "thaumaturgicwonders.research.primal_destroyer.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:infusion/primal_destroyer"
+      ]
+    }
+  ],
+  "addenda": [
+    {
+      "text": "thaumaturgicwonders.research.primal_destroyer.text.addenda.1",
+      "required_research": [
+        "thaumaturgicwonders:f_thevoidhungers"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:mortuus",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 2
+    }
+  ],
+  "complexity": 2
+}

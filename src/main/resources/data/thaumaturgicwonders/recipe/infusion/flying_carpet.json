@@ -1,0 +1,56 @@
+{
+  "type": "thaumaturge:infusion",
+  "research": {
+    "entry": "thaumaturgicwonders:flying_carpet"
+  },
+  "catalyst": "#minecraft:wool_carpets",
+  "components": [
+    "thaumaturge:levitator",
+    "minecraft:saddle",
+    "thaumaturge:vis_resonator",
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "thaumaturge:essentia_crystal",
+      "components": {
+        "thaumaturge:crystal_aspect": {
+          "aspect": "thaumaturge:aer"
+        }
+      }
+    },
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "thaumaturge:essentia_crystal",
+      "components": {
+        "thaumaturge:crystal_aspect": {
+          "aspect": "thaumaturge:aer"
+        }
+      }
+    }
+  ],
+  "instability": 6,
+  "aspects": [
+    {
+      "aspect": "thaumaturge:volatus",
+      "amount": 150
+    },
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:potentia",
+      "amount": 50
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:flying_carpet"
+  }
+}

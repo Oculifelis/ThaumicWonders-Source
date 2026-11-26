@@ -1,0 +1,35 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "research": {
+    "entry": "thaumaturgicwonders:void_portal",
+    "stage": 1
+  },
+  "vis": 150,
+  "crystals": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 3
+    }
+  ],
+  "pattern": [
+    "VPV",
+    "PRP",
+    "VPV"
+  ],
+  "key": {
+    "V": "#c:plates/void_metal",
+    "P": "#c:ender_pearls",
+    "R": "thaumaturge:morphic_resonator"
+  },
+  "result": {
+    "id": "thaumaturgicwonders:portal_anchor"
+  }
+}

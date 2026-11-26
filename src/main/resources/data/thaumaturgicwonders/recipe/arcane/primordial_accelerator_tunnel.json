@@ -1,0 +1,30 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "research": {
+    "entry": "thaumaturgicwonders:primordial_accelerator"
+  },
+  "vis": 100,
+  "crystals": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 2
+    }
+  ],
+  "pattern": [
+    "VEV",
+    "ETE",
+    "VEV"
+  ],
+  "key": {
+    "V": "#c:plates/void_metal",
+    "E": "thaumaturge:rare_earth",
+    "T": "thaumaturge:tube"
+  },
+  "result": {
+    "id": "thaumaturgicwonders:primordial_accelerator_tunnel"
+  }
+}

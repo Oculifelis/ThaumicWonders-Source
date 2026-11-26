@@ -1,0 +1,54 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.ore_diviner.title",
+  "parents": [
+    "thaumaturgicwonders:inspiration_engine",
+    "thaumaturge:elemental_tools"
+  ],
+  "column": 4,
+  "row": 4,
+  "icons": [
+    "thaumaturgicwonders:ore_diviner"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.ore_diviner.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:infusion",
+          "amount": 2
+        }
+      ],
+      "obtain": [
+        {
+          "items": [
+            "thaumaturge:elemental_pickaxe"
+          ],
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "text": "thaumaturgicwonders.research.ore_diviner.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:infusion/ore_diviner"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:sensus",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:metallum",
+      "amount": 2
+    }
+  ],
+  "complexity": 2
+}

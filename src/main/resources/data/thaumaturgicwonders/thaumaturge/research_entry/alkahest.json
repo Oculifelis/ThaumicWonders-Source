@@ -1,0 +1,45 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.alkahest.title",
+  "parents": [
+    "thaumaturgicwonders:panacea"
+  ],
+  "column": 0,
+  "row": 8,
+  "icons": [
+    "thaumaturgicwonders:alkahest_vat"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.alkahest.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "text": "thaumaturgicwonders.research.alkahest.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:crucible/alkahest_vat"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:alkimia",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 2
+    }
+  ],
+  "complexity": 2
+}

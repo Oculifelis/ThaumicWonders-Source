@@ -1,0 +1,52 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.everburning_urn.title",
+  "parents": [
+    "thaumaturgicwonders:nether_hedge",
+    "thaumaturge:everfull_urn",
+    "thaumaturge:infusion"
+  ],
+  "column": -2,
+  "row": 2,
+  "icons": [
+    "thaumaturgicwonders:everburning_urn"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.everburning_urn.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        },
+        {
+          "type": "observation",
+          "category": "thaumaturge:infusion",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "text": "thaumaturgicwonders.research.everburning_urn.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:infusion/everburning_urn"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:potentia",
+      "amount": 2
+    }
+  ],
+  "complexity": 2
+}

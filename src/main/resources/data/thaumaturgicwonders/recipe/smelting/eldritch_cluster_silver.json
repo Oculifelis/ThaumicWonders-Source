@@ -1,0 +1,17 @@
+{
+  "type": "thaumaturgicwonders:tag_smelting",
+  "ingredient": "thaumaturgicwonders:eldritch_cluster_silver",
+  "result_tag": "c:ingots/silver",
+  "count": 3,
+  "experience": 1.0,
+  "cookingtime": 200,
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/silver"
+      }
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.primal_arrow.title",
+  "parents": [
+    "thaumaturgicwonders:bone_bow"
+  ],
+  "column": 2,
+  "row": -6,
+  "icons": [
+    "thaumaturgicwonders:primal_arrow_air",
+    "thaumaturgicwonders:primal_arrow_earth",
+    "thaumaturgicwonders:primal_arrow_fire",
+    "thaumaturgicwonders:primal_arrow_water",
+    "thaumaturgicwonders:primal_arrow_order",
+    "thaumaturgicwonders:primal_arrow_entropy"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.primal_arrow.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        },
+        {
+          "type": "observation",
+          "category": "thaumaturge:basics",
+          "amount": 1
+        }
+      ],
+      "obtain": [
+        {
+          "items": [
+            "thaumaturge:essentia_crystal"
+          ],
+          "amount": 1,
+          "components": {
+            "thaumaturge:crystal_aspect": {
+              "aspect": "thaumaturge:aer"
+            }
+          }
+        },
+        {
+          "items": [
+            "thaumaturge:essentia_crystal"
+          ],
+          "amount": 1,
+          "components": {
+            "thaumaturge:crystal_aspect": {
+              "aspect": "thaumaturge:terra"
+            }
+          }
+        },
+        {
+          "items": [
+            "thaumaturge:essentia_crystal"
+          ],
+          "amount": 1,
+          "components": {
+            "thaumaturge:crystal_aspect": {
+              "aspect": "thaumaturge:ignis"
+            }
+          }
+        },
+        {
+          "items": [
+            "thaumaturge:essentia_crystal"
+          ],
+          "amount": 1,
+          "components": {
+            "thaumaturge:crystal_aspect": {
+              "aspect": "thaumaturge:aqua"
+            }
+          }
+        },
+        {
+          "items": [
+            "thaumaturge:essentia_crystal"
+          ],
+          "amount": 1,
+          "components": {
+            "thaumaturge:crystal_aspect": {
+              "aspect": "thaumaturge:ordo"
+            }
+          }
+        },
+        {
+          "items": [
+            "thaumaturge:essentia_crystal"
+          ],
+          "amount": 1,
+          "components": {
+            "thaumaturge:crystal_aspect": {
+              "aspect": "thaumaturge:perditio"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "text": "thaumaturgicwonders.research.primal_arrow.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:arcane/primal_arrow_air",
+        "thaumaturgicwonders:arcane/primal_arrow_earth",
+        "thaumaturgicwonders:arcane/primal_arrow_fire",
+        "thaumaturgicwonders:arcane/primal_arrow_water",
+        "thaumaturgicwonders:arcane/primal_arrow_order",
+        "thaumaturgicwonders:arcane/primal_arrow_entropy"
+      ]
+    }
+  ],
+  "addenda": [
+    {
+      "text": "thaumaturgicwonders.research.primal_arrow.text.addenda.1",
+      "required_research": [
+        "thaumaturge:basic_turret"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:aqua",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 2
+    }
+  ],
+  "complexity": 2
+}

@@ -1,0 +1,37 @@
+{
+  "type": "thaumaturge:infusion",
+  "research": {
+    "entry": "thaumaturgicwonders:madness_engine"
+  },
+  "catalyst": "thaumaturgicwonders:inspiration_engine",
+  "components": [
+    "#c:plates/void_metal",
+    "#c:plates/void_metal",
+    "#c:plates/thaumium",
+    "#c:plates/thaumium",
+    "thaumaturge:mind_biothaumic",
+    "minecraft:ender_pearl"
+  ],
+  "instability": 6,
+  "aspects": [
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 150
+    },
+    {
+      "aspect": "thaumaturge:cognitio",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:machina",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:auram",
+      "amount": 50
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:madness_engine"
+  }
+}

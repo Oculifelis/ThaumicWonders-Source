@@ -1,0 +1,6 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "thaumaturgicwonders:block/vishroom_crop_stage_2"
+  }
+}

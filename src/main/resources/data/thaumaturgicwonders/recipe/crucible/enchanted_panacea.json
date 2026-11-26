@@ -1,0 +1,32 @@
+{
+  "type": "thaumaturge:crucible",
+  "research": {
+    "entry": "thaumaturgicwonders:panacea"
+  },
+  "catalyst": "minecraft:enchanted_golden_apple",
+  "aspects": [
+    {
+      "aspect": "thaumaturge:victus",
+      "amount": 40
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 40
+    },
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 40
+    },
+    {
+      "aspect": "thaumaturge:cognitio",
+      "amount": 40
+    },
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 40
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:enchanted_panacea"
+  }
+}

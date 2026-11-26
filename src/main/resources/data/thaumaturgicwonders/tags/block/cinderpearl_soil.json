@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:terracotta",
+    "minecraft:coarse_dirt",
+    "minecraft:dirt",
+    "minecraft:farmland",
+    "minecraft:podzol",
+    "minecraft:red_sand",
+    "minecraft:sand"
+  ]
+}

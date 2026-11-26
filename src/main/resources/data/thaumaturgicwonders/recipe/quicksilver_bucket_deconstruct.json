@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "thaumaturgicwonders:quicksilver_bucket_group",
+  "ingredients": [
+    "thaumaturgicwonders:quicksilver_bucket"
+  ],
+  "result": {
+    "id": "thaumaturge:quicksilver",
+    "count": 8
+  }
+}

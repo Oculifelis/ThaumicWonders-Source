@@ -1,0 +1,8 @@
+{
+  "type": "thaumaturgicwonders:catalyzation",
+  "stone": "thaumaturgicwonders:transmuter_stone",
+  "input": "#c:storage_blocks/iron",
+  "result": {
+    "id": "minecraft:gold_block"
+  }
+}

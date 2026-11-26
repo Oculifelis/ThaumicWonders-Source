@@ -1,0 +1,50 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.end_hedge.title",
+  "parents": [
+    "thaumaturgicwonders:nether_hedge"
+  ],
+  "column": 0,
+  "row": 4,
+  "icons": [
+    "minecraft:end_stone"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.end_hedge.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        }
+      ],
+      "required_research": [
+        "thaumaturge:m_endoftheworld"
+      ]
+    },
+    {
+      "text": "thaumaturgicwonders.research.end_hedge.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:crucible/hedge_end_stone",
+        "thaumaturgicwonders:crucible/hedge_chorus_fruit",
+        "thaumaturgicwonders:crucible/hedge_ender_pearl"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:alkimia",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:tenebrae",
+      "amount": 2
+    }
+  ],
+  "complexity": 2
+}

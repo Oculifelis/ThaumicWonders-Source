@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "thaumaturgicwonders:flux_distiller",
+          "functions": [
+            {
+              "function": "minecraft:copy_state",
+              "block": "thaumaturgicwonders:flux_distiller",
+              "properties": [
+                "charge"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

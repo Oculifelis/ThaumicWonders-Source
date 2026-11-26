@@ -1,0 +1,37 @@
+{
+  "type": "thaumaturge:infusion",
+  "research": {
+    "entry": "thaumaturgicwonders:structure_diviner"
+  },
+  "catalyst": "minecraft:compass",
+  "components": [
+    "minecraft:ender_eye",
+    "minecraft:emerald",
+    "minecraft:ender_eye",
+    "minecraft:nether_bricks",
+    "minecraft:ender_eye",
+    "minecraft:prismarine_crystals"
+  ],
+  "instability": 6,
+  "aspects": [
+    {
+      "aspect": "thaumaturge:sensus",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:machina",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:terra",
+      "amount": 50
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:structure_diviner"
+  }
+}

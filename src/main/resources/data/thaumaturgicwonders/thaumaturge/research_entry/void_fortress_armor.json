@@ -1,0 +1,61 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.void_fortress_armor.title",
+  "parents": [
+    "thaumaturgicwonders:primal_destroyer",
+    "thaumaturge:armor_fortress",
+    "thaumaturge:fortress_mask",
+    "thaumaturge:primordial_pearl"
+  ],
+  "column": -6,
+  "row": 1,
+  "icons": [
+    "thaumaturgicwonders:void_fortress_helm"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.void_fortress_armor.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        },
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        },
+        {
+          "type": "theory",
+          "category": "thaumaturge:infusion",
+          "amount": 1
+        }
+      ],
+      "warp": 1
+    },
+    {
+      "text": "thaumaturgicwonders.research.void_fortress_armor.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:infusion/void_fortress_helm",
+        "thaumaturgicwonders:infusion/void_fortress_chest",
+        "thaumaturgicwonders:infusion/void_fortress_legs"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:praemunio",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 2
+    }
+  ],
+  "complexity": 2
+}

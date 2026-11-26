@@ -1,0 +1,37 @@
+{
+  "type": "thaumaturge:infusion",
+  "research": {
+    "entry": "thaumaturgicwonders:coalescence_matrix"
+  },
+  "catalyst": "minecraft:gold_block",
+  "components": [
+    "thaumaturge:primordial_pearl",
+    "thaumaturge:inlay",
+    "thaumaturge:inlay",
+    "minecraft:nether_star",
+    "thaumaturge:inlay",
+    "thaumaturge:inlay"
+  ],
+  "instability": 10,
+  "aspects": [
+    {
+      "aspect": "thaumaturge:vitium",
+      "amount": 200
+    },
+    {
+      "aspect": "thaumaturge:humanus",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 200
+    },
+    {
+      "aspect": "thaumaturge:potentia",
+      "amount": 100
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:coalescence_matrix_precursor"
+  }
+}

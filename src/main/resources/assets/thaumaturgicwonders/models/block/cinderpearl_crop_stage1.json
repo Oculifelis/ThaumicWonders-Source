@@ -1,0 +1,6 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "thaumaturgicwonders:block/cinderpearl_crop_stage_1"
+  }
+}

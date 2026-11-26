@@ -1,0 +1,69 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.cleansing_charm.title",
+  "parents": [
+    "thaumaturgicwonders:flying_carpet",
+    "thaumaturge:sane_soap",
+    "thaumaturge:primordial_pearl",
+    "thaumaturge:warp"
+  ],
+  "column": -2,
+  "row": -4,
+  "meta": [
+    "hidden"
+  ],
+  "icons": [
+    "thaumaturgicwonders:cleansing_charm"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.cleansing_charm.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:infusion",
+          "amount": 1
+        },
+        {
+          "type": "theory",
+          "category": "thaumaturge:auromancy",
+          "amount": 1
+        },
+        {
+          "type": "observation",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        }
+      ],
+      "obtain": [
+        {
+          "items": [
+            "thaumaturge:sanity_soap"
+          ],
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "text": "thaumaturgicwonders.research.cleansing_charm.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:infusion/cleansing_charm"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:cognitio",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:victus",
+      "amount": 2
+    }
+  ],
+  "complexity": 2
+}

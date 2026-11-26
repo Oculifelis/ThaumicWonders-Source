@@ -1,0 +1,21 @@
+{
+  "type": "thaumaturge:crucible",
+  "research": {
+    "entry": "thaumaturgicwonders:end_hedge"
+  },
+  "catalyst": "minecraft:ender_pearl",
+  "aspects": [
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 15
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 10
+    }
+  ],
+  "result": {
+    "id": "minecraft:ender_pearl",
+    "count": 2
+  }
+}

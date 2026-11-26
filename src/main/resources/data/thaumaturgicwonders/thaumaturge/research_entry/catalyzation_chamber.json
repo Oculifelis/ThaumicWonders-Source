@@ -1,0 +1,109 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.catalyzation_chamber.title",
+  "parents": [
+    "thaumaturgicwonders:everburning_urn",
+    "thaumaturgicwonders:end_hedge",
+    "thaumaturge:metal_purification",
+    "thaumaturge:infernal_furnace"
+  ],
+  "column": -2,
+  "row": 6,
+  "meta": [
+    "spiky"
+  ],
+  "icons": [
+    "thaumaturgicwonders:catalyzation_chamber"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.catalyzation_chamber.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:alchemy",
+          "amount": 1
+        },
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ],
+      "obtain": [
+        {
+          "items": [
+            "minecraft:obsidian"
+          ],
+          "amount": 1
+        },
+        {
+          "items": [
+            "thaumaturge:stone_arcane"
+          ],
+          "amount": 1
+        },
+        {
+          "items": [
+            "thaumaturge:quicksilver"
+          ],
+          "amount": 1
+        }
+      ],
+      "required_research": [
+        "thaumaturge:scanned/aspect/thaumaturge/alkimia"
+      ],
+      "recipes": [
+        "thaumaturgicwonders:quicksilver_bucket",
+        "thaumaturgicwonders:quicksilver_bucket_deconstruct"
+      ]
+    },
+    {
+      "text": "thaumaturgicwonders.research.catalyzation_chamber.text.stage.2",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:alchemy",
+          "amount": 2
+        }
+      ],
+      "recipes": [
+        "thaumaturgicwonders:quicksilver_bucket",
+        "thaumaturgicwonders:quicksilver_bucket_deconstruct",
+        "thaumaturgicwonders:dust_trigger/catalyzation_chamber"
+      ]
+    },
+    {
+      "text": "thaumaturgicwonders.research.catalyzation_chamber.text.stage.3",
+      "recipes": [
+        "thaumaturgicwonders:quicksilver_bucket",
+        "thaumaturgicwonders:quicksilver_bucket_deconstruct",
+        "thaumaturgicwonders:dust_trigger/catalyzation_chamber",
+        "thaumaturgicwonders:crucible/alchemist_stone"
+      ]
+    }
+  ],
+  "addenda": [
+    {
+      "text": "thaumaturgicwonders.research.catalyzation_chamber.text.addenda.1",
+      "required_research": [
+        "thaumaturge:bellows"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:alkimia",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:metallum",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:ordo",
+      "amount": 2
+    }
+  ],
+  "complexity": 3
+}

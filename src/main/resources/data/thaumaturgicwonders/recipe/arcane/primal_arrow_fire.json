@@ -1,0 +1,29 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "research": {
+    "entry": "thaumaturgicwonders:primal_arrow"
+  },
+  "vis": 10,
+  "crystals": [],
+  "pattern": [
+    "AAA",
+    "AVA",
+    "AAA"
+  ],
+  "key": {
+    "A": "minecraft:arrow",
+    "V": {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "thaumaturge:essentia_crystal",
+      "components": {
+        "thaumaturge:crystal_aspect": {
+          "aspect": "thaumaturge:ignis"
+        }
+      }
+    }
+  },
+  "result": {
+    "id": "thaumaturgicwonders:primal_arrow_fire",
+    "count": 9
+  }
+}

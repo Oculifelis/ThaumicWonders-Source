@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "thaumaturgicwonders:block/catalyzation_chamber"
+    },
+    "facing=east": {
+      "model": "thaumaturgicwonders:block/catalyzation_chamber",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "thaumaturgicwonders:block/catalyzation_chamber",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "thaumaturgicwonders:block/catalyzation_chamber",
+      "y": 270
+    }
+  }
+}

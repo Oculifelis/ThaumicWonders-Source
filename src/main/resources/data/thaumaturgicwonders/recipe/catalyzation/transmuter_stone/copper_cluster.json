@@ -1,0 +1,17 @@
+{
+  "type": "thaumaturgicwonders:catalyzation",
+  "stone": "thaumaturgicwonders:transmuter_stone",
+  "input": "thaumaturge:cluster_copper",
+  "result": {
+    "id": "thaumaturge:cluster_tin"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/tin"
+      }
+    }
+  ]
+}

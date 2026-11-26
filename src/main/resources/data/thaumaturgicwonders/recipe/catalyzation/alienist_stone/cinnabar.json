@@ -1,0 +1,8 @@
+{
+  "type": "thaumaturgicwonders:catalyzation",
+  "stone": "thaumaturgicwonders:alienist_stone",
+  "input": "#c:ores/cinnabar",
+  "result": {
+    "id": "thaumaturgicwonders:eldritch_cluster_cinnabar"
+  }
+}

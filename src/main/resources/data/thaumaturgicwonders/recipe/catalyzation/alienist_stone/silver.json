@@ -1,0 +1,17 @@
+{
+  "type": "thaumaturgicwonders:catalyzation",
+  "stone": "thaumaturgicwonders:alienist_stone",
+  "input": "#c:ores/silver",
+  "result": {
+    "id": "thaumaturgicwonders:eldritch_cluster_silver"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/silver"
+      }
+    }
+  ]
+}

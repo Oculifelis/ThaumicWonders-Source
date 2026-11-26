@@ -1,0 +1,70 @@
+{
+  "type": "thaumaturge:infusion",
+  "research": {
+    "entry": "thaumaturgicwonders:primal_destroyer"
+  },
+  "catalyst": "thaumaturge:void_sword",
+  "components": [
+    "thaumaturge:primordial_pearl",
+    "minecraft:nether_star",
+    "#c:plates/void_metal",
+    "#c:plates/void_metal",
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "thaumaturge:essentia_crystal",
+      "components": {
+        "thaumaturge:crystal_aspect": {
+          "aspect": "thaumaturge:ignis"
+        }
+      }
+    },
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "thaumaturge:essentia_crystal",
+      "components": {
+        "thaumaturge:crystal_aspect": {
+          "aspect": "thaumaturge:ignis"
+        }
+      }
+    }
+  ],
+  "instability": 8,
+  "aspects": [
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:aversio",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 75
+    },
+    {
+      "aspect": "thaumaturge:tenebrae",
+      "amount": 75
+    },
+    {
+      "aspect": "thaumaturge:mortuus",
+      "amount": 100
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:primal_destroyer",
+    "components": {
+      "thaumaturge:infusion_enchantments": {
+        "essence": 3
+      }
+    }
+  }
+}

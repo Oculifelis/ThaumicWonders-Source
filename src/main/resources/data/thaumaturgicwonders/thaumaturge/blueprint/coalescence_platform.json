@@ -1,0 +1,133 @@
+{
+  "keys": {
+    "a": {
+      "source": {
+        "type": "block",
+        "block": "thaumaturge:stone_arcane"
+      },
+      "target": {
+        "type": "air"
+      }
+    },
+    "E": {
+      "source": {
+        "type": "block",
+        "block": "thaumaturge:stone_arcane"
+      },
+      "target": {
+        "type": "state",
+        "state": {
+          "Name": "thaumaturge:pillar_arcane",
+          "Properties": {
+            "facing": "east"
+          }
+        }
+      }
+    },
+    "N": {
+      "source": {
+        "type": "block",
+        "block": "thaumaturge:stone_arcane"
+      },
+      "target": {
+        "type": "state",
+        "state": {
+          "Name": "thaumaturge:pillar_arcane",
+          "Properties": {
+            "facing": "north"
+          }
+        }
+      }
+    },
+    "S": {
+      "source": {
+        "type": "block",
+        "block": "thaumaturge:stone_arcane"
+      },
+      "target": {
+        "type": "state",
+        "state": {
+          "Name": "thaumaturge:pillar_arcane",
+          "Properties": {
+            "facing": "south"
+          }
+        }
+      }
+    },
+    "W": {
+      "source": {
+        "type": "block",
+        "block": "thaumaturge:stone_arcane"
+      },
+      "target": {
+        "type": "state",
+        "state": {
+          "Name": "thaumaturge:pillar_arcane",
+          "Properties": {
+            "facing": "west"
+          }
+        }
+      }
+    },
+    "M": {
+      "source": {
+        "type": "block",
+        "block": "thaumaturgicwonders:coalescence_matrix_precursor"
+      },
+      "target": {
+        "type": "block",
+        "block": "thaumaturgicwonders:coalescence_matrix"
+      }
+    },
+    "B": {
+      "source": {
+        "type": "block",
+        "block": "thaumaturge:stone_arcane_brick"
+      }
+    },
+    "V": {
+      "source": {
+        "type": "block",
+        "block": "thaumaturge:metal_void"
+      }
+    }
+  },
+  "pattern": [
+    [
+      "  a   a  ",
+      "         ",
+      "a       a",
+      "         ",
+      "         ",
+      "         ",
+      "a       a",
+      "         ",
+      "  a   a  "
+    ],
+    [
+      "  E   N  ",
+      "         ",
+      "E       N",
+      "         ",
+      "    M    ",
+      "         ",
+      "S       W",
+      "         ",
+      "  S   W  "
+    ],
+    [
+      "  BBBBB  ",
+      " BVVVVVB ",
+      "BVVVVVVVB",
+      "BVVVVVVVB",
+      "BVVVVVVVB",
+      "BVVVVVVVB",
+      "BVVVVVVVB",
+      " BVVVVVB ",
+      "  BBBBB  "
+    ]
+  ],
+  "x_size": 9,
+  "y_size": 3,
+  "z_size": 9
+}

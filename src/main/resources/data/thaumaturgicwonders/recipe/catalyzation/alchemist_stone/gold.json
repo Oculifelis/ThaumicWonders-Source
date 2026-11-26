@@ -1,0 +1,8 @@
+{
+  "type": "thaumaturgicwonders:catalyzation",
+  "stone": "thaumaturgicwonders:alchemist_stone",
+  "input": "#c:ores/gold",
+  "result": {
+    "id": "thaumaturge:cluster_gold"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "type": "thaumaturge:crucible",
+  "research": {
+    "entry": "thaumaturgicwonders:lethe_water"
+  },
+  "catalyst": {
+    "neoforge:ingredient_type": "neoforge:components",
+    "items": "minecraft:potion",
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "minecraft:water"
+      }
+    }
+  },
+  "aspects": [
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 20
+    },
+    {
+      "aspect": "thaumaturge:cognitio",
+      "amount": 20
+    },
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 20
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:lethe_water"
+  }
+}

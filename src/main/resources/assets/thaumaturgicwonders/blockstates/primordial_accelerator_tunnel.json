@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "thaumaturgicwonders:block/primordial_accelerator_tunnel"
+    },
+    "facing=east": {
+      "model": "thaumaturgicwonders:block/primordial_accelerator_tunnel",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "thaumaturgicwonders:block/primordial_accelerator_tunnel",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "thaumaturgicwonders:block/primordial_accelerator_tunnel",
+      "y": 270
+    }
+  }
+}

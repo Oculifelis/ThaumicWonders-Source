@@ -1,0 +1,38 @@
+{
+  "type": "thaumaturge:arcane_workbench_shaped",
+  "research": {
+    "entry": "thaumaturgicwonders:hexamite"
+  },
+  "vis": 125,
+  "crystals": [
+    {
+      "aspect": "thaumaturge:ignis",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:perditio",
+      "amount": 2
+    }
+  ],
+  "pattern": [
+    "AVA",
+    "VGV",
+    "AVA"
+  ],
+  "key": {
+    "A": "thaumaturge:alumentum",
+    "V": {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "thaumaturge:essentia_crystal",
+      "components": {
+        "thaumaturge:crystal_aspect": {
+          "aspect": "thaumaturge:vitium"
+        }
+      }
+    },
+    "G": "minecraft:gunpowder"
+  },
+  "result": {
+    "id": "thaumaturgicwonders:hexamite"
+  }
+}

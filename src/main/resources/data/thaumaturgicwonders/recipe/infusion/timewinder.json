@@ -1,0 +1,93 @@
+{
+  "type": "thaumaturge:infusion",
+  "research": {
+    "entry": "thaumaturgicwonders:timewinder"
+  },
+  "catalyst": "minecraft:clock",
+  "components": [
+    "minecraft:diamond",
+    "minecraft:ender_pearl",
+    "thaumaturge:quicksilver",
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "thaumaturge:celestial_notes",
+      "components": {
+        "thaumaturge:celestial_body": "moon_1"
+      }
+    },
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "thaumaturge:celestial_notes",
+      "components": {
+        "thaumaturge:celestial_body": "moon_2"
+      }
+    },
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "thaumaturge:celestial_notes",
+      "components": {
+        "thaumaturge:celestial_body": "moon_3"
+      }
+    },
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "thaumaturge:celestial_notes",
+      "components": {
+        "thaumaturge:celestial_body": "moon_4"
+      }
+    },
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "thaumaturge:celestial_notes",
+      "components": {
+        "thaumaturge:celestial_body": "moon_5"
+      }
+    },
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "thaumaturge:celestial_notes",
+      "components": {
+        "thaumaturge:celestial_body": "moon_6"
+      }
+    },
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "thaumaturge:celestial_notes",
+      "components": {
+        "thaumaturge:celestial_body": "moon_7"
+      }
+    },
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "thaumaturge:celestial_notes",
+      "components": {
+        "thaumaturge:celestial_body": "moon_8"
+      }
+    },
+    {
+      "neoforge:ingredient_type": "neoforge:components",
+      "items": "thaumaturge:celestial_notes",
+      "components": {
+        "thaumaturge:celestial_body": "sun"
+      }
+    }
+  ],
+  "instability": 7,
+  "aspects": [
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:tenebrae",
+      "amount": 100
+    },
+    {
+      "aspect": "thaumaturge:lux",
+      "amount": 100
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:timewinder"
+  }
+}

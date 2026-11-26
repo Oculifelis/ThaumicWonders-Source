@@ -1,0 +1,35 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.base.title",
+  "parents": [
+    "thaumaturge:first_steps"
+  ],
+  "column": 0,
+  "row": 0,
+  "meta": [
+    "round"
+  ],
+  "icons": [
+    "thaumaturgicwonders:textures/gui/wonder_chest.png"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.base.text.stage.1"
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:praecantatio",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:cognitio",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 2
+    }
+  ],
+  "complexity": 1
+}

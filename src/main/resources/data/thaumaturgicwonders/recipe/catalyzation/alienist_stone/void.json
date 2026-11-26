@@ -1,0 +1,8 @@
+{
+  "type": "thaumaturgicwonders:catalyzation",
+  "stone": "thaumaturgicwonders:alienist_stone",
+  "input": "thaumaturge:void_seed",
+  "result": {
+    "id": "thaumaturgicwonders:eldritch_cluster_void"
+  }
+}

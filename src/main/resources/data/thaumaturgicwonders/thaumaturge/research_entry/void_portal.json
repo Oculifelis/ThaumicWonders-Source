@@ -1,0 +1,90 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.void_portal.title",
+  "parents": [
+    "thaumaturgicwonders:dimensional_ripper",
+    "thaumaturge:mirror"
+  ],
+  "column": -6,
+  "row": -1,
+  "icons": [
+    "thaumaturgicwonders:portal_generator"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.void_portal.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "observation",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        },
+        {
+          "type": "theory",
+          "category": "thaumaturge:artifice",
+          "amount": 1
+        }
+      ],
+      "required_research": [
+        "thaumaturge:f_teleport"
+      ],
+      "warp": 2
+    },
+    {
+      "text": "thaumaturgicwonders.research.void_portal.text.stage.2",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 1
+        },
+        {
+          "type": "theory",
+          "category": "thaumaturge:infusion",
+          "amount": 1
+        }
+      ],
+      "craft": [
+        {
+          "items": [
+            "thaumaturgicwonders:portal_anchor"
+          ],
+          "amount": 1
+        }
+      ],
+      "recipes": [
+        "thaumaturgicwonders:arcane/portal_anchor"
+      ]
+    },
+    {
+      "text": "thaumaturgicwonders.research.void_portal.text.stage.3",
+      "recipes": [
+        "thaumaturgicwonders:arcane/portal_anchor",
+        "thaumaturgicwonders:infusion/portal_generator"
+      ]
+    }
+  ],
+  "addenda": [
+    {
+      "text": "thaumaturgicwonders.research.void_portal.text.addenda.1",
+      "required_research": [
+        "thaumaturge:infusion_stable"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:permutatio",
+      "amount": 2
+    }
+  ],
+  "complexity": 3
+}

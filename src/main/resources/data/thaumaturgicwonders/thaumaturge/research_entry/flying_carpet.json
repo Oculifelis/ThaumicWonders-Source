@@ -1,0 +1,52 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.flying_carpet.title",
+  "parents": [
+    "thaumaturgicwonders:base",
+    "thaumaturge:levitator",
+    "thaumaturge:recharge_pedestal"
+  ],
+  "column": 0,
+  "row": -2,
+  "icons": [
+    "thaumaturgicwonders:flying_carpet"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.flying_carpet.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:infusion",
+          "amount": 1
+        },
+        {
+          "type": "observation",
+          "category": "thaumaturge:golemancy",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "text": "thaumaturgicwonders.research.flying_carpet.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:infusion/flying_carpet"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:volatus",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:motus",
+      "amount": 2
+    },
+    {
+      "aspect": "thaumaturge:aer",
+      "amount": 2
+    }
+  ],
+  "complexity": 2
+}

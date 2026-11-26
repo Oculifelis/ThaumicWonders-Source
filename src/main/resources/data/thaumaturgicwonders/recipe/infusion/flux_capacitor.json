@@ -1,0 +1,31 @@
+{
+  "type": "thaumaturge:infusion",
+  "research": {
+    "entry": "thaumaturgicwonders:flux_capacitor"
+  },
+  "catalyst": "thaumaturge:vis_battery",
+  "components": [
+    "thaumaturge:primordial_pearl",
+    "thaumaturge:crystal_vitium",
+    "thaumaturge:vis_resonator",
+    "thaumaturge:condenser_lattice"
+  ],
+  "instability": 6,
+  "aspects": [
+    {
+      "aspect": "thaumaturge:vitium",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:auram",
+      "amount": 50
+    },
+    {
+      "aspect": "thaumaturge:vacuos",
+      "amount": 50
+    }
+  ],
+  "result": {
+    "id": "thaumaturgicwonders:flux_capacitor"
+  }
+}

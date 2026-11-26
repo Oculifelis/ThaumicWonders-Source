@@ -1,0 +1,50 @@
+{
+  "category": "thaumaturgicwonders:thaumic_wonders",
+  "name": "thaumaturgicwonders.research.coalescence_matrix.title",
+  "parents": [
+    "thaumaturgicwonders:void_beacon"
+  ],
+  "column": -10,
+  "row": 0,
+  "meta": [
+    "spiky"
+  ],
+  "icons": [
+    "thaumaturgicwonders:coalescence_matrix_precursor"
+  ],
+  "stages": [
+    {
+      "text": "thaumaturgicwonders.research.coalescence_matrix.text.stage.1",
+      "required_knowledge": [
+        {
+          "type": "theory",
+          "category": "thaumaturge:eldritch",
+          "amount": 3
+        }
+      ],
+      "warp": 4
+    },
+    {
+      "text": "thaumaturgicwonders.research.coalescence_matrix.text.stage.2",
+      "recipes": [
+        "thaumaturgicwonders:infusion/coalescence_matrix_precursor",
+        "thaumaturgicwonders:dust_trigger/coalescence_platform"
+      ]
+    }
+  ],
+  "note_aspects": [
+    {
+      "aspect": "thaumaturge:vitium",
+      "amount": 4
+    },
+    {
+      "aspect": "thaumaturge:alienis",
+      "amount": 3
+    },
+    {
+      "aspect": "thaumaturge:humanus",
+      "amount": 2
+    }
+  ],
+  "complexity": 3
+}

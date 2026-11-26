@@ -1,0 +1,6 @@
+{
+  "parent": "thaumaturgicwonders:block/coalescence_matrix_0",
+  "textures": {
+    "side": "thaumaturgicwonders:block/coalescence_matrix_3"
+  }
+}
