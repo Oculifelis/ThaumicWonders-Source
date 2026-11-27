@@ -10,19 +10,19 @@ import com.thaumicwonders.gear.GearContent;
 import com.thaumicwonders.gear.PrimalDestroyerItem;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.client.gui.GuiLayer;
 
 /**
  * The original's HudManager: a hunger gauge for each held Primal Destroyer and a vis gauge while riding a Flying
  * Carpet, stacked down the top-left corner under whichever of Thaumaturge's gauges are showing.
  */
-public final class GearHud implements GuiLayer {
-    private static final Identifier HUD = ThaumicWonders.id("textures/gui/hud.png");
+public final class GearHud implements LayeredDraw.Layer {
+    private static final ResourceLocation HUD = ThaumicWonders.id("textures/gui/hud.png");
     private static final int GAUGE_HEIGHT = 77;
     private static final int DESTROYER_COLOR = 0xFF800080;
     private static final int CARPET_COLOR = 0xFFFF80FF;
@@ -31,7 +31,7 @@ public final class GearHud implements GuiLayer {
     private final SanityHudOverlay sanity = new SanityHudOverlay();
 
     @Override
-    public void render(GuiGraphicsExtractor graphics, DeltaTracker delta) {
+    public void render(GuiGraphics graphics, DeltaTracker delta) {
         Minecraft mc = Minecraft.getInstance();
         LocalPlayer player = mc.player;
         if (player == null || mc.options.hideGui || mc.screen != null) {
@@ -47,11 +47,11 @@ public final class GearHud implements GuiLayer {
         }
         int y = this.thaumaturgeOffset(mc, player);
         if (mainDestroyer) {
-            gauge(graphics, y, PrimalDestroyerItem.hunger(main), PrimalDestroyerItem.MAX_HUNGER, DESTROYER_COLOR, 128);
+            gauge(graphics, y, PrimalDestroyerItem.hunger(main), destroyerLimit(main), DESTROYER_COLOR, 128);
             y += GAUGE_HEIGHT;
         }
         if (offDestroyer) {
-            gauge(graphics, y, PrimalDestroyerItem.hunger(off), PrimalDestroyerItem.MAX_HUNGER, DESTROYER_COLOR, 128);
+            gauge(graphics, y, PrimalDestroyerItem.hunger(off), destroyerLimit(off), DESTROYER_COLOR, 128);
             y += GAUGE_HEIGHT;
         }
         if (carpet != null) {
@@ -78,13 +78,20 @@ public final class GearHud implements GuiLayer {
         return y;
     }
 
-    private static void gauge(GuiGraphicsExtractor graphics, int y, int value, int max, int color, int frameU) {
-        graphics.blit(RenderPipelines.GUI_TEXTURED, HUD, 1, y + 1, 152, 0, 20, 78, 256, 256);
+    private static int destroyerLimit(ItemStack stack) {
+        var profile = com.thaumicwonders.data.DestroyerProfile.of(stack);
+        return profile == null ? 1 : profile.hungerLimit();
+    }
+
+    private static void gauge(GuiGraphics graphics, int y, int value, int max, int color, int frameU) {
+        graphics.blit(HUD, 1, y + 1, 152, 0, 20, 78, 256, 256);
         if (value > 0) {
             int gap = (int) ((float) (max - value) / max * 48.0F);
             gap = Math.max(0, Math.min(48, gap));
-            graphics.blit(RenderPipelines.GUI_TEXTURED, HUD, 7, y + 23 + gap, 200, gap, 8, 48 - gap, 256, 256, color);
+            RenderSystem.setShaderColor(((color >> 16) & 0xFF) / 255.0F, ((color >> 8) & 0xFF) / 255.0F, (color & 0xFF) / 255.0F, ((color >>> 24) & 0xFF) / 255.0F);
+            graphics.blit(HUD, 7, y + 23 + gap, 200, gap, 8, 48 - gap, 256, 256);
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         }
-        graphics.blit(RenderPipelines.GUI_TEXTURED, HUD, 1, y + 1, frameU, 0, 20, 78, 256, 256);
+        graphics.blit(HUD, 1, y + 1, frameU, 0, 20, 78, 256, 256);
     }
 }

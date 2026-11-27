@@ -1,6 +1,8 @@
 {
   "type": "thaumaturgicwonders:tag_smelting",
-  "ingredient": "thaumaturgicwonders:eldritch_cluster_lead",
+  "ingredient": {
+    "item": "thaumaturgicwonders:eldritch_cluster_lead"
+  },
   "result_tag": "c:ingots/lead",
   "count": 3,
   "experience": 1.0,

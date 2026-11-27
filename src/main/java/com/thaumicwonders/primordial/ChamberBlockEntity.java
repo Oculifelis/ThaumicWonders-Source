@@ -18,12 +18,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
+import com.thaumicwonders.util.ValueInput;
+import com.thaumicwonders.util.ValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.transfer.ResourceHandler;
-import net.neoforged.neoforge.transfer.item.ItemResource;
-import net.neoforged.neoforge.transfer.transaction.Transaction;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 /**
  * The shared part of the Catalyzation and Primordial Accretion Chambers (the original's TileTWInventory(32) plus
@@ -93,12 +92,9 @@ public abstract class ChamberBlockEntity extends DeviceBlockEntity implements Wo
         }
         Direction side = outputSide();
         int left = stack.getCount();
-        ResourceHandler<ItemResource> handler = server.getCapability(Capabilities.Item.BLOCK, worldPosition.relative(side), side.getOpposite());
+        IItemHandler handler = server.getCapability(Capabilities.ItemHandler.BLOCK, worldPosition.relative(side), side.getOpposite());
         if (handler != null) {
-            try (Transaction tx = Transaction.openRoot()) {
-                left -= handler.insert(ItemResource.of(stack), left, tx);
-                tx.commit();
-            }
+            left = ItemHandlerHelper.insertItemStacked(handler, stack.copyWithCount(left), false).getCount();
         }
         if (left <= 0) {
             return;
@@ -131,29 +127,30 @@ public abstract class ChamberBlockEntity extends DeviceBlockEntity implements Wo
         }
     }
 
-    @Override
-    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
-        super.preRemoveSideEffects(pos, state);
+    /** Called by the block when it is broken or replaced, not on chunk unload. */
+    public void onBlockRemoved(BlockPos pos, BlockState state) {
         if (level != null && !level.isClientSide()) {
             spill();
         }
     }
 
     @Override
-    protected void saveAdditional(ValueOutput out) {
-        super.saveAdditional(out);
-        ContainerHelper.saveAllItems(out, stacks);
+    protected void saveAdditional(net.minecraft.nbt.CompoundTag outTag, net.minecraft.core.HolderLookup.Provider outReg) {
+        ValueOutput out = new ValueOutput(outTag, outReg);
+        super.saveAdditional(out.tag(), out.registries());
+        ContainerHelper.saveAllItems(out.tag(), stacks, out.registries());
         out.putShort("RefineTime", (short) refineTime);
         out.putShort("SpeedyTime", (short) speedyTime);
     }
 
     @Override
-    protected void loadAdditional(ValueInput in) {
-        super.loadAdditional(in);
+    protected void loadAdditional(net.minecraft.nbt.CompoundTag inTag, net.minecraft.core.HolderLookup.Provider inReg) {
+        ValueInput in = new ValueInput(inTag, inReg);
+        super.loadAdditional(in.tag(), in.registries());
         for (int i = 0; i < SIZE; i++) {
             stacks.set(i, ItemStack.EMPTY);
         }
-        ContainerHelper.loadAllItems(in, stacks);
+        ContainerHelper.loadAllItems(in.tag(), stacks, in.registries());
         refineTime = in.getShortOr("RefineTime", (short) 0);
         speedyTime = in.getShortOr("SpeedyTime", (short) 0);
     }

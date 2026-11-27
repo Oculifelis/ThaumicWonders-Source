@@ -1,3 +1,65 @@
 {
-  "parent": "thaumaturgicwonders:block/flux_distiller_0"
+  "parent": "thaumaturgicwonders:block/flux_distiller_0",
+  "overrides": [
+    {
+      "predicate": {
+        "thaumaturgicwonders:charge": 0.1
+      },
+      "model": "thaumaturgicwonders:block/flux_distiller_1"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:charge": 0.2
+      },
+      "model": "thaumaturgicwonders:block/flux_distiller_2"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:charge": 0.3
+      },
+      "model": "thaumaturgicwonders:block/flux_distiller_3"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:charge": 0.4
+      },
+      "model": "thaumaturgicwonders:block/flux_distiller_4"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:charge": 0.5
+      },
+      "model": "thaumaturgicwonders:block/flux_distiller_5"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:charge": 0.6
+      },
+      "model": "thaumaturgicwonders:block/flux_distiller_6"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:charge": 0.7
+      },
+      "model": "thaumaturgicwonders:block/flux_distiller_7"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:charge": 0.8
+      },
+      "model": "thaumaturgicwonders:block/flux_distiller_8"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:charge": 0.9
+      },
+      "model": "thaumaturgicwonders:block/flux_distiller_9"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:charge": 1.0
+      },
+      "model": "thaumaturgicwonders:block/flux_distiller_10"
+    }
+  ]
 }

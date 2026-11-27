@@ -3,14 +3,28 @@
   "research": {
     "entry": "thaumaturgicwonders:meaty_orb"
   },
-  "catalyst": "thaumaturgicwonders:meteorb",
+  "catalyst": {
+    "item": "thaumaturgicwonders:meteorb"
+  },
   "components": [
-    "thaumaturge:primordial_pearl",
-    "minecraft:beef",
-    "minecraft:porkchop",
-    "minecraft:chicken",
-    "minecraft:mutton",
-    "minecraft:rabbit"
+    {
+      "item": "thaumaturge:primordial_pearl"
+    },
+    {
+      "item": "minecraft:beef"
+    },
+    {
+      "item": "minecraft:porkchop"
+    },
+    {
+      "item": "minecraft:chicken"
+    },
+    {
+      "item": "minecraft:mutton"
+    },
+    {
+      "item": "minecraft:rabbit"
+    }
   ],
   "instability": 8,
   "aspects": [

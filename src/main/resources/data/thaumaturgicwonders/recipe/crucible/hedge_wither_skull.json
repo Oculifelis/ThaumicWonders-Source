@@ -3,7 +3,9 @@
   "research": {
     "entry": "thaumaturgicwonders:nether_hedge"
   },
-  "catalyst": "minecraft:skeleton_skull",
+  "catalyst": {
+    "item": "minecraft:skeleton_skull"
+  },
   "aspects": [
     {
       "aspect": "thaumaturge:exanimis",

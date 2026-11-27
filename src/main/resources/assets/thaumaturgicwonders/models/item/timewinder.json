@@ -2,5 +2,391 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "thaumaturgicwonders:item/timewinder_00"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.007812
+      },
+      "model": "thaumaturgicwonders:item/timewinder_01"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.023438
+      },
+      "model": "thaumaturgicwonders:item/timewinder_02"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.039062
+      },
+      "model": "thaumaturgicwonders:item/timewinder_03"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.054688
+      },
+      "model": "thaumaturgicwonders:item/timewinder_04"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.070312
+      },
+      "model": "thaumaturgicwonders:item/timewinder_05"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.085938
+      },
+      "model": "thaumaturgicwonders:item/timewinder_06"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.101562
+      },
+      "model": "thaumaturgicwonders:item/timewinder_07"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.117188
+      },
+      "model": "thaumaturgicwonders:item/timewinder_08"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.132812
+      },
+      "model": "thaumaturgicwonders:item/timewinder_09"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.148438
+      },
+      "model": "thaumaturgicwonders:item/timewinder_10"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.164062
+      },
+      "model": "thaumaturgicwonders:item/timewinder_11"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.179688
+      },
+      "model": "thaumaturgicwonders:item/timewinder_12"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.195312
+      },
+      "model": "thaumaturgicwonders:item/timewinder_13"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.210938
+      },
+      "model": "thaumaturgicwonders:item/timewinder_14"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.226562
+      },
+      "model": "thaumaturgicwonders:item/timewinder_15"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.242188
+      },
+      "model": "thaumaturgicwonders:item/timewinder_16"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.257812
+      },
+      "model": "thaumaturgicwonders:item/timewinder_17"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.273438
+      },
+      "model": "thaumaturgicwonders:item/timewinder_18"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.289062
+      },
+      "model": "thaumaturgicwonders:item/timewinder_19"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.304688
+      },
+      "model": "thaumaturgicwonders:item/timewinder_20"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.320312
+      },
+      "model": "thaumaturgicwonders:item/timewinder_21"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.335938
+      },
+      "model": "thaumaturgicwonders:item/timewinder_22"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.351562
+      },
+      "model": "thaumaturgicwonders:item/timewinder_23"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.367188
+      },
+      "model": "thaumaturgicwonders:item/timewinder_24"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.382812
+      },
+      "model": "thaumaturgicwonders:item/timewinder_25"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.398438
+      },
+      "model": "thaumaturgicwonders:item/timewinder_26"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.414062
+      },
+      "model": "thaumaturgicwonders:item/timewinder_27"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.429688
+      },
+      "model": "thaumaturgicwonders:item/timewinder_28"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.445312
+      },
+      "model": "thaumaturgicwonders:item/timewinder_29"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.460938
+      },
+      "model": "thaumaturgicwonders:item/timewinder_30"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.476562
+      },
+      "model": "thaumaturgicwonders:item/timewinder_31"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.492188
+      },
+      "model": "thaumaturgicwonders:item/timewinder_32"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.507812
+      },
+      "model": "thaumaturgicwonders:item/timewinder_33"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.523438
+      },
+      "model": "thaumaturgicwonders:item/timewinder_34"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.539062
+      },
+      "model": "thaumaturgicwonders:item/timewinder_35"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.554688
+      },
+      "model": "thaumaturgicwonders:item/timewinder_36"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.570312
+      },
+      "model": "thaumaturgicwonders:item/timewinder_37"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.585938
+      },
+      "model": "thaumaturgicwonders:item/timewinder_38"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.601562
+      },
+      "model": "thaumaturgicwonders:item/timewinder_39"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.617188
+      },
+      "model": "thaumaturgicwonders:item/timewinder_40"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.632812
+      },
+      "model": "thaumaturgicwonders:item/timewinder_41"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.648438
+      },
+      "model": "thaumaturgicwonders:item/timewinder_42"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.664062
+      },
+      "model": "thaumaturgicwonders:item/timewinder_43"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.679688
+      },
+      "model": "thaumaturgicwonders:item/timewinder_44"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.695312
+      },
+      "model": "thaumaturgicwonders:item/timewinder_45"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.710938
+      },
+      "model": "thaumaturgicwonders:item/timewinder_46"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.726562
+      },
+      "model": "thaumaturgicwonders:item/timewinder_47"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.742188
+      },
+      "model": "thaumaturgicwonders:item/timewinder_48"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.757812
+      },
+      "model": "thaumaturgicwonders:item/timewinder_49"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.773438
+      },
+      "model": "thaumaturgicwonders:item/timewinder_50"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.789062
+      },
+      "model": "thaumaturgicwonders:item/timewinder_51"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.804688
+      },
+      "model": "thaumaturgicwonders:item/timewinder_52"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.820312
+      },
+      "model": "thaumaturgicwonders:item/timewinder_53"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.835938
+      },
+      "model": "thaumaturgicwonders:item/timewinder_54"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.851562
+      },
+      "model": "thaumaturgicwonders:item/timewinder_55"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.867188
+      },
+      "model": "thaumaturgicwonders:item/timewinder_56"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.882812
+      },
+      "model": "thaumaturgicwonders:item/timewinder_57"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.898438
+      },
+      "model": "thaumaturgicwonders:item/timewinder_58"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.914062
+      },
+      "model": "thaumaturgicwonders:item/timewinder_59"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.929688
+      },
+      "model": "thaumaturgicwonders:item/timewinder_60"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.945312
+      },
+      "model": "thaumaturgicwonders:item/timewinder_61"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.960938
+      },
+      "model": "thaumaturgicwonders:item/timewinder_62"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.976562
+      },
+      "model": "thaumaturgicwonders:item/timewinder_63"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:time": 0.992188
+      },
+      "model": "thaumaturgicwonders:item/timewinder"
+    }
+  ]
 }

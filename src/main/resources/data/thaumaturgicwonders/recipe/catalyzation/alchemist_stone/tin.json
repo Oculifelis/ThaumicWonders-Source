@@ -1,7 +1,11 @@
 {
   "type": "thaumaturgicwonders:catalyzation",
-  "stone": "thaumaturgicwonders:alchemist_stone",
-  "input": "#c:ores/tin",
+  "stone": {
+    "item": "thaumaturgicwonders:alchemist_stone"
+  },
+  "input": {
+    "tag": "c:ores/tin"
+  },
   "result": {
     "id": "thaumaturge:cluster_tin"
   },

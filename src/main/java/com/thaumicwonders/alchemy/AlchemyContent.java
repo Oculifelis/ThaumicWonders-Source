@@ -15,18 +15,18 @@ import com.thaumicwonders.ThaumicWonders;
 import com.thaumicwonders.TWRegistry;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.core.component.DataComponents;
@@ -62,21 +62,21 @@ public final class AlchemyContent {
     public static final DeferredBlock<EverburningUrnBlock> EVERBURNING_URN = TWRegistry.block("everburning_urn",
             EverburningUrnBlock::new, p -> device(p).noOcclusion());
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<EverburningUrnBlockEntity>> EVERBURNING_URN_BE =
-            BLOCK_ENTITIES.register("everburning_urn", () -> new BlockEntityType<>(EverburningUrnBlockEntity::new, EVERBURNING_URN.get()));
+            BLOCK_ENTITIES.register("everburning_urn", () -> BlockEntityType.Builder.of(EverburningUrnBlockEntity::new, EVERBURNING_URN.get()).build(null));
 
     // ---- Creative Essentia Jar ------------------------------------------------------------------------------------
     public static final DeferredBlock<CreativeEssentiaJarBlock> CREATIVE_ESSENTIA_JAR = TWRegistry.block("creative_essentia_jar",
             CreativeEssentiaJarBlock::new, p -> p.mapColor(MapColor.NONE).strength(0.3F).sound(SoundType.GLASS).noOcclusion(),
             CreativeEssentiaJarItem::new, p -> p.rarity(Rarity.EPIC));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CreativeEssentiaJarBlockEntity>> CREATIVE_ESSENTIA_JAR_BE =
-            BLOCK_ENTITIES.register("creative_essentia_jar", () -> new BlockEntityType<>(CreativeEssentiaJarBlockEntity::new, CREATIVE_ESSENTIA_JAR.get()));
+            BLOCK_ENTITIES.register("creative_essentia_jar", () -> BlockEntityType.Builder.of(CreativeEssentiaJarBlockEntity::new, CREATIVE_ESSENTIA_JAR.get()).build(null));
 
     // ---- Hexamite -------------------------------------------------------------------------------------------------
     public static final DeferredBlock<HexamiteBlock> HEXAMITE = TWRegistry.block("hexamite", HexamiteBlock::new,
             p -> p.mapColor(MapColor.FIRE).instabreak().sound(SoundType.GRASS).ignitedByLava().isRedstoneConductor((s, l, q) -> false));
-    public static final DeferredHolder<EntityType<?>, EntityType<HexamitePrimed>> HEXAMITE_PRIMED = ENTITIES.registerEntityType(
+    public static final DeferredHolder<EntityType<?>, EntityType<HexamitePrimed>> HEXAMITE_PRIMED = TWRegistry.entity(
             "hexamite_primed", HexamitePrimed::new, MobCategory.MISC,
-            b -> b.noLootTable().fireImmune().sized(0.98F, 0.98F).eyeHeight(0.15F).clientTrackingRange(10).updateInterval(10));
+            b -> b.fireImmune().sized(0.98F, 0.98F).eyeHeight(0.15F).clientTrackingRange(10).updateInterval(10));
 
     // ---- Flux Capacitor and Flux Distiller ------------------------------------------------------------------------
     /** The original drew the capacitor at a lightmap floor of 180 per charge; here each charge gives one light level. */
@@ -88,7 +88,7 @@ public final class AlchemyContent {
             p -> device(p).noOcclusion(),
             (block, props) -> new FluxChargeBlockItem(block, FluxCapacitorBlock.CHARGE, props), p -> p);
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FluxDistillerBlockEntity>> FLUX_DISTILLER_BE =
-            BLOCK_ENTITIES.register("flux_distiller", () -> new BlockEntityType<>(FluxDistillerBlockEntity::new, FLUX_DISTILLER.get()));
+            BLOCK_ENTITIES.register("flux_distiller", () -> BlockEntityType.Builder.of(FluxDistillerBlockEntity::new, FLUX_DISTILLER.get()).build(null));
 
     // ---- Disjunction Cloth ----------------------------------------------------------------------------------------
     public static final DeferredItem<Item> DISJUNCTION_CLOTH = TWRegistry.item("disjunction_cloth", Item::new,
@@ -99,9 +99,9 @@ public final class AlchemyContent {
     // ---- Panacea --------------------------------------------------------------------------------------------------
     private static final FoodProperties PANACEA_FOOD = new FoodProperties.Builder().nutrition(6).saturationModifier(1.8F).alwaysEdible().build();
     public static final DeferredItem<PanaceaItem> PANACEA = TWRegistry.item("panacea", p -> new PanaceaItem(false, p),
-            p -> p.rarity(Rarity.RARE).food(PANACEA_FOOD, Consumables.DEFAULT_FOOD));
+            p -> p.rarity(Rarity.RARE).food(PANACEA_FOOD));
     public static final DeferredItem<PanaceaItem> ENCHANTED_PANACEA = TWRegistry.item("enchanted_panacea", p -> new PanaceaItem(true, p),
-            p -> p.rarity(Rarity.EPIC).food(PANACEA_FOOD, Consumables.DEFAULT_FOOD).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
+            p -> p.rarity(Rarity.EPIC).food(PANACEA_FOOD).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true));
 
     // ---- Lethe Water ----------------------------------------------------------------------------------------------
     public static final DeferredItem<LetheWaterItem> LETHE_WATER = TWRegistry.item("lethe_water", LetheWaterItem::new,
@@ -111,7 +111,7 @@ public final class AlchemyContent {
     public static final DeferredBlock<AlkahestVatBlock> ALKAHEST_VAT = TWRegistry.block("alkahest_vat", AlkahestVatBlock::new,
             p -> device(p).noOcclusion().lightLevel(s -> 6));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AlkahestVatBlockEntity>> ALKAHEST_VAT_BE =
-            BLOCK_ENTITIES.register("alkahest_vat", () -> new BlockEntityType<>(AlkahestVatBlockEntity::new, ALKAHEST_VAT.get()));
+            BLOCK_ENTITIES.register("alkahest_vat", () -> BlockEntityType.Builder.of(AlkahestVatBlockEntity::new, ALKAHEST_VAT.get()).build(null));
 
     // ---- Quicksilver fluid ----------------------------------------------------------------------------------------
     public static final DeferredHolder<FluidType, FluidType> QUICKSILVER_TYPE = FLUID_TYPES.register("quicksilver",
@@ -122,9 +122,14 @@ public final class AlchemyContent {
     public static final DeferredHolder<net.minecraft.world.level.material.Fluid, QuicksilverFluid.Flowing> FLOWING_QUICKSILVER =
             FLUIDS.register("flowing_quicksilver", QuicksilverFluid.Flowing::new);
     public static final DeferredBlock<LiquidBlock> QUICKSILVER_BLOCK = TWRegistry.blockNoItem("fluid_quicksilver",
-            p -> new LiquidBlock(QUICKSILVER.get(), p),
-            p -> p.mapColor(MapColor.COLOR_LIGHT_GRAY).replaceable().noCollision().strength(100.0F).pushReaction(PushReaction.DESTROY)
-                    .noLootTable().liquid().sound(SoundType.EMPTY));
+            p -> new LiquidBlock(QUICKSILVER.get(), p) {
+                @Override
+                protected void entityInside(net.minecraft.world.level.block.state.BlockState state, net.minecraft.world.level.Level level, net.minecraft.core.BlockPos pos, net.minecraft.world.entity.Entity entity) {
+                    QuicksilverFluid.poison(level, entity);
+                }
+            },
+            p -> p.mapColor(MapColor.COLOR_LIGHT_GRAY).replaceable().noCollission().strength(100.0F).pushReaction(PushReaction.DESTROY)
+                    .liquid().sound(SoundType.EMPTY));
     public static final DeferredItem<BucketItem> QUICKSILVER_BUCKET = TWRegistry.item("quicksilver_bucket",
             p -> new BucketItem(QUICKSILVER.get(), p), p -> p.craftRemainder(Items.BUCKET).stacksTo(1));
 
@@ -134,11 +139,11 @@ public final class AlchemyContent {
     public static final TagKey<Block> VISHROOM_SOIL = soil("vishroom_soil");
 
     private static TagKey<Block> soil(String name) {
-        return TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(ThaumicWonders.MODID, name));
+        return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(ThaumicWonders.MODID, name));
     }
 
     private static Block.Properties crop(Block.Properties p, MapColor color) {
-        return p.mapColor(color).noCollision().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY);
+        return p.mapColor(color).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY);
     }
 
     public static final DeferredItem<BlockItem> SHIMMERLEAF_SEED = seed("shimmerleaf_seed", () -> AlchemyContent.SHIMMERLEAF_CROP.get());
@@ -156,7 +161,7 @@ public final class AlchemyContent {
             p -> crop(p, MapColor.COLOR_PURPLE));
 
     private static DeferredItem<BlockItem> seed(String name, java.util.function.Supplier<? extends Block> crop) {
-        DeferredItem<BlockItem> item = ITEMS.registerItem(name, p -> new BlockItem(crop.get(), p), p -> p.useItemDescriptionPrefix());
+        DeferredItem<BlockItem> item = ITEMS.registerItem(name, p -> new ItemNameBlockItem(crop.get(), p), new Item.Properties());
         TWRegistry.tab(item);
         return item;
     }
@@ -168,13 +173,13 @@ public final class AlchemyContent {
     }
 
     private static void capabilities(RegisterCapabilitiesEvent event) {
-        event.registerBlockEntity(EssentiaCapabilities.TRANSPORT, CREATIVE_ESSENTIA_JAR_BE.get(), (be, side) -> be);
+        event.registerBlockEntity(EssentiaCapabilities.TRANSPORT, CREATIVE_ESSENTIA_JAR_BE.get(), (be, side) -> (com.leclowndu93150.thaumaturge.api.essentia.IEssentiaTransport) be);
         event.registerBlockEntity(EssentiaCapabilities.STORAGE, CREATIVE_ESSENTIA_JAR_BE.get(), (be, side) -> be.storage(side));
         event.registerBlockEntity(AspectCapabilities.CONTAINER, CREATIVE_ESSENTIA_JAR_BE.get(), (be, side) -> be);
         event.registerBlockEntity(EssentiaCapabilities.TRANSPORT, FLUX_DISTILLER_BE.get(), (be, side) -> be);
         event.registerBlockEntity(AspectCapabilities.CONTAINER, FLUX_DISTILLER_BE.get(), (be, side) -> be);
         // The urn only gives lava out of its top, as the original's fluid handler did.
-        event.registerBlockEntity(Capabilities.Fluid.BLOCK, EVERBURNING_URN_BE.get(),
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, EVERBURNING_URN_BE.get(),
                 (be, side) -> side == null || side == Direction.UP ? be.tank() : null);
     }
 

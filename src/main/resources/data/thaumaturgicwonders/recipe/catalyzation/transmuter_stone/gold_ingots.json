@@ -1,7 +1,11 @@
 {
   "type": "thaumaturgicwonders:catalyzation",
-  "stone": "thaumaturgicwonders:transmuter_stone",
-  "input": "#c:ingots/gold",
+  "stone": {
+    "item": "thaumaturgicwonders:transmuter_stone"
+  },
+  "input": {
+    "tag": "c:ingots/gold"
+  },
   "result": {
     "id": "minecraft:iron_ingot"
   }

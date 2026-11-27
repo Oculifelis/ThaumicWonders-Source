@@ -11,9 +11,11 @@
     "AAA"
   ],
   "key": {
-    "A": "minecraft:arrow",
+    "A": {
+      "item": "minecraft:arrow"
+    },
     "V": {
-      "neoforge:ingredient_type": "neoforge:components",
+      "type": "neoforge:components",
       "items": "thaumaturge:essentia_crystal",
       "components": {
         "thaumaturge:crystal_aspect": {

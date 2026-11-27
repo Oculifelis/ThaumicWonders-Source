@@ -1,5 +1,6 @@
 package com.thaumicwonders.eldritch;
 
+import net.minecraft.world.item.Item;
 import com.leclowndu93150.thaumaturge.registry.TTSounds;
 import java.util.function.Consumer;
 import net.minecraft.ChatFormatting;
@@ -12,7 +13,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -48,13 +48,14 @@ public class PortalGeneratorItem extends BlockItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack, context, display, tooltip, flag);
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, java.util.List<Component> tooltipList, TooltipFlag flag) {
+        java.util.function.Consumer<Component> tooltip = tooltipList::add;
+        super.appendHoverText(stack, context, tooltipList, flag);
         GlobalPos link = stack.get(EldritchContent.PORTAL_LINK.get());
         if (link != null) {
             BlockPos p = link.pos();
             tooltip.accept(Component.translatable(getDescriptionId() + ".tooltip.linkedto", p.getX(), p.getY(), p.getZ(),
-                    link.dimension().identifier().toString()).withStyle(ChatFormatting.GRAY));
+                    link.dimension().location().toString()).withStyle(ChatFormatting.GRAY));
         }
     }
 }

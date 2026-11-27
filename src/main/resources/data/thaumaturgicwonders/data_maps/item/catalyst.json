@@ -1,0 +1,16 @@
+{
+  "values": {
+    "thaumaturgicwonders:alchemist_stone": {
+      "flux_roll": 50,
+      "sparkle": "thaumaturge:ordo"
+    },
+    "thaumaturgicwonders:transmuter_stone": {
+      "flux_roll": 33,
+      "sparkle": "thaumaturge:permutatio"
+    },
+    "thaumaturgicwonders:alienist_stone": {
+      "flux_roll": 10,
+      "sparkle": "thaumaturge:vitium"
+    }
+  }
+}

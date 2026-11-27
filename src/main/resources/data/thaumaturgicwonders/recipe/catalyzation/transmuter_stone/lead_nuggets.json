@@ -1,7 +1,11 @@
 {
   "type": "thaumaturgicwonders:catalyzation",
-  "stone": "thaumaturgicwonders:transmuter_stone",
-  "input": "#c:nuggets/lead",
+  "stone": {
+    "item": "thaumaturgicwonders:transmuter_stone"
+  },
+  "input": {
+    "tag": "c:nuggets/lead"
+  },
   "result_tag": "c:nuggets/silver",
   "neoforge:conditions": [
     {

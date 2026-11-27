@@ -1,7 +1,11 @@
 {
   "type": "thaumaturgicwonders:catalyzation",
-  "stone": "thaumaturgicwonders:alienist_stone",
-  "input": "#c:ores/copper",
+  "stone": {
+    "item": "thaumaturgicwonders:alienist_stone"
+  },
+  "input": {
+    "tag": "c:ores/copper"
+  },
   "result": {
     "id": "thaumaturgicwonders:eldritch_cluster_copper"
   }

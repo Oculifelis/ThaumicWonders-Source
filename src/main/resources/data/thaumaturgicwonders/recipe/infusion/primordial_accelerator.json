@@ -3,16 +3,34 @@
   "research": {
     "entry": "thaumaturgicwonders:primordial_accelerator"
   },
-  "catalyst": "minecraft:dispenser",
+  "catalyst": {
+    "item": "minecraft:dispenser"
+  },
   "components": [
-    "thaumaturgicwonders:primordial_accelerator_tunnel",
-    "#c:plates/void_metal",
-    "thaumaturge:mechanism_complex",
-    "#c:plates/void_metal",
-    "thaumaturge:advanced_alchemical_construct",
-    "#c:plates/void_metal",
-    "thaumaturge:mechanism_complex",
-    "#c:plates/void_metal"
+    {
+      "item": "thaumaturgicwonders:primordial_accelerator_tunnel"
+    },
+    {
+      "tag": "c:plates/void_metal"
+    },
+    {
+      "item": "thaumaturge:mechanism_complex"
+    },
+    {
+      "tag": "c:plates/void_metal"
+    },
+    {
+      "item": "thaumaturge:advanced_alchemical_construct"
+    },
+    {
+      "tag": "c:plates/void_metal"
+    },
+    {
+      "item": "thaumaturge:mechanism_complex"
+    },
+    {
+      "tag": "c:plates/void_metal"
+    }
   ],
   "instability": 10,
   "aspects": [

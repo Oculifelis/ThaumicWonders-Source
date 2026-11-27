@@ -5,13 +5,13 @@ import net.minecraft.core.Position;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /** One of the six Primal Arrows (the original's primal_arrow metadata variants, now separate items). */
 public class PrimalArrowItem extends ArrowItem {
@@ -44,6 +44,7 @@ public class PrimalArrowItem extends ArrowItem {
         if (infinity.isEmpty() || EnchantmentHelper.getItemEnchantmentLevel(infinity.get(), bow) <= 0) {
             return false;
         }
-        return living.getRandom().nextInt(3) == 0;
+        int roll = com.thaumicwonders.data.ArrowProfile.of(this).infinityRoll();
+        return roll > 0 && living.getRandom().nextInt(roll) == 0;
     }
 }

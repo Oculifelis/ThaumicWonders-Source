@@ -3,7 +3,9 @@
   "research": {
     "entry": "thaumaturgicwonders:catalyzation_chamber"
   },
-  "catalyst": "minecraft:diamond",
+  "catalyst": {
+    "item": "minecraft:diamond"
+  },
   "aspects": [
     {
       "aspect": "thaumaturge:metallum",

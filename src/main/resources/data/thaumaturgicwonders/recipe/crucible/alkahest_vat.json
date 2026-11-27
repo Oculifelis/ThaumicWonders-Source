@@ -3,7 +3,9 @@
   "research": {
     "entry": "thaumaturgicwonders:alkahest"
   },
-  "catalyst": "thaumaturge:crucible",
+  "catalyst": {
+    "item": "thaumaturge:crucible"
+  },
   "aspects": [
     {
       "aspect": "thaumaturge:alkimia",

@@ -1,23 +1,22 @@
 package com.thaumicwonders.gear;
 
 import com.mojang.serialization.Codec;
+import com.thaumicwonders.data.ArrowProfile;
 import java.util.Locale;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.StringRepresentable;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.EnderMan;
-import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
+import com.thaumicwonders.util.ValueInput;
+import com.thaumicwonders.util.ValueOutput;
 import net.minecraft.world.phys.EntityHitResult;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * One entity for all six Primal Arrows, told apart by a synced, saved type. Air and order arrows ignore armour and
@@ -31,14 +30,9 @@ public class PrimalArrowEntity extends AbstractArrow {
     private static final double BASE_DAMAGE = 2.0;
 
     public enum Kind implements StringRepresentable {
-        AIR(1.0), EARTH(1.5), FIRE(1.0), WATER(1.0), ORDER(0.8), ENTROPY(0.8);
+        AIR, EARTH, FIRE, WATER, ORDER, ENTROPY;
 
         public static final Codec<Kind> CODEC = StringRepresentable.fromEnum(Kind::values);
-        private final double damage;
-
-        Kind(double damage) {
-            this.damage = damage;
-        }
 
         public String id() {
             return this.name().toLowerCase(Locale.ROOT);
@@ -50,7 +44,7 @@ public class PrimalArrowEntity extends AbstractArrow {
         }
 
         public double damage() {
-            return this.damage;
+            return ArrowProfile.of(GearContent.arrowItem(this)).damage();
         }
 
         public static Kind byOrdinal(int i) {
@@ -88,19 +82,25 @@ public class PrimalArrowEntity extends AbstractArrow {
         return Kind.byOrdinal(this.entityData.get(ARROW_TYPE));
     }
 
+    public ArrowProfile profile() {
+        return ArrowProfile.of(GearContent.arrowItem(kind()));
+    }
+
     public void setKind(Kind kind) {
         this.entityData.set(ARROW_TYPE, kind.ordinal());
     }
 
     @Override
-    protected void addAdditionalSaveData(ValueOutput output) {
-        super.addAdditionalSaveData(output);
+    public void addAdditionalSaveData(net.minecraft.nbt.CompoundTag outputTag) {
+        ValueOutput output = new ValueOutput(outputTag, registryAccess());
+        super.addAdditionalSaveData(output.tag());
         output.store("arrow_type", Kind.CODEC, this.kind());
     }
 
     @Override
-    protected void readAdditionalSaveData(ValueInput input) {
-        super.readAdditionalSaveData(input);
+    public void readAdditionalSaveData(net.minecraft.nbt.CompoundTag inputTag) {
+        ValueInput input = new ValueInput(inputTag, registryAccess());
+        super.readAdditionalSaveData(input.tag());
         this.setKind(input.read("arrow_type", Kind.CODEC).orElse(Kind.AIR));
     }
 
@@ -112,7 +112,7 @@ public class PrimalArrowEntity extends AbstractArrow {
     @Override
     public void tick() {
         // Water arrows cannot burn.
-        if (this.kind() == Kind.WATER && this.isOnFire()) {
+        if (profile().extinguish() && this.isOnFire()) {
             this.clearFire();
         }
         super.tick();
@@ -121,14 +121,16 @@ public class PrimalArrowEntity extends AbstractArrow {
     @Override
     protected float getWaterInertia() {
         // Water arrows fly normally underwater.
-        return this.kind() == Kind.WATER ? 0.99F : super.getWaterInertia();
+        return profile().waterInertia().orElseGet(super::getWaterInertia);
     }
 
     @Override
     protected void onHitEntity(EntityHitResult hit) {
-        if (this.kind() == Kind.FIRE && !(hit.getEntity() instanceof EnderMan)) {
+        ArrowProfile rule = profile();
+        float seconds = isOnFire() ? rule.burningSeconds() : rule.igniteSeconds();
+        if (seconds > 0 && !(hit.getEntity() instanceof EnderMan)) {
             // Fire arrows always light the target, longer if the arrow itself burns.
-            hit.getEntity().igniteForSeconds(this.isOnFire() ? 10.0F : 5.0F);
+            hit.getEntity().igniteForSeconds(seconds);
         }
         super.onHitEntity(hit);
     }
@@ -136,12 +138,6 @@ public class PrimalArrowEntity extends AbstractArrow {
     @Override
     protected void doPostHurtEffects(LivingEntity target) {
         super.doPostHurtEffects(target);
-        switch (this.kind()) {
-            case WATER -> target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 200, 4), this.getEffectSource());
-            case ORDER -> target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 200, 4), this.getEffectSource());
-            case ENTROPY -> target.addEffect(new MobEffectInstance(MobEffects.WITHER, 100), this.getEffectSource());
-            default -> {
-            }
-        }
+        profile().applyEffects(target, getEffectSource());
     }
 }

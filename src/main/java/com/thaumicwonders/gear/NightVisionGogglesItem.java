@@ -8,7 +8,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
@@ -17,19 +17,31 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
  * Night-Vision Goggles: a helmet or a Curios head item. While worn they keep Night Vision up, spending one vis every
  * 360 ticks (100 vis last 30 minutes).
  */
-public class NightVisionGogglesItem extends Item implements ICurioItem {
+public class NightVisionGogglesItem extends ArmorItem implements ICurioItem {
     public static final int VIS_CAPACITY = 100;
+    public static final net.minecraft.resources.ResourceLocation TEXTURE =
+            com.thaumicwonders.ThaumicWonders.id("textures/entity/armor/night_vision_goggles.png");
     public static final int ENERGY_PER_VIS = (20 * 60 * 30) / VIS_CAPACITY;
 
     public NightVisionGogglesItem(Properties props) {
-        super(props);
+        super(GearContent.GOGGLES, ArmorItem.Type.HELMET, props);
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, EquipmentSlot slot) {
+    public void inventoryTick(ItemStack stack, net.minecraft.world.level.Level anyLevel, Entity entity, int slotId, boolean selected) {
+        if (!(anyLevel instanceof ServerLevel level)) {
+            return;
+        }
+        EquipmentSlot slot = GearContent.wornSlot(entity, stack);
         if (slot == EquipmentSlot.HEAD && entity instanceof LivingEntity living && living.getItemBySlot(slot) == stack) {
             wornTick(stack, living);
         }
+    }
+
+    @Override
+    public net.minecraft.resources.ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot,
+            net.minecraft.world.item.ArmorMaterial.Layer layer, boolean inner) {
+        return TEXTURE;
     }
 
     @Override

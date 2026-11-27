@@ -1,7 +1,11 @@
 {
   "type": "thaumaturgicwonders:catalyzation",
-  "stone": "thaumaturgicwonders:alchemist_stone",
-  "input": "#c:ores/lead",
+  "stone": {
+    "item": "thaumaturgicwonders:alchemist_stone"
+  },
+  "input": {
+    "tag": "c:ores/lead"
+  },
   "result": {
     "id": "thaumaturge:cluster_lead"
   },

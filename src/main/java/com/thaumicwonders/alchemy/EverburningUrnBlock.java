@@ -1,5 +1,6 @@
 package com.thaumicwonders.alchemy;
 
+import net.minecraft.world.ItemInteractionResult;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,8 +23,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.transfer.fluid.FluidUtil;
-import org.jspecify.annotations.Nullable;
+import net.neoforged.neoforge.fluids.FluidUtil;
+import org.jetbrains.annotations.Nullable;
 
 /** Everburning Urn block: buckets draw its lava; a full urn smokes and flickers. */
 public class EverburningUrnBlock extends BaseEntityBlock {
@@ -55,21 +56,21 @@ public class EverburningUrnBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (!(level.getBlockEntity(pos) instanceof EverburningUrnBlockEntity urn)) {
-            return InteractionResult.PASS;
+            return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
         }
         if (level.isClientSide()) {
-            return InteractionResult.SUCCESS;
+            return ItemInteractionResult.SUCCESS;
         }
         // Any face works with a bucket, as in the original; pipes only reach the tank from the top.
-        if (FluidUtil.interactWithFluidHandler(player, hand, pos, urn.tank(), null)) {
+        if (FluidUtil.interactWithFluidHandler(player, hand, urn.tank())) {
             urn.sync();
             level.playSound(null, pos, SoundEvents.BUCKET_FILL_LAVA, SoundSource.BLOCKS, 0.33F,
                     1.0F + (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.3F);
-            return InteractionResult.SUCCESS_SERVER;
+            return ItemInteractionResult.SUCCESS;
         }
-        return InteractionResult.TRY_WITH_EMPTY_HAND;
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
     @Override

@@ -20,14 +20,12 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
-import net.minecraft.world.entity.Relative;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.portal.TeleportTransition;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
+import com.thaumicwonders.util.ValueInput;
+import com.thaumicwonders.util.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The Void Portal a Portal Generator opens above itself, as the original's EntityVoidPortal. Using it takes the player
@@ -73,7 +71,7 @@ public class VoidPortal extends Entity {
     }
 
     @Override
-    public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
+    public boolean hurt(DamageSource source, float amount) {
         return false;
     }
 
@@ -90,7 +88,7 @@ public class VoidPortal extends Entity {
     }
 
     @Override
-    public InteractionResult interact(Player player, InteractionHand hand, Vec3 location) {
+    public InteractionResult interact(Player player, InteractionHand hand) {
         if (player instanceof ServerPlayer sp && level() instanceof ServerLevel here && cooldownTicks <= 0) {
             cooldownTicks = 3;
             travel(here, sp);
@@ -100,18 +98,18 @@ public class VoidPortal extends Entity {
 
     private void travel(ServerLevel here, ServerPlayer player) {
         if (link == null) {
-            player.sendOverlayMessage(Component.translatable("event.void_portal.no_anchor").withStyle(ChatFormatting.DARK_PURPLE));
+            player.displayClientMessage(Component.translatable("event.void_portal.no_anchor").withStyle(ChatFormatting.DARK_PURPLE), true);
             return;
         }
         ServerLevel there = here.getServer().getLevel(link.dimension());
         if (there == null) {
-            player.sendOverlayMessage(Component.translatable("event.void_portal.no_world").withStyle(ChatFormatting.DARK_PURPLE));
-            ThaumicWonders.LOG.error("Void portal at {} links to missing dimension {}", blockPosition(), link.dimension().identifier());
+            player.displayClientMessage(Component.translatable("event.void_portal.no_world").withStyle(ChatFormatting.DARK_PURPLE), true);
+            ThaumicWonders.LOG.error("Void portal at {} links to missing dimension {}", blockPosition(), link.dimension().location());
             return;
         }
         BlockPos anchor = link.pos();
         if (!there.getBlockState(anchor).is(EldritchContent.PORTAL_ANCHOR.get())) {
-            player.sendOverlayMessage(Component.translatable("event.void_portal.no_anchor").withStyle(ChatFormatting.DARK_PURPLE));
+            player.displayClientMessage(Component.translatable("event.void_portal.no_anchor").withStyle(ChatFormatting.DARK_PURPLE), true);
             return;
         }
         float s = generatorStability();
@@ -129,8 +127,8 @@ public class VoidPortal extends Entity {
 
         AuraHelper.polluteAura(here, blockPosition(), 5.0F, true);
         boolean sameWorld = there == here;
-        player.teleport(new TeleportTransition(there, new Vec3(target.getX() + 0.5, target.getY() + 1.0, target.getZ() + 0.5), Vec3.ZERO,
-                player.getYRot(), player.getXRot(), Set.<Relative>of(), TeleportTransition.DO_NOTHING));
+        player.setDeltaMovement(Vec3.ZERO);
+        player.teleportTo(there, target.getX() + 0.5, target.getY() + 1.0, target.getZ() + 0.5, player.getYRot(), player.getXRot());
         if (sameWorld) {
             there.playSound(null, target, SoundEvents.PORTAL_TRAVEL, SoundSource.NEUTRAL, 0.25F, (r.nextFloat() - r.nextFloat()) * 0.2F + 1.0F);
         }
@@ -138,12 +136,14 @@ public class VoidPortal extends Entity {
     }
 
     @Override
-    protected void addAdditionalSaveData(ValueOutput out) {
+    public void addAdditionalSaveData(net.minecraft.nbt.CompoundTag outTag) {
+        ValueOutput out = new ValueOutput(outTag, registryAccess());
         out.storeNullable("link", GlobalPos.CODEC, link);
     }
 
     @Override
-    protected void readAdditionalSaveData(ValueInput in) {
+    public void readAdditionalSaveData(net.minecraft.nbt.CompoundTag inTag) {
+        ValueInput in = new ValueInput(inTag, registryAccess());
         link = in.read("link", GlobalPos.CODEC).orElse(null);
     }
 }

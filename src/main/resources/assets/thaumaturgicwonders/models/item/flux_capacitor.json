@@ -1,3 +1,29 @@
 {
-  "parent": "thaumaturgicwonders:block/flux_capacitor_0"
+  "parent": "thaumaturgicwonders:block/flux_capacitor_0",
+  "overrides": [
+    {
+      "predicate": {
+        "thaumaturgicwonders:charge": 0.1
+      },
+      "model": "thaumaturgicwonders:block/flux_capacitor_1"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:charge": 0.4
+      },
+      "model": "thaumaturgicwonders:block/flux_capacitor_2"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:charge": 0.7
+      },
+      "model": "thaumaturgicwonders:block/flux_capacitor_3"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:charge": 1.0
+      },
+      "model": "thaumaturgicwonders:block/flux_capacitor_4"
+    }
+  ]
 }

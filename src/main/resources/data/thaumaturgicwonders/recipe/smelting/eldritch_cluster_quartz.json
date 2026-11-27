@@ -3,7 +3,9 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 1.0,
-  "ingredient": "thaumaturgicwonders:eldritch_cluster_quartz",
+  "ingredient": {
+    "item": "thaumaturgicwonders:eldritch_cluster_quartz"
+  },
   "result": {
     "id": "minecraft:quartz",
     "count": 3

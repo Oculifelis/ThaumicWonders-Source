@@ -6,12 +6,11 @@ import java.util.EnumMap;
 import java.util.Map;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.state.ArrowRenderState;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 /** The vanilla arrow model with each primal's own texture. */
-public class PrimalArrowRenderer extends ArrowRenderer<PrimalArrowEntity, PrimalArrowRenderer.State> {
-    private static final Map<PrimalArrowEntity.Kind, Identifier> TEXTURES = new EnumMap<>(PrimalArrowEntity.Kind.class);
+public class PrimalArrowRenderer extends ArrowRenderer<PrimalArrowEntity> {
+    private static final Map<PrimalArrowEntity.Kind, ResourceLocation> TEXTURES = new EnumMap<>(PrimalArrowEntity.Kind.class);
 
     static {
         for (PrimalArrowEntity.Kind kind : PrimalArrowEntity.Kind.values()) {
@@ -19,27 +18,12 @@ public class PrimalArrowRenderer extends ArrowRenderer<PrimalArrowEntity, Primal
         }
     }
 
-    public static class State extends ArrowRenderState {
-        public PrimalArrowEntity.Kind kind = PrimalArrowEntity.Kind.AIR;
-    }
-
     public PrimalArrowRenderer(EntityRendererProvider.Context context) {
         super(context);
     }
 
     @Override
-    public State createRenderState() {
-        return new State();
-    }
-
-    @Override
-    public void extractRenderState(PrimalArrowEntity arrow, State state, float partialTick) {
-        super.extractRenderState(arrow, state, partialTick);
-        state.kind = arrow.kind();
-    }
-
-    @Override
-    protected Identifier getTextureLocation(State state) {
-        return TEXTURES.get(state.kind);
+    public ResourceLocation getTextureLocation(PrimalArrowEntity arrow) {
+        return TEXTURES.get(arrow.kind());
     }
 }

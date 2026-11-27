@@ -11,7 +11,7 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
-import mezz.jei.api.recipe.types.IRecipeType;
+import mezz.jei.api.recipe.RecipeType;
 import com.thaumicwonders.compat.jei.JeiKit;
 import com.thaumicwonders.primordial.PrimordialContent;
 import net.minecraft.world.item.ItemStack;
@@ -19,7 +19,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.List;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 /**
  * JEI: an information page for every item that comes from the world or a device rather than a recipe. The list is
@@ -29,11 +29,11 @@ import net.minecraft.resources.Identifier;
 @JeiPlugin
 public final class TWJeiPlugin implements IModPlugin {
     @Override
-    public Identifier getPluginUid() {
+    public ResourceLocation getPluginUid() {
         return ThaumicWonders.id("jei");
     }
 
-    static final IRecipeType<JeiKit.Conversion> CATALYZATION = JeiKit.type(ThaumicWonders.id("catalyzation"));
+    static final RecipeType<JeiKit.Conversion> CATALYZATION = JeiKit.type(ThaumicWonders.id("catalyzation"));
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
@@ -60,7 +60,7 @@ public final class TWJeiPlugin implements IModPlugin {
     }
 
     private static List<ItemStack> stacks(Ingredient ingredient) {
-        return ingredient.items().map(ItemStack::new).toList();
+        return java.util.Arrays.stream(ingredient.getItems()).map(ItemStack::copy).toList();
     }
 
     private static String[] infoNames() {

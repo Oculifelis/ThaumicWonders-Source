@@ -2,7 +2,6 @@ package com.thaumicwonders.compat.jei;
 
 import com.leclowndu93150.thaumaturge.api.aspect.AspectInstance;
 import com.leclowndu93150.thaumaturge.api.aspect.AspectList;
-import com.leclowndu93150.thaumaturge.client.recipes.TTClientRecipes;
 import com.leclowndu93150.thaumaturge.compat.jei.ingredient.AspectIngredientRenderer;
 import com.leclowndu93150.thaumaturge.compat.jei.ingredient.AspectIngredientType;
 import java.util.ArrayList;
@@ -16,19 +15,18 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.AbstractRecipeCategory;
-import mezz.jei.api.recipe.types.IRecipeType;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.Nullable;
 
@@ -125,19 +123,19 @@ public final class JeiKit {
         }
     }
 
-    public static IRecipeType<Conversion> type(Identifier id) {
-        return IRecipeType.create(id, Conversion.class);
+    public static RecipeType<Conversion> type(ResourceLocation id) {
+        return new RecipeType<>(id, Conversion.class);
     }
 
     /** Fixed-size category: up to 4 inputs, 1 station, 3 outputs, 8 aspects, one line of text. */
     public static final class ConversionCategory extends AbstractRecipeCategory<Conversion> {
         private static final int W = 160;
 
-        public ConversionCategory(IGuiHelper gui, IRecipeType<Conversion> type, Component title, ItemLike icon) {
+        public ConversionCategory(IGuiHelper gui, RecipeType<Conversion> type, Component title, ItemLike icon) {
             this(gui, type, title, new ItemStack(icon));
         }
 
-        public ConversionCategory(IGuiHelper gui, IRecipeType<Conversion> type, Component title, ItemStack icon) {
+        public ConversionCategory(IGuiHelper gui, RecipeType<Conversion> type, Component title, ItemStack icon) {
             super(type, title, gui.createDrawableItemStack(icon), W, 62);
         }
 
@@ -148,7 +146,7 @@ public final class JeiKit {
                 builder.addInputSlot(2 + i * 18, 4).setStandardSlotBackground().addItemStacks(recipe.inputs().get(i));
             }
             if (!recipe.station().isEmpty()) {
-                builder.addSlot(RecipeIngredientRole.CRAFTING_STATION, 80, 0).addItemStacks(recipe.station());
+                builder.addSlot(RecipeIngredientRole.CATALYST, 80, 0).addItemStacks(recipe.station());
             }
             int m = Math.min(3, recipe.outputs().size());
             for (int i = 0; i < m; i++) {
@@ -167,7 +165,7 @@ public final class JeiKit {
             for (int i = 0; i < a; i++) {
                 builder.addInputSlot(start + i * 18, 26)
                         .setCustomRenderer(AspectIngredientType.INSTANCE, AspectIngredientRenderer.INSTANCE)
-                        .add(AspectIngredientType.INSTANCE, aspects.get(i));
+                        .addIngredient(AspectIngredientType.INSTANCE, aspects.get(i));
             }
         }
 
@@ -182,9 +180,9 @@ public final class JeiKit {
     }
 
     /** Registers each station as a catalyst of the type. */
-    public static void stations(IRecipeCatalystRegistration registration, IRecipeType<Conversion> type, ItemLike... items) {
+    public static void stations(IRecipeCatalystRegistration registration, RecipeType<Conversion> type, ItemLike... items) {
         for (ItemLike item : items) {
-            if (item.asItem() != net.minecraft.world.item.Items.AIR) registration.addCraftingStation(type, item);
+            if (item.asItem() != net.minecraft.world.item.Items.AIR) registration.addRecipeCatalyst(new ItemStack(item), type);
         }
     }
 
@@ -196,7 +194,7 @@ public final class JeiKit {
         Language lang = Language.getInstance();
         int count = 0;
         for (Item item : BuiltInRegistries.ITEM) {
-            Identifier id = BuiltInRegistries.ITEM.getKey(item);
+            ResourceLocation id = BuiltInRegistries.ITEM.getKey(item);
             if (!id.getNamespace().equals(modid)) continue;
             String key = "jei." + modid + ".info." + id.getPath();
             if (lang.has(key)) {
@@ -208,9 +206,9 @@ public final class JeiKit {
     }
 
     /** All synced recipes of a type on the client (empty if the type was not sent to clients). */
-    public static <I extends net.minecraft.world.item.crafting.RecipeInput, R extends Recipe<I>> List<RecipeHolder<R>> recipes(RecipeType<R> type) {
+    public static <I extends net.minecraft.world.item.crafting.RecipeInput, R extends Recipe<I>> List<RecipeHolder<R>> recipes(net.minecraft.world.item.crafting.RecipeType<R> type) {
         var level = Minecraft.getInstance().level;
         if (level == null) return List.of();
-        return List.copyOf(TTClientRecipes.getRecipeMapForType(level, type).byType(type));
+        return List.copyOf(level.getRecipeManager().getAllRecipesFor(type));
     }
 }

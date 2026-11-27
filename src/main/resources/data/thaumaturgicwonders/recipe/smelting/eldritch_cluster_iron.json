@@ -3,7 +3,9 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 1.0,
-  "ingredient": "thaumaturgicwonders:eldritch_cluster_iron",
+  "ingredient": {
+    "item": "thaumaturgicwonders:eldritch_cluster_iron"
+  },
   "result": {
     "id": "minecraft:iron_ingot",
     "count": 3

@@ -1,5 +1,6 @@
 package com.thaumicwonders.alchemy;
 
+import net.minecraft.world.ItemInteractionResult;
 import com.leclowndu93150.thaumaturge.api.aspect.AspectIndexAccess;
 import com.leclowndu93150.thaumaturge.api.aura.AuraHelper;
 import com.leclowndu93150.thaumaturge.api.damagesource.TTDamageSources;
@@ -13,7 +14,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -31,7 +31,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Alkahest Vat: a crucible of universal solvent. Items that fall in are destroyed and release
@@ -75,7 +75,7 @@ public class AlkahestVatBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effects, boolean intersects) {
+    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         if (!(level instanceof ServerLevel server)) {
             return;
         }
@@ -86,23 +86,23 @@ public class AlkahestVatBlock extends BaseEntityBlock {
         } else if (++delay >= 10) {
             delay = 0;
             if (entity instanceof LivingEntity living) {
-                living.hurtServer(server, TTDamageSources.dissolve(level), 1.0F);
+                living.hurt(TTDamageSources.dissolve(level), 1.0F);
                 hiss(level, pos);
             }
         }
     }
 
     @Override
-    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (stack.isEmpty() || hit.getDirection() != Direction.UP) {
-            return InteractionResult.TRY_WITH_EMPTY_HAND;
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
         if (!level.isClientSide()) {
             releaseVis(level, pos, stack.copyWithCount(1));
             stack.shrink(1);
             hiss(level, pos);
         }
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
     private static void releaseVis(Level level, BlockPos pos, ItemStack stack) {

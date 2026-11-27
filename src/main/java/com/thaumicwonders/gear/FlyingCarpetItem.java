@@ -8,7 +8,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -54,11 +54,11 @@ public class FlyingCarpetItem extends Item {
         }
         if (!level.isClientSide()) {
             Vec3 at = context.getClickLocation();
-            FlyingCarpetEntity carpet = GearContent.FLYING_CARPET_ENTITY.get().create(level, EntitySpawnReason.SPAWN_ITEM_USE);
+            FlyingCarpetEntity carpet = GearContent.FLYING_CARPET_ENTITY.get().create(level);
             if (carpet == null) {
                 return InteractionResult.FAIL;
             }
-            carpet.snapTo(at.x, at.y, at.z, player != null ? player.getYRot() : 0.0F, 0.0F);
+            carpet.moveTo(at.x, at.y, at.z, player != null ? player.getYRot() : 0.0F, 0.0F);
             carpet.setVisCharge(RechargeAccess.getCharge(stack));
             carpet.setEnergy(stack.getOrDefault(TTDataComponents.ENERGY.get(), 0));
             carpet.setDyeColor(stack.get(GearContent.DYE.get()));

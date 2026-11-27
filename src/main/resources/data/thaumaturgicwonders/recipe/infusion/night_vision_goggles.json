@@ -3,12 +3,18 @@
   "research": {
     "entry": "thaumaturgicwonders:night_vision_goggles"
   },
-  "catalyst": "thaumaturge:goggles_revealing",
+  "catalyst": {
+    "item": "thaumaturge:goggles_revealing"
+  },
   "components": [
-    "minecraft:golden_carrot",
-    "#thaumaturge:nitors",
     {
-      "neoforge:ingredient_type": "neoforge:components",
+      "item": "minecraft:golden_carrot"
+    },
+    {
+      "tag": "thaumaturge:nitors"
+    },
+    {
+      "type": "neoforge:components",
       "items": "thaumaturge:essentia_crystal",
       "components": {
         "thaumaturge:crystal_aspect": {
@@ -17,7 +23,7 @@
       }
     },
     {
-      "neoforge:ingredient_type": "neoforge:components",
+      "type": "neoforge:components",
       "items": "thaumaturge:essentia_crystal",
       "components": {
         "thaumaturge:crystal_aspect": {

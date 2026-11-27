@@ -1,0 +1,53 @@
+{
+  "values": {
+    "thaumaturgicwonders:primal_arrow_air": {
+      "pierce_armor": true,
+      "infinity_roll": 3
+    },
+    "thaumaturgicwonders:primal_arrow_earth": {
+      "damage_multiplier": 1.5,
+      "infinity_roll": 3
+    },
+    "thaumaturgicwonders:primal_arrow_fire": {
+      "fire_damage": true,
+      "ignite_seconds": 5,
+      "burning_ignite_seconds": 10,
+      "infinity_roll": 3
+    },
+    "thaumaturgicwonders:primal_arrow_water": {
+      "extinguish": true,
+      "water_inertia": 0.99,
+      "effects": [
+        {
+          "id": "minecraft:slowness",
+          "duration": 200,
+          "amplifier": 4
+        }
+      ],
+      "infinity_roll": 3
+    },
+    "thaumaturgicwonders:primal_arrow_order": {
+      "damage_multiplier": 0.8,
+      "pierce_armor": true,
+      "effects": [
+        {
+          "id": "minecraft:weakness",
+          "duration": 200,
+          "amplifier": 4
+        }
+      ],
+      "infinity_roll": 3
+    },
+    "thaumaturgicwonders:primal_arrow_entropy": {
+      "damage_multiplier": 0.8,
+      "effects": [
+        {
+          "id": "minecraft:wither",
+          "duration": 100,
+          "amplifier": 0
+        }
+      ],
+      "infinity_roll": 3
+    }
+  }
+}

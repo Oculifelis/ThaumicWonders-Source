@@ -3,7 +3,9 @@
   "research": {
     "entry": "thaumaturgicwonders:primordial_accelerator"
   },
-  "catalyst": "thaumaturgicwonders:primordial_grain",
+  "catalyst": {
+    "item": "thaumaturgicwonders:primordial_grain"
+  },
   "aspects": [
     {
       "aspect": "thaumaturge:aer",

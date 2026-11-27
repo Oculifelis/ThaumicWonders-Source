@@ -4,12 +4,10 @@ import com.thaumicwonders.ThaumicWonders;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.IntConsumer;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.input.MouseButtonEvent;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 /**
  * The original's selector screens (Timewinder, Structure Diviner, Meteorb, Meaty Orb): a 256x256 picture in the middle
@@ -20,8 +18,8 @@ public class SelectorScreen extends Screen {
     record Button(int id, int dx, int dy, int u, int v) {
     }
 
-    private final Identifier background;
-    private final Identifier buttons;
+    private final ResourceLocation background;
+    private final ResourceLocation buttons;
     private final String labelPrefix;
     private final List<Button> layout;
     private final IntConsumer onPress;
@@ -42,6 +40,10 @@ public class SelectorScreen extends Screen {
                 new Button(5, -23, 23, 97, 143), new Button(6, -32, 0, 88, 120), new Button(7, -23, -23, 97, 97));
     }
 
+    protected Component label(Button button) {
+        return Component.translatable(labelPrefix + button.id());
+    }
+
     private int baseX() {
         return (width - 16) / 2;
     }
@@ -57,38 +59,42 @@ public class SelectorScreen extends Screen {
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor g, int mouseX, int mouseY, float partialTicks) {
-        super.extractRenderState(g, mouseX, mouseY, partialTicks);
-        g.blit(RenderPipelines.GUI_TEXTURED, background, (width - 256) / 2, (height - 256) / 2, 0.0F, 0.0F, 256, 256, 256, 256);
+    public void render(GuiGraphics g, int mouseX, int mouseY, float partialTicks) {
+        super.render(g, mouseX, mouseY, partialTicks);
+        g.blit(background, (width - 256) / 2, (height - 256) / 2, 0.0F, 0.0F, 256, 256, 256, 256);
         Button hovered = null;
         for (Button b : layout) {
             boolean on = over(b, mouseX, mouseY);
             int x = baseX() + b.dx();
             int y = baseY() + b.dy();
-            g.blit(RenderPipelines.GUI_TEXTURED, buttons, x, y, b.u(), b.v(), 16, 16, 256, 256, on ? 0xFFFFFFFF : 0xFFCCCCCC);
+            float shade = on ? 1.0F : 0.8F;
+            g.setColor(shade, shade, shade, 1.0F);
+            g.blit(buttons, x, y, b.u(), b.v(), 16, 16, 256, 256);
+            g.setColor(1.0F, 1.0F, 1.0F, 1.0F);
             if (on) {
                 hovered = b;
             }
         }
         if (hovered != null) {
-            g.text(font, Component.translatable(labelPrefix + hovered.id()), baseX() + hovered.dx() + 19, baseY() + hovered.dy() + 4, 0xFFFFFFFF);
+            g.drawString(font, label(hovered), baseX() + hovered.dx() + 19, baseY() + hovered.dy() + 4, 0xFFFFFFFF);
         }
+
     }
 
     @Override
-    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-        if (event.button() == 0) {
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == 0) {
             // Last drawn is on top, so test in reverse.
             for (int i = layout.size() - 1; i >= 0; i--) {
                 Button b = layout.get(i);
-                if (over(b, event.x(), event.y())) {
+                if (over(b, mouseX, mouseY)) {
                     onPress.accept(b.id());
                     onClose();
                     return true;
                 }
             }
         }
-        return super.mouseClicked(event, doubleClick);
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override

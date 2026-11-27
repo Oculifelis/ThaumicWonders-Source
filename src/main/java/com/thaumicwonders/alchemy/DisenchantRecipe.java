@@ -9,10 +9,13 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * thaumaturgicwonders:disenchant. Exactly one Disjunction Cloth and exactly one enchanted item (enchanted books keep
@@ -21,9 +24,16 @@ import org.jspecify.annotations.Nullable;
  * 51st use. Crafting it releases 5 vis per enchantment level into the aura ({@link AlchemyContent}).
  */
 public class DisenchantRecipe extends CustomRecipe {
-    public static final DisenchantRecipe INSTANCE = new DisenchantRecipe();
-    public static final RecipeSerializer<DisenchantRecipe> SERIALIZER = new RecipeSerializer<>(MapCodec.unit(INSTANCE),
-            StreamCodec.<RegistryFriendlyByteBuf, DisenchantRecipe>unit(INSTANCE));
+    public static final RecipeSerializer<DisenchantRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(DisenchantRecipe::new);
+
+    public DisenchantRecipe(CraftingBookCategory category) {
+        super(category);
+    }
+
+    @Override
+    public boolean canCraftInDimensions(int width, int height) {
+        return width * height >= 2;
+    }
 
     private static boolean isCloth(ItemStack stack) {
         return stack.is(AlchemyContent.DISJUNCTION_CLOTH.get());
@@ -59,7 +69,7 @@ public class DisenchantRecipe extends CustomRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingInput input) {
+    public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
         ItemStack target = target(input.size(), input::getItem);
         if (target == null) {
             return ItemStack.EMPTY;
@@ -87,7 +97,7 @@ public class DisenchantRecipe extends CustomRecipe {
     }
 
     @Override
-    public RecipeSerializer<DisenchantRecipe> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return SERIALIZER;
     }
 }

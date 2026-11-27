@@ -13,5 +13,6 @@ public final class TWClient {
         com.thaumicwonders.primordial.client.PrimordialClient.init(modBus);
         com.thaumicwonders.gear.client.GearClient.init(modBus);
         com.thaumicwonders.eldritch.client.EldritchClient.init(modBus);
+        TWItemProperties.init(modBus);
     }
 }

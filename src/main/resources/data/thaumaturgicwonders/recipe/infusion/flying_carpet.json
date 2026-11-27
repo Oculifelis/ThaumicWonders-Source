@@ -3,13 +3,21 @@
   "research": {
     "entry": "thaumaturgicwonders:flying_carpet"
   },
-  "catalyst": "#minecraft:wool_carpets",
+  "catalyst": {
+    "tag": "minecraft:wool_carpets"
+  },
   "components": [
-    "thaumaturge:levitator",
-    "minecraft:saddle",
-    "thaumaturge:vis_resonator",
     {
-      "neoforge:ingredient_type": "neoforge:components",
+      "item": "thaumaturge:levitator"
+    },
+    {
+      "item": "minecraft:saddle"
+    },
+    {
+      "item": "thaumaturge:vis_resonator"
+    },
+    {
+      "type": "neoforge:components",
       "items": "thaumaturge:essentia_crystal",
       "components": {
         "thaumaturge:crystal_aspect": {
@@ -18,7 +26,7 @@
       }
     },
     {
-      "neoforge:ingredient_type": "neoforge:components",
+      "type": "neoforge:components",
       "items": "thaumaturge:essentia_crystal",
       "components": {
         "thaumaturge:crystal_aspect": {

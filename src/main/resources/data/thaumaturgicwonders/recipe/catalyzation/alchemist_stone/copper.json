@@ -1,7 +1,11 @@
 {
   "type": "thaumaturgicwonders:catalyzation",
-  "stone": "thaumaturgicwonders:alchemist_stone",
-  "input": "#c:ores/copper",
+  "stone": {
+    "item": "thaumaturgicwonders:alchemist_stone"
+  },
+  "input": {
+    "tag": "c:ores/copper"
+  },
   "result": {
     "id": "thaumaturge:cluster_copper"
   }

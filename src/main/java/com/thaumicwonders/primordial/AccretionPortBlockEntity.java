@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The Primordial Accretion Chamber's placeholder blocks (the original's TilePrimordialAccretionChamberPlaceholder).
@@ -64,7 +64,7 @@ public class AccretionPortBlockEntity extends EssentiaDeviceBlockEntity {
     public static void tick(Level level, BlockPos pos, BlockState state, AccretionPortBlockEntity be) {
         if (level instanceof ServerLevel && ++be.tickCounter % 5 == 0) {
             AccretionChamberBlockEntity c = be.chamber();
-            if (c != null && !c.isEssentiaFull()) {
+            if (c != null && c.currentSuction() != null) {
                 be.fill(java.util.List.of(Direction.values()), false);
             }
         }

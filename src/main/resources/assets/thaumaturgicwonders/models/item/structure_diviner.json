@@ -2,5 +2,199 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "thaumaturgicwonders:item/structure_diviner_16"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.015625
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_17"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.046875
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_18"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.078125
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_19"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.109375
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_20"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.140625
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_21"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.171875
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_22"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.203125
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_23"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.234375
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_24"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.265625
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_25"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.296875
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_26"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.328125
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_27"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.359375
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_28"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.390625
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_29"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.421875
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_30"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.453125
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_31"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.484375
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_00"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.515625
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_01"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.546875
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_02"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.578125
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_03"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.609375
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_04"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.640625
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_05"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.671875
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_06"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.703125
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_07"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.734375
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_08"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.765625
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_09"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.796875
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_10"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.828125
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_11"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.859375
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_12"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.890625
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_13"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.921875
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_14"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.953125
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner_15"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:angle": 0.984375
+      },
+      "model": "thaumaturgicwonders:item/structure_diviner"
+    }
+  ]
 }

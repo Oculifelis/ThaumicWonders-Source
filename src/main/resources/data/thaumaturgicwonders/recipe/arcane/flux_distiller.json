@@ -24,11 +24,21 @@
     "VAV"
   ],
   "key": {
-    "V": "thaumaturge:plate_void",
-    "L": "thaumaturge:condenser_lattice",
-    "M": "thaumaturge:mechanism_complex",
-    "C": "thaumaturge:condenser",
-    "A": "thaumaturge:advanced_alchemical_construct"
+    "V": {
+      "item": "thaumaturge:plate_void"
+    },
+    "L": {
+      "item": "thaumaturge:condenser_lattice"
+    },
+    "M": {
+      "item": "thaumaturge:mechanism_complex"
+    },
+    "C": {
+      "item": "thaumaturge:condenser"
+    },
+    "A": {
+      "item": "thaumaturge:advanced_alchemical_construct"
+    }
   },
   "result": {
     "id": "thaumaturgicwonders:flux_distiller"

@@ -16,7 +16,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.SpawnEggItem;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -51,18 +51,18 @@ public final class EldritchContent {
     public static final DeferredBlock<PortalGeneratorBlock> PORTAL_GENERATOR = TWRegistry.block("portal_generator", PortalGeneratorBlock::new,
             EldritchContent::device, PortalGeneratorItem::new, p -> p.rarity(Rarity.UNCOMMON));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PortalGeneratorBlockEntity>> PORTAL_GENERATOR_BE =
-            BLOCK_ENTITIES.register("portal_generator", () -> new BlockEntityType<>(PortalGeneratorBlockEntity::new, PORTAL_GENERATOR.get()));
+            BLOCK_ENTITIES.register("portal_generator", () -> BlockEntityType.Builder.of(PortalGeneratorBlockEntity::new, PORTAL_GENERATOR.get()).build(null));
 
     // ---- entities -----------------------------------------------------------------------------------------------
-    public static final DeferredHolder<EntityType<?>, EntityType<VoidPortal>> VOID_PORTAL = ENTITIES.registerEntityType("void_portal",
-            VoidPortal::new, MobCategory.MISC, b -> b.sized(1.5F, 3.0F).fireImmune().noLootTable().clientTrackingRange(4).updateInterval(20));
-    public static final DeferredHolder<EntityType<?>, EntityType<CorruptionAvatar>> CORRUPTION_AVATAR = ENTITIES.registerEntityType(
+    public static final DeferredHolder<EntityType<?>, EntityType<VoidPortal>> VOID_PORTAL = TWRegistry.entity("void_portal",
+            VoidPortal::new, MobCategory.MISC, b -> b.sized(1.5F, 3.0F).fireImmune().clientTrackingRange(4).updateInterval(20));
+    public static final DeferredHolder<EntityType<?>, EntityType<CorruptionAvatar>> CORRUPTION_AVATAR = TWRegistry.entity(
             "corruption_avatar", CorruptionAvatar::new, MobCategory.MONSTER, b -> b.sized(0.75F, 2.25F).eyeHeight(2.0F).clientTrackingRange(4));
-    public static final DeferredHolder<EntityType<?>, EntityType<FluxFireball>> FLUX_FIREBALL = ENTITIES.registerEntityType("flux_fireball",
-            FluxFireball::new, MobCategory.MISC, b -> b.sized(1.0F, 1.0F).noLootTable().clientTrackingRange(4).updateInterval(1));
+    public static final DeferredHolder<EntityType<?>, EntityType<FluxFireball>> FLUX_FIREBALL = TWRegistry.entity("flux_fireball",
+            FluxFireball::new, MobCategory.MISC, b -> b.sized(1.0F, 1.0F).clientTrackingRange(4).updateInterval(1));
 
-    public static final DeferredItem<SpawnEggItem> CORRUPTION_AVATAR_SPAWN_EGG = TWRegistry.item("corruption_avatar_spawn_egg",
-            SpawnEggItem::new, p -> p.spawnEgg(CORRUPTION_AVATAR.get()));
+    public static final DeferredItem<DeferredSpawnEggItem> CORRUPTION_AVATAR_SPAWN_EGG = TWRegistry.item("corruption_avatar_spawn_egg",
+            p -> new DeferredSpawnEggItem(CORRUPTION_AVATAR, 0xFFFFFF, 0xFFFFFF, p), p -> p);
 
     public static void init(IEventBus modBus) {
         modBus.addListener(EldritchContent::attributes);
@@ -77,7 +77,7 @@ public final class EldritchContent {
         Component message = Component.translatable(key).withStyle(ChatFormatting.DARK_PURPLE);
         for (ServerPlayer player : level.players()) {
             if (player.distanceToSqr(pos.getCenter()) <= range * range) {
-                player.sendOverlayMessage(message);
+                player.displayClientMessage(message, true);
             }
         }
     }

@@ -14,9 +14,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
-import org.jspecify.annotations.Nullable;
+import com.thaumicwonders.util.ValueInput;
+import com.thaumicwonders.util.ValueOutput;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The Ore Diviner's search item (synced to every client for the renderer and the activity sparkles) and, on the
@@ -90,11 +90,11 @@ public class OreDivinerBlockEntity extends DeviceBlockEntity {
             found = searchShell(level, origin, wanted, r);
         }
         if (found == null) {
-            player.sendOverlayMessage(Component.translatable("event.ore_diviner.not_found").withStyle(ChatFormatting.DARK_PURPLE));
+            player.displayClientMessage(Component.translatable("event.ore_diviner.not_found").withStyle(ChatFormatting.DARK_PURPLE), true);
         } else {
             BlockPos d = found.subtract(origin);
-            Direction dir = Direction.getApproximateNearest(d.getX(), d.getY(), d.getZ());
-            player.sendOverlayMessage(Component.translatable("event.ore_diviner.found." + dir.getName()).withStyle(ChatFormatting.DARK_PURPLE));
+            Direction dir = Direction.getNearest(d.getX(), d.getY(), d.getZ());
+            player.displayClientMessage(Component.translatable("event.ore_diviner.found." + dir.getName()).withStyle(ChatFormatting.DARK_PURPLE), true);
         }
         diviner.setTarget(found);
     }
@@ -116,16 +116,18 @@ public class OreDivinerBlockEntity extends DeviceBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(ValueOutput out) {
-        super.saveAdditional(out);
+    protected void saveAdditional(net.minecraft.nbt.CompoundTag outTag, net.minecraft.core.HolderLookup.Provider outReg) {
+        ValueOutput out = new ValueOutput(outTag, outReg);
+        super.saveAdditional(out.tag(), out.registries());
         if (!searchStack.isEmpty()) {
             out.store("searchStack", ItemStack.CODEC, searchStack);
         }
     }
 
     @Override
-    protected void loadAdditional(ValueInput in) {
-        super.loadAdditional(in);
+    protected void loadAdditional(net.minecraft.nbt.CompoundTag inTag, net.minecraft.core.HolderLookup.Provider inReg) {
+        ValueInput in = new ValueInput(inTag, inReg);
+        super.loadAdditional(in.tag(), in.registries());
         searchStack = in.read("searchStack", ItemStack.CODEC).orElse(ItemStack.EMPTY);
     }
 }

@@ -20,9 +20,11 @@
     "AVA"
   ],
   "key": {
-    "A": "thaumaturge:alumentum",
+    "A": {
+      "item": "thaumaturge:alumentum"
+    },
     "V": {
-      "neoforge:ingredient_type": "neoforge:components",
+      "type": "neoforge:components",
       "items": "thaumaturge:essentia_crystal",
       "components": {
         "thaumaturge:crystal_aspect": {
@@ -30,7 +32,9 @@
         }
       }
     },
-    "G": "minecraft:gunpowder"
+    "G": {
+      "item": "minecraft:gunpowder"
+    }
   },
   "result": {
     "id": "thaumaturgicwonders:hexamite"

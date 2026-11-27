@@ -3,13 +3,25 @@
   "research": {
     "entry": "thaumaturgicwonders:alienist_stone"
   },
-  "catalyst": "thaumaturgicwonders:alchemist_stone",
+  "catalyst": {
+    "item": "thaumaturgicwonders:alchemist_stone"
+  },
   "components": [
-    "thaumaturge:primordial_pearl",
-    "thaumaturge:cluster_iron",
-    "thaumaturge:cluster_gold",
-    "thaumaturge:cluster_copper",
-    "thaumaturge:cluster_cinnabar"
+    {
+      "item": "thaumaturge:primordial_pearl"
+    },
+    {
+      "item": "thaumaturge:cluster_iron"
+    },
+    {
+      "item": "thaumaturge:cluster_gold"
+    },
+    {
+      "item": "thaumaturge:cluster_copper"
+    },
+    {
+      "item": "thaumaturge:cluster_cinnabar"
+    }
   ],
   "instability": 7,
   "aspects": [

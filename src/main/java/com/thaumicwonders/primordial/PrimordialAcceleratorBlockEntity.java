@@ -20,8 +20,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
+import com.thaumicwonders.util.ValueInput;
+import com.thaumicwonders.util.ValueOutput;
 
 /**
  * Primordial Accelerator, as the original's TilePrimordialAccelerator. While it has a redstone signal and holds a
@@ -119,9 +119,8 @@ public class PrimordialAcceleratorBlockEntity extends DeviceBlockEntity implemen
         level.addFreshEntity(item);
     }
 
-    @Override
-    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
-        super.preRemoveSideEffects(pos, state);
+    /** Called by the block when it is broken or replaced, not on chunk unload. */
+    public void onBlockRemoved(BlockPos pos, BlockState state) {
         if (level != null && !level.isClientSide() && !pearl.isEmpty()) {
             Containers.dropItemStack(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, pearl);
             pearl = ItemStack.EMPTY;
@@ -129,16 +128,18 @@ public class PrimordialAcceleratorBlockEntity extends DeviceBlockEntity implemen
     }
 
     @Override
-    protected void saveAdditional(ValueOutput out) {
-        super.saveAdditional(out);
+    protected void saveAdditional(net.minecraft.nbt.CompoundTag outTag, net.minecraft.core.HolderLookup.Provider outReg) {
+        ValueOutput out = new ValueOutput(outTag, outReg);
+        super.saveAdditional(out.tag(), out.registries());
         if (!pearl.isEmpty()) {
             out.store("Pearl", ItemStack.CODEC, pearl);
         }
     }
 
     @Override
-    protected void loadAdditional(ValueInput in) {
-        super.loadAdditional(in);
+    protected void loadAdditional(net.minecraft.nbt.CompoundTag inTag, net.minecraft.core.HolderLookup.Provider inReg) {
+        ValueInput in = new ValueInput(inTag, inReg);
+        super.loadAdditional(in.tag(), in.registries());
         pearl = in.read("Pearl", ItemStack.CODEC).orElse(ItemStack.EMPTY);
     }
 

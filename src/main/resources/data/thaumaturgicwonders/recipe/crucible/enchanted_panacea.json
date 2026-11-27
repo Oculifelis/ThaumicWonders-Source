@@ -3,7 +3,9 @@
   "research": {
     "entry": "thaumaturgicwonders:panacea"
   },
-  "catalyst": "minecraft:enchanted_golden_apple",
+  "catalyst": {
+    "item": "minecraft:enchanted_golden_apple"
+  },
   "aspects": [
     {
       "aspect": "thaumaturge:victus",

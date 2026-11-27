@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Meteorb and Meaty Orb: a horizontal-facing device whose control panel faces the placer. Using it opens its
@@ -78,7 +78,7 @@ public class OrbBlock extends BaseEntityBlock {
             if (DevicesContent.isSurfaceWorld(level)) {
                 DevicesContent.clientHooks().openOrb(kind, pos);
             } else {
-                player.sendOverlayMessage(Component.translatable(kind.offworld).withStyle(ChatFormatting.DARK_PURPLE));
+                player.displayClientMessage(Component.translatable(kind.offworld).withStyle(ChatFormatting.DARK_PURPLE), true);
             }
         }
         return InteractionResult.SUCCESS;

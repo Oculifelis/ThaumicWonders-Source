@@ -3,16 +3,34 @@
   "research": {
     "entry": "thaumaturgicwonders:void_beacon"
   },
-  "catalyst": "minecraft:beacon",
+  "catalyst": {
+    "item": "minecraft:beacon"
+  },
   "components": [
-    "thaumaturge:primordial_pearl",
-    "#c:plates/void_metal",
-    "thaumaturge:primordial_pearl",
-    "#c:plates/void_metal",
-    "thaumaturge:primordial_pearl",
-    "#c:plates/void_metal",
-    "thaumaturge:primordial_pearl",
-    "#c:plates/void_metal"
+    {
+      "item": "thaumaturge:primordial_pearl"
+    },
+    {
+      "tag": "c:plates/void_metal"
+    },
+    {
+      "item": "thaumaturge:primordial_pearl"
+    },
+    {
+      "tag": "c:plates/void_metal"
+    },
+    {
+      "item": "thaumaturge:primordial_pearl"
+    },
+    {
+      "tag": "c:plates/void_metal"
+    },
+    {
+      "item": "thaumaturge:primordial_pearl"
+    },
+    {
+      "tag": "c:plates/void_metal"
+    }
   ],
   "instability": 10,
   "aspects": [

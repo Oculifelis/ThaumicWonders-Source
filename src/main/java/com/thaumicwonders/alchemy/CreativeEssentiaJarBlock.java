@@ -20,7 +20,7 @@ public class CreativeEssentiaJarBlock extends AbstractBlockJar {
 
     /** The base jar creates and ticks this type (block entity, fill-from-above). */
     @Override
-    protected BlockEntityType<? extends AbstractBlockEntityJar> jarType() {
+    public BlockEntityType<? extends AbstractBlockEntityJar> jarType() {
         return AlchemyContent.CREATIVE_ESSENTIA_JAR_BE.get();
     }
 }

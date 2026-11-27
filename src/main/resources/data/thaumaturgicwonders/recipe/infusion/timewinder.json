@@ -3,69 +3,77 @@
   "research": {
     "entry": "thaumaturgicwonders:timewinder"
   },
-  "catalyst": "minecraft:clock",
+  "catalyst": {
+    "item": "minecraft:clock"
+  },
   "components": [
-    "minecraft:diamond",
-    "minecraft:ender_pearl",
-    "thaumaturge:quicksilver",
     {
-      "neoforge:ingredient_type": "neoforge:components",
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:ender_pearl"
+    },
+    {
+      "tag": "c:gems/quicksilver"
+    },
+    {
+      "type": "neoforge:components",
       "items": "thaumaturge:celestial_notes",
       "components": {
         "thaumaturge:celestial_body": "moon_1"
       }
     },
     {
-      "neoforge:ingredient_type": "neoforge:components",
+      "type": "neoforge:components",
       "items": "thaumaturge:celestial_notes",
       "components": {
         "thaumaturge:celestial_body": "moon_2"
       }
     },
     {
-      "neoforge:ingredient_type": "neoforge:components",
+      "type": "neoforge:components",
       "items": "thaumaturge:celestial_notes",
       "components": {
         "thaumaturge:celestial_body": "moon_3"
       }
     },
     {
-      "neoforge:ingredient_type": "neoforge:components",
+      "type": "neoforge:components",
       "items": "thaumaturge:celestial_notes",
       "components": {
         "thaumaturge:celestial_body": "moon_4"
       }
     },
     {
-      "neoforge:ingredient_type": "neoforge:components",
+      "type": "neoforge:components",
       "items": "thaumaturge:celestial_notes",
       "components": {
         "thaumaturge:celestial_body": "moon_5"
       }
     },
     {
-      "neoforge:ingredient_type": "neoforge:components",
+      "type": "neoforge:components",
       "items": "thaumaturge:celestial_notes",
       "components": {
         "thaumaturge:celestial_body": "moon_6"
       }
     },
     {
-      "neoforge:ingredient_type": "neoforge:components",
+      "type": "neoforge:components",
       "items": "thaumaturge:celestial_notes",
       "components": {
         "thaumaturge:celestial_body": "moon_7"
       }
     },
     {
-      "neoforge:ingredient_type": "neoforge:components",
+      "type": "neoforge:components",
       "items": "thaumaturge:celestial_notes",
       "components": {
         "thaumaturge:celestial_body": "moon_8"
       }
     },
     {
-      "neoforge:ingredient_type": "neoforge:components",
+      "type": "neoforge:components",
       "items": "thaumaturge:celestial_notes",
       "components": {
         "thaumaturge:celestial_body": "sun"

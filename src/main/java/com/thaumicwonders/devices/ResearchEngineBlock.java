@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Inspiration Engine and Madness Engine. Thaumaturge has no theorycraft cards, so an engine is a research table aid:
@@ -38,7 +38,8 @@ public class ResearchEngineBlock extends BaseEntityBlock implements IResearchTab
 
     @Override
     public float aspectSaveChance(Level level, BlockPos pos, BlockState state) {
-        return level.getBlockEntity(pos) instanceof ResearchEngineBlockEntity engine && engine.isFueled() ? kind.saveChance() : 0.0F;
+        return level.getBlockEntity(pos) instanceof ResearchEngineBlockEntity engine && engine.isFueled()
+                ? com.thaumicwonders.data.EssentiaTanks.Profile.of(state).saveChance() : 0.0F;
     }
 
     @Override

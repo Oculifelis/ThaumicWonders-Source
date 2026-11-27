@@ -9,7 +9,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -34,7 +33,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The centre of the Catalyzation Chamber or the Primordial Accretion Chamber (made by the dust trigger from a
@@ -94,7 +93,7 @@ public class ChamberBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected VoxelShape getOcclusionShape(BlockState state) {
+    protected VoxelShape getOcclusionShape(BlockState state, net.minecraft.world.level.BlockGetter level, BlockPos pos) {
         return Shapes.empty();
     }
 
@@ -104,8 +103,8 @@ public class ChamberBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effects, boolean precise) {
-        super.entityInside(state, level, pos, entity, effects, precise);
+    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+        super.entityInside(state, level, pos, entity);
         double dx = nudge(entity.getX() - pos.getX());
         double dz = nudge(entity.getZ() - pos.getZ());
         if (dx != 0.0 || dz != 0.0) {
@@ -172,8 +171,16 @@ public class ChamberBlock extends BaseEntityBlock {
                 level.setBlock(opening, Block.updateFromNeighbourShapes(Blocks.IRON_BARS.defaultBlockState(), level, opening), Block.UPDATE_ALL);
             }
         }
-        Block quicksilver = BuiltInRegistries.BLOCK.getValue(com.thaumicwonders.ThaumicWonders.id("fluid_quicksilver"));
+        Block quicksilver = BuiltInRegistries.BLOCK.get(com.thaumicwonders.ThaumicWonders.id("fluid_quicksilver"));
         level.setBlock(chamberPos, (quicksilver == Blocks.AIR ? Blocks.WATER : quicksilver).defaultBlockState(), Block.UPDATE_ALL);
+    }
+
+    @Override
+    protected void onRemove(BlockState state, net.minecraft.world.level.Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        if (!state.is(newState.getBlock()) && level.getBlockEntity(pos) instanceof ChamberBlockEntity be) {
+            be.onBlockRemoved(pos, state);
+        }
+        super.onRemove(state, level, pos, newState, movedByPiston);
     }
 
     @Override

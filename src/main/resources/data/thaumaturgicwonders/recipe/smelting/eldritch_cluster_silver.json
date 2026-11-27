@@ -1,6 +1,8 @@
 {
   "type": "thaumaturgicwonders:tag_smelting",
-  "ingredient": "thaumaturgicwonders:eldritch_cluster_silver",
+  "ingredient": {
+    "item": "thaumaturgicwonders:eldritch_cluster_silver"
+  },
   "result_tag": "c:ingots/silver",
   "count": 3,
   "experience": 1.0,

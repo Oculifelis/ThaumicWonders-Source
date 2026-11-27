@@ -3,14 +3,28 @@
   "research": {
     "entry": "thaumaturgicwonders:madness_engine"
   },
-  "catalyst": "thaumaturgicwonders:inspiration_engine",
+  "catalyst": {
+    "item": "thaumaturgicwonders:inspiration_engine"
+  },
   "components": [
-    "#c:plates/void_metal",
-    "#c:plates/void_metal",
-    "#c:plates/thaumium",
-    "#c:plates/thaumium",
-    "thaumaturge:mind_biothaumic",
-    "minecraft:ender_pearl"
+    {
+      "tag": "c:plates/void_metal"
+    },
+    {
+      "tag": "c:plates/void_metal"
+    },
+    {
+      "tag": "c:plates/thaumium"
+    },
+    {
+      "tag": "c:plates/thaumium"
+    },
+    {
+      "item": "thaumaturge:mind_biothaumic"
+    },
+    {
+      "item": "minecraft:ender_pearl"
+    }
   ],
   "instability": 6,
   "aspects": [

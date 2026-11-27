@@ -1,7 +1,11 @@
 {
   "type": "thaumaturgicwonders:catalyzation",
-  "stone": "thaumaturgicwonders:alchemist_stone",
-  "input": "#c:ores/cinnabar",
+  "stone": {
+    "item": "thaumaturgicwonders:alchemist_stone"
+  },
+  "input": {
+    "tag": "c:ores/cinnabar"
+  },
   "result": {
     "id": "thaumaturge:cluster_cinnabar"
   }

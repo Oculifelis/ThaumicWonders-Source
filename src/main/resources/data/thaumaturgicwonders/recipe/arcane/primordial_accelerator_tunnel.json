@@ -20,9 +20,15 @@
     "VEV"
   ],
   "key": {
-    "V": "#c:plates/void_metal",
-    "E": "thaumaturge:rare_earth",
-    "T": "thaumaturge:tube"
+    "V": {
+      "tag": "c:plates/void_metal"
+    },
+    "E": {
+      "item": "thaumaturge:rare_earth"
+    },
+    "T": {
+      "item": "thaumaturge:tube"
+    }
   },
   "result": {
     "id": "thaumaturgicwonders:primordial_accelerator_tunnel"

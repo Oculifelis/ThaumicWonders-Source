@@ -1,5 +1,7 @@
 package com.thaumicwonders.primordial;
 
+import com.thaumicwonders.data.DeviceRules;
+import com.thaumicwonders.data.DeviceRules.Catalyst;
 import com.leclowndu93150.thaumaturge.api.aura.AuraHelper;
 import com.leclowndu93150.thaumaturge.content.effect.Effects;
 import com.leclowndu93150.thaumaturge.content.essentia.BellowsHelper;
@@ -17,10 +19,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
+import com.thaumicwonders.util.ValueInput;
+import com.thaumicwonders.util.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Catalyzation Chamber, as the original's TileCatalyzationChamber. Items that the equipped catalyst stone can refine
@@ -38,7 +40,7 @@ public class CatalyzationChamberBlockEntity extends ChamberBlockEntity implement
     final Container socket = new SocketContainer(() -> equippedStone, s -> {
         equippedStone = s;
         sync();
-    }, s -> s.getItem() instanceof CatalystStoneItem, this);
+    }, PrimordialContent::isCatalystStone, this);
 
     public CatalyzationChamberBlockEntity(BlockPos pos, BlockState state) {
         super(PrimordialContent.CATALYZATION_CHAMBER_BE.get(), pos, state);
@@ -48,8 +50,8 @@ public class CatalyzationChamberBlockEntity extends ChamberBlockEntity implement
         return equippedStone;
     }
 
-    private @Nullable CatalystStoneItem stone() {
-        return equippedStone.getItem() instanceof CatalystStoneItem s ? s : null;
+    private @Nullable Catalyst stone() {
+        return equippedStone.isEmpty() ? null : equippedStone.getItemHolder().getData(DeviceRules.CATALYST);
     }
 
     @Override
@@ -81,7 +83,7 @@ public class CatalyzationChamberBlockEntity extends ChamberBlockEntity implement
                 if (stack.isEmpty()) {
                     continue;
                 }
-                CatalystStoneItem stone = stone();
+                Catalyst stone = stone();
                 ItemStack result = stone == null ? ItemStack.EMPTY : CatalyzationRecipe.refine(server, equippedStone, stack);
                 if (result.isEmpty()) {
                     // As the original: with no stone (or a rejected item) the whole stack comes out unchanged.
@@ -136,11 +138,11 @@ public class CatalyzationChamberBlockEntity extends ChamberBlockEntity implement
     }
 
     /** Five sparkles in the stone's colour from the chamber out through the opening, and the lava pop. */
-    private void playEffects(ServerLevel server, @Nullable CatalystStoneItem stone) {
+    private void playEffects(ServerLevel server, @Nullable Catalyst stone) {
         if (stone != null) {
             Vec3 from = Vec3.atCenterOf(worldPosition);
             Vec3 to = Vec3.atCenterOf(worldPosition.relative(outputSide(), 2));
-            int color = stone.sparkleColor(server);
+            int color = stone.sparkle().value().color();
             for (int i = 0; i < 5; i++) {
                 Effects.spawn(server, new VisSparkleParticleOptions(to.x, to.y, to.z, color), from.x, from.y, from.z);
             }
@@ -158,16 +160,18 @@ public class CatalyzationChamberBlockEntity extends ChamberBlockEntity implement
     }
 
     @Override
-    protected void saveAdditional(ValueOutput out) {
-        super.saveAdditional(out);
+    protected void saveAdditional(net.minecraft.nbt.CompoundTag outTag, net.minecraft.core.HolderLookup.Provider outReg) {
+        ValueOutput out = new ValueOutput(outTag, outReg);
+        super.saveAdditional(out.tag(), out.registries());
         if (!equippedStone.isEmpty()) {
             out.store("EquippedStone", ItemStack.CODEC, equippedStone);
         }
     }
 
     @Override
-    protected void loadAdditional(ValueInput in) {
-        super.loadAdditional(in);
+    protected void loadAdditional(net.minecraft.nbt.CompoundTag inTag, net.minecraft.core.HolderLookup.Provider inReg) {
+        ValueInput in = new ValueInput(inTag, inReg);
+        super.loadAdditional(in.tag(), in.registries());
         equippedStone = in.read("EquippedStone", ItemStack.CODEC).orElse(ItemStack.EMPTY);
     }
 

@@ -3,14 +3,24 @@
   "research": {
     "entry": "thaumaturgicwonders:primal_destroyer"
   },
-  "catalyst": "thaumaturge:void_sword",
+  "catalyst": {
+    "item": "thaumaturge:void_sword"
+  },
   "components": [
-    "thaumaturge:primordial_pearl",
-    "minecraft:nether_star",
-    "#c:plates/void_metal",
-    "#c:plates/void_metal",
     {
-      "neoforge:ingredient_type": "neoforge:components",
+      "item": "thaumaturge:primordial_pearl"
+    },
+    {
+      "item": "minecraft:nether_star"
+    },
+    {
+      "tag": "c:plates/void_metal"
+    },
+    {
+      "tag": "c:plates/void_metal"
+    },
+    {
+      "type": "neoforge:components",
       "items": "thaumaturge:essentia_crystal",
       "components": {
         "thaumaturge:crystal_aspect": {
@@ -19,7 +29,7 @@
       }
     },
     {
-      "neoforge:ingredient_type": "neoforge:components",
+      "type": "neoforge:components",
       "items": "thaumaturge:essentia_crystal",
       "components": {
         "thaumaturge:crystal_aspect": {

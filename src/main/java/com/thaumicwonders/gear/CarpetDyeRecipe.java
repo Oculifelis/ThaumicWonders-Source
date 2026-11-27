@@ -9,7 +9,7 @@ import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * thaumaturgicwonders:flying_carpet_dyes. Exactly one Flying Carpet and exactly one dye, nothing else: the carpet takes the
@@ -17,8 +17,29 @@ import org.jspecify.annotations.Nullable;
  */
 public class CarpetDyeRecipe extends CustomRecipe {
     public static final CarpetDyeRecipe INSTANCE = new CarpetDyeRecipe();
-    public static final RecipeSerializer<CarpetDyeRecipe> SERIALIZER = new RecipeSerializer<>(MapCodec.unit(INSTANCE),
-            StreamCodec.<RegistryFriendlyByteBuf, CarpetDyeRecipe>unit(INSTANCE));
+    public static final RecipeSerializer<CarpetDyeRecipe> SERIALIZER = new RecipeSerializer<>() {
+        private final MapCodec<CarpetDyeRecipe> codec = MapCodec.unit(INSTANCE);
+        private final StreamCodec<RegistryFriendlyByteBuf, CarpetDyeRecipe> stream = StreamCodec.unit(INSTANCE);
+
+        @Override
+        public MapCodec<CarpetDyeRecipe> codec() {
+            return this.codec;
+        }
+
+        @Override
+        public StreamCodec<RegistryFriendlyByteBuf, CarpetDyeRecipe> streamCodec() {
+            return this.stream;
+        }
+    };
+
+    public CarpetDyeRecipe() {
+        super(net.minecraft.world.item.crafting.CraftingBookCategory.MISC);
+    }
+
+    @Override
+    public boolean canCraftInDimensions(int width, int height) {
+        return width * height >= 2;
+    }
 
     private record Match(ItemStack carpet, DyeColor color) {
     }
@@ -51,7 +72,7 @@ public class CarpetDyeRecipe extends CustomRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingInput input) {
+    public ItemStack assemble(CraftingInput input, net.minecraft.core.HolderLookup.Provider registries) {
         Match match = match(input);
         if (match == null) {
             return ItemStack.EMPTY;

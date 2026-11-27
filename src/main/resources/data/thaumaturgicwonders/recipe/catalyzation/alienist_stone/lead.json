@@ -1,7 +1,11 @@
 {
   "type": "thaumaturgicwonders:catalyzation",
-  "stone": "thaumaturgicwonders:alienist_stone",
-  "input": "#c:ores/lead",
+  "stone": {
+    "item": "thaumaturgicwonders:alienist_stone"
+  },
+  "input": {
+    "tag": "c:ores/lead"
+  },
   "result": {
     "id": "thaumaturgicwonders:eldritch_cluster_lead"
   },

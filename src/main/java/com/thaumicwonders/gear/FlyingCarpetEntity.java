@@ -11,17 +11,16 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.InterpolationHandler;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
+import com.thaumicwonders.util.ValueInput;
+import com.thaumicwonders.util.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The laid-out Flying Carpet. The pilot steers with the carpet keys (forward and back) toward where they look; each
@@ -37,7 +36,12 @@ public class FlyingCarpetEntity extends Entity {
     private static final float BACKWARD = 0.005F;
     private static final double MOMENTUM = 0.9;
 
-    private final InterpolationHandler interpolation = new InterpolationHandler(this, 10);
+    private int lerpSteps;
+    private double lerpX;
+    private double lerpY;
+    private double lerpZ;
+    private double lerpYRot;
+    private double lerpXRot;
     private boolean forwardInputDown;
     private boolean backInputDown;
 
@@ -55,38 +59,72 @@ public class FlyingCarpetEntity extends Entity {
     }
 
     @Override
-    protected void readAdditionalSaveData(ValueInput input) {
+    public void readAdditionalSaveData(net.minecraft.nbt.CompoundTag inputTag) {
+        ValueInput input = new ValueInput(inputTag, registryAccess());
         this.setVisCharge(input.getIntOr("vis", 0));
         this.setEnergy(input.getIntOr("energy", 0));
         this.entityData.set(DYE_COLOR, input.getIntOr("color", -1));
     }
 
     @Override
-    protected void addAdditionalSaveData(ValueOutput output) {
+    public void addAdditionalSaveData(net.minecraft.nbt.CompoundTag outputTag) {
+        ValueOutput output = new ValueOutput(outputTag, registryAccess());
         output.putInt("vis", this.getVisCharge());
         output.putInt("energy", this.getEnergy());
         output.putInt("color", this.entityData.get(DYE_COLOR));
     }
 
     @Override
-    public InterpolationHandler getInterpolation() {
-        return this.interpolation;
+    public void lerpTo(double x, double y, double z, float yRot, float xRot, int steps) {
+        this.lerpX = x;
+        this.lerpY = y;
+        this.lerpZ = z;
+        this.lerpYRot = yRot;
+        this.lerpXRot = xRot;
+        this.lerpSteps = 10;
+    }
+
+    @Override
+    public double lerpTargetX() {
+        return this.lerpSteps > 0 ? this.lerpX : this.getX();
+    }
+
+    @Override
+    public double lerpTargetY() {
+        return this.lerpSteps > 0 ? this.lerpY : this.getY();
+    }
+
+    @Override
+    public double lerpTargetZ() {
+        return this.lerpSteps > 0 ? this.lerpZ : this.getZ();
+    }
+
+    @Override
+    public float lerpTargetXRot() {
+        return this.lerpSteps > 0 ? (float) this.lerpXRot : this.getXRot();
+    }
+
+    @Override
+    public float lerpTargetYRot() {
+        return this.lerpSteps > 0 ? (float) this.lerpYRot : this.getYRot();
     }
 
     @Override
     public void tick() {
         super.tick();
-        if (this.isLocalInstanceAuthoritative()) {
-            this.interpolation.cancel();
-        } else if (this.interpolation.hasActiveInterpolation()) {
-            this.interpolation.interpolate();
+        if (this.isControlledByLocalInstance()) {
+            this.lerpSteps = 0;
+            this.syncPacketPositionCodec(this.getX(), this.getY(), this.getZ());
+        } else if (this.lerpSteps > 0) {
+            this.lerpPositionAndRotationStep(this.lerpSteps, this.lerpX, this.lerpY, this.lerpZ, this.lerpYRot, this.lerpXRot);
+            this.lerpSteps--;
         }
         boolean ridden = this.isVehicle();
         if (ridden && !this.level().isClientSide() && this.tickCount % 20 == 0) {
             this.consumeEnergy();
             this.setNoGravity(this.hasEnergy());
         }
-        if (ridden && this.isLocalInstanceAuthoritative()) {
+        if (ridden && this.isControlledByLocalInstance()) {
             Vec3 motion = this.getDeltaMovement().scale(MOMENTUM);
             if (!this.isNoGravity()) {
                 motion = motion.add(0.0, -0.04, 0.0);
@@ -103,7 +141,7 @@ public class FlyingCarpetEntity extends Entity {
             }
         }
         this.resetFallDistance();
-        this.applyEffectsFromBlocks();
+        this.checkInsideBlocks();
     }
 
     private void consumeEnergy() {
@@ -176,10 +214,10 @@ public class FlyingCarpetEntity extends Entity {
     }
 
     @Override
-    public InteractionResult interact(Player player, InteractionHand hand, Vec3 location) {
+    public InteractionResult interact(Player player, InteractionHand hand) {
         if (this.level() instanceof ServerLevel server) {
             if (player.isShiftKeyDown()) {
-                this.spawnAtLocation(server, this.toItem(), 0.0F);
+                this.spawnAtLocation(this.toItem(), 0.0F);
                 this.discard();
             } else if (!this.isVehicle()) {
                 player.startRiding(this);
@@ -206,25 +244,25 @@ public class FlyingCarpetEntity extends Entity {
     }
 
     @Override
-    public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
+    public boolean hurt(DamageSource source, float amount) {
         // The original carpet could not be broken by attacks; it is picked up by sneak-using it.
         return false;
     }
 
     @Override
-    public boolean causeFallDamage(double distance, float multiplier, DamageSource source) {
+    public boolean causeFallDamage(float distance, float multiplier, DamageSource source) {
         // Shields the carpet and its rider from fall damage.
         return false;
     }
 
     @Override
-    public boolean canBeCollidedWith(@Nullable Entity other) {
+    public boolean canBeCollidedWith() {
         return true;
     }
 
     @Override
     public boolean canCollideWith(Entity other) {
-        return (other.canBeCollidedWith(this) || other.isPushable()) && !this.isPassengerOfSameVehicle(other);
+        return (other.canBeCollidedWith() || other.isPushable()) && !this.isPassengerOfSameVehicle(other);
     }
 
     @Override

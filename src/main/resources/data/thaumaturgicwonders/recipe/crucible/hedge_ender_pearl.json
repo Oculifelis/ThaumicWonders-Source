@@ -3,7 +3,9 @@
   "research": {
     "entry": "thaumaturgicwonders:end_hedge"
   },
-  "catalyst": "minecraft:ender_pearl",
+  "catalyst": {
+    "item": "minecraft:ender_pearl"
+  },
   "aspects": [
     {
       "aspect": "thaumaturge:motus",

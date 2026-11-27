@@ -5,6 +5,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -14,12 +15,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeBookCategories;
-import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -36,19 +33,29 @@ public final class CatalyzationRecipe implements Recipe<CatalyzationRecipe.Input
     public static final MapCodec<CatalyzationRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
             Ingredient.CODEC.fieldOf("stone").forGetter(r -> r.stone),
             Ingredient.CODEC.fieldOf("input").forGetter(r -> r.input),
-            ItemStackTemplate.CODEC.optionalFieldOf("result").forGetter(r -> r.result),
+            ItemStack.CODEC.optionalFieldOf("result").forGetter(r -> r.result),
             TagKey.codec(Registries.ITEM).optionalFieldOf("result_tag").forGetter(r -> r.resultTag),
             Codec.intRange(1, 64).optionalFieldOf("count", 1).forGetter(r -> r.count)).apply(i, CatalyzationRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, CatalyzationRecipe> STREAM_CODEC = StreamCodec.composite(
             Ingredient.CONTENTS_STREAM_CODEC, r -> r.stone,
             Ingredient.CONTENTS_STREAM_CODEC, r -> r.input,
-            ByteBufCodecs.optional(ItemStackTemplate.STREAM_CODEC), r -> r.result,
-            ByteBufCodecs.optional(net.minecraft.resources.Identifier.STREAM_CODEC.map(id -> TagKey.create(Registries.ITEM, id), TagKey::location)), r -> r.resultTag,
+            ByteBufCodecs.optional(ItemStack.STREAM_CODEC), r -> r.result,
+            ByteBufCodecs.optional(net.minecraft.resources.ResourceLocation.STREAM_CODEC.map(id -> TagKey.create(Registries.ITEM, id), TagKey::location)), r -> r.resultTag,
             ByteBufCodecs.VAR_INT, r -> r.count,
             CatalyzationRecipe::new);
 
-    public static final RecipeSerializer<CatalyzationRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
+    public static final RecipeSerializer<CatalyzationRecipe> SERIALIZER = new RecipeSerializer<>() {
+        @Override
+        public MapCodec<CatalyzationRecipe> codec() {
+            return MAP_CODEC;
+        }
+
+        @Override
+        public StreamCodec<RegistryFriendlyByteBuf, CatalyzationRecipe> streamCodec() {
+            return STREAM_CODEC;
+        }
+    };
 
     /** The stone and the item to refine. */
     public record Input(ItemStack stone, ItemStack item) implements RecipeInput {
@@ -65,11 +72,11 @@ public final class CatalyzationRecipe implements Recipe<CatalyzationRecipe.Input
 
     private final Ingredient stone;
     private final Ingredient input;
-    private final Optional<ItemStackTemplate> result;
+    private final Optional<ItemStack> result;
     private final Optional<TagKey<Item>> resultTag;
     private final int count;
 
-    public CatalyzationRecipe(Ingredient stone, Ingredient input, Optional<ItemStackTemplate> result, Optional<TagKey<Item>> resultTag, int count) {
+    public CatalyzationRecipe(Ingredient stone, Ingredient input, Optional<ItemStack> result, Optional<TagKey<Item>> resultTag, int count) {
         this.stone = stone;
         this.input = input;
         this.result = result;
@@ -88,7 +95,7 @@ public final class CatalyzationRecipe implements Recipe<CatalyzationRecipe.Input
     /** The output for this recipe, empty when its tag has no items. */
     public ItemStack output() {
         if (result.isPresent()) {
-            return result.get().create();
+            return result.get().copy();
         }
         if (resultTag.isPresent()) {
             for (Holder<Item> item : BuiltInRegistries.ITEM.getTagOrEmpty(resultTag.get())) {
@@ -103,7 +110,7 @@ public final class CatalyzationRecipe implements Recipe<CatalyzationRecipe.Input
         if (stone.isEmpty() || item.isEmpty()) {
             return ItemStack.EMPTY;
         }
-        return level.recipeAccess().getRecipeFor(PrimordialContent.CATALYZATION_TYPE.get(), new Input(stone, item.copyWithCount(1)), level)
+        return level.getRecipeManager().getRecipeFor(PrimordialContent.CATALYZATION_TYPE.get(), new Input(stone, item.copyWithCount(1)), level)
                 .map(h -> h.value().output()).orElse(ItemStack.EMPTY);
     }
 
@@ -113,7 +120,7 @@ public final class CatalyzationRecipe implements Recipe<CatalyzationRecipe.Input
     }
 
     @Override
-    public ItemStack assemble(Input in) {
+    public ItemStack assemble(Input in, HolderLookup.Provider registries) {
         return output();
     }
 
@@ -128,8 +135,13 @@ public final class CatalyzationRecipe implements Recipe<CatalyzationRecipe.Input
     }
 
     @Override
-    public String group() {
-        return "";
+    public boolean canCraftInDimensions(int width, int height) {
+        return true;
+    }
+
+    @Override
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
+        return output();
     }
 
     @Override
@@ -142,13 +154,4 @@ public final class CatalyzationRecipe implements Recipe<CatalyzationRecipe.Input
         return PrimordialContent.CATALYZATION_TYPE.get();
     }
 
-    @Override
-    public PlacementInfo placementInfo() {
-        return PlacementInfo.NOT_PLACEABLE;
-    }
-
-    @Override
-    public RecipeBookCategory recipeBookCategory() {
-        return RecipeBookCategories.CRAFTING_MISC;
-    }
 }

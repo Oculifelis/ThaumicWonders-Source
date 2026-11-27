@@ -20,11 +20,21 @@
     "VMV"
   ],
   "key": {
-    "B": "#c:plates/brass",
-    "P": "thaumaturge:primordial_pearl",
-    "V": "#c:plates/void_metal",
-    "A": "thaumaturge:arcane_bore",
-    "M": "thaumaturge:mechanism_complex"
+    "B": {
+      "tag": "c:plates/brass"
+    },
+    "P": {
+      "item": "thaumaturge:primordial_pearl"
+    },
+    "V": {
+      "tag": "c:plates/void_metal"
+    },
+    "A": {
+      "item": "thaumaturge:arcane_bore"
+    },
+    "M": {
+      "item": "thaumaturge:mechanism_complex"
+    }
   },
   "result": {
     "id": "thaumaturgicwonders:dimensional_ripper"

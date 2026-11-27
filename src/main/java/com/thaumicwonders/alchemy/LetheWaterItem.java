@@ -1,5 +1,6 @@
 package com.thaumicwonders.alchemy;
 
+import net.minecraft.world.InteractionResultHolder;
 import com.leclowndu93150.thaumaturge.api.capability.IPlayerKnowledge;
 import com.leclowndu93150.thaumaturge.api.capability.KnowledgeAccess;
 import com.leclowndu93150.thaumaturge.api.capability.KnowledgeType;
@@ -18,7 +19,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUseAnimation;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
@@ -34,9 +35,9 @@ public class LetheWaterItem extends Item {
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         player.startUsingItem(hand);
-        return InteractionResult.CONSUME;
+        return InteractionResultHolder.consume(player.getItemInHand(hand));
     }
 
     @Override
@@ -45,8 +46,8 @@ public class LetheWaterItem extends Item {
     }
 
     @Override
-    public ItemUseAnimation getUseAnimation(ItemStack stack) {
-        return ItemUseAnimation.DRINK;
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return UseAnim.DRINK;
     }
 
     @Override
@@ -58,16 +59,16 @@ public class LetheWaterItem extends Item {
             IPlayerKnowledge knowledge = KnowledgeAccess.of(sp);
             ResourceKey<IResearchCategory> category = pick(sp, knowledge);
             if (category == null) {
-                sp.sendOverlayMessage(Component.translatable("event.lethe_water.not_found").withStyle(ChatFormatting.DARK_PURPLE));
+                sp.displayClientMessage(Component.translatable("event.lethe_water.not_found").withStyle(ChatFormatting.DARK_PURPLE), true);
             } else if (knowledge.addKnowledge(KnowledgeType.THEORY, category, -KnowledgeType.THEORY.progression())) {
                 knowledge.sync(sp);
                 sp.giveExperiencePoints(25);
-                sp.sendOverlayMessage(Component.translatable("event.lethe_water.forgot").withStyle(ChatFormatting.DARK_PURPLE));
+                sp.displayClientMessage(Component.translatable("event.lethe_water.forgot").withStyle(ChatFormatting.DARK_PURPLE), true);
             }
             if (level.getRandom().nextBoolean()) {
                 level.playSound(null, sp.getX(), sp.getY(), sp.getZ(), SoundEvents.PLAYER_BURP, SoundSource.PLAYERS, 1.0F, 1.0F);
             }
-            sp.getCooldowns().addCooldown(stack, 20);
+            sp.getCooldowns().addCooldown(stack.getItem(), 20);
         }
         if (player.getAbilities().instabuild) {
             return stack;

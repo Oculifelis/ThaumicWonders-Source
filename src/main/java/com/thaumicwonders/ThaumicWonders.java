@@ -6,7 +6,7 @@ import com.thaumicwonders.devices.DevicesContent;
 import com.thaumicwonders.eldritch.EldritchContent;
 import com.thaumicwonders.gear.GearContent;
 import com.thaumicwonders.primordial.PrimordialContent;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -30,13 +30,14 @@ public final class ThaumicWonders {
         PrimordialContent.init(modBus);
         GearContent.init(modBus);
         EldritchContent.init(modBus);
+        modBus.addListener(com.thaumicwonders.data.DeviceRules::register);
         TWRegistry.register(modBus);
         if (dist == Dist.CLIENT) {
             com.thaumicwonders.client.TWClient.init(modBus);
         }
     }
 
-    public static Identifier id(String path) {
-        return Identifier.fromNamespaceAndPath(MODID, path);
+    public static ResourceLocation id(String path) {
+        return ResourceLocation.fromNamespaceAndPath(MODID, path);
     }
 }

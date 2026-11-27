@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -28,8 +27,8 @@ public abstract class QuicksilverFluid extends BaseFlowingFluid {
                 .levelDecreasePerBlock(2).slopeFindDistance(2).tickRate(1560 / 200).explosionResistance(100.0F);
     }
 
-    @Override
-    protected void entityInside(Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effects) {
+    /** Called by the quicksilver block for anything inside it. */
+    static void poison(Level level, Entity entity) {
         if (!level.isClientSide() && entity instanceof LivingEntity living) {
             living.addEffect(new MobEffectInstance(MobEffects.POISON, 100));
         }

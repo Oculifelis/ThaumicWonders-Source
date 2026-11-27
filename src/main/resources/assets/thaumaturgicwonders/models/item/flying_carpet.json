@@ -2,5 +2,97 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "thaumaturgicwonders:item/flying_carpet_red"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "thaumaturgicwonders:dye": 0.0
+      },
+      "model": "thaumaturgicwonders:item/flying_carpet_white"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:dye": 0.0625
+      },
+      "model": "thaumaturgicwonders:item/flying_carpet_orange"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:dye": 0.125
+      },
+      "model": "thaumaturgicwonders:item/flying_carpet_magenta"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:dye": 0.1875
+      },
+      "model": "thaumaturgicwonders:item/flying_carpet_light_blue"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:dye": 0.25
+      },
+      "model": "thaumaturgicwonders:item/flying_carpet_yellow"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:dye": 0.3125
+      },
+      "model": "thaumaturgicwonders:item/flying_carpet_lime"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:dye": 0.375
+      },
+      "model": "thaumaturgicwonders:item/flying_carpet_pink"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:dye": 0.4375
+      },
+      "model": "thaumaturgicwonders:item/flying_carpet_gray"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:dye": 0.5
+      },
+      "model": "thaumaturgicwonders:item/flying_carpet_silver"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:dye": 0.5625
+      },
+      "model": "thaumaturgicwonders:item/flying_carpet_cyan"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:dye": 0.625
+      },
+      "model": "thaumaturgicwonders:item/flying_carpet_purple"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:dye": 0.6875
+      },
+      "model": "thaumaturgicwonders:item/flying_carpet_blue"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:dye": 0.75
+      },
+      "model": "thaumaturgicwonders:item/flying_carpet_brown"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:dye": 0.8125
+      },
+      "model": "thaumaturgicwonders:item/flying_carpet_green"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:dye": 0.9375
+      },
+      "model": "thaumaturgicwonders:item/flying_carpet_black"
+    }
+  ]
 }

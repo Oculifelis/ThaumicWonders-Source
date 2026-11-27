@@ -25,9 +25,15 @@
     "VPV"
   ],
   "key": {
-    "V": "#c:plates/void_metal",
-    "P": "#c:ender_pearls",
-    "R": "thaumaturge:morphic_resonator"
+    "V": {
+      "tag": "c:plates/void_metal"
+    },
+    "P": {
+      "tag": "c:ender_pearls"
+    },
+    "R": {
+      "item": "thaumaturge:morphic_resonator"
+    }
   },
   "result": {
     "id": "thaumaturgicwonders:portal_anchor"

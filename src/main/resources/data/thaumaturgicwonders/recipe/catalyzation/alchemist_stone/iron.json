@@ -1,7 +1,11 @@
 {
   "type": "thaumaturgicwonders:catalyzation",
-  "stone": "thaumaturgicwonders:alchemist_stone",
-  "input": "#c:ores/iron",
+  "stone": {
+    "item": "thaumaturgicwonders:alchemist_stone"
+  },
+  "input": {
+    "tag": "c:ores/iron"
+  },
   "result": {
     "id": "thaumaturge:cluster_iron"
   }

@@ -4,7 +4,7 @@ import com.thaumicwonders.gear.GearContent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import net.minecraft.client.model.AnimationUtils;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -12,18 +12,13 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.client.renderer.entity.state.ArmorStandRenderState;
-import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
-import net.minecraft.client.renderer.entity.state.ZombieRenderState;
-import net.minecraft.core.Rotations;
-import net.minecraft.world.item.ItemStack;
 
 /**
  * The Void Fortress armour (ModelVoidFortressArmor's geometry on a 128x64 texture). One layer per piece: the helm's
  * horned helmet on the head, the chest's plates on body and arms, the legs' belt and leg panels. Ornaments appear as
  * the set fills up: some at two pieces, more at three. The head is drawn 1.01x so hats do not poke through.
  */
-public class VoidFortressArmorModel extends HumanoidModel<HumanoidRenderState> {
+public class VoidFortressArmorModel extends HumanoidModel<LivingEntity> {
     public enum Piece { HEAD, CHEST, LEGS }
 
     private record Part(Piece piece, String parent, String name, int u, int v, boolean mirror, float x, float y, float z,
@@ -142,8 +137,9 @@ public class VoidFortressArmorModel extends HumanoidModel<HumanoidRenderState> {
     public static LayerDefinition create(Piece piece) {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
-        PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
-        head.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
+        root.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
+        // 1.21.1's HumanoidModel looks the hat up on the root, not under the head.
+        root.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
         root.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.ZERO);
         root.addOrReplaceChild("right_arm", CubeListBuilder.create(), PartPose.offset(-5.0F, 2.0F, 0.0F));
         root.addOrReplaceChild("left_arm", CubeListBuilder.create(), PartPose.offset(5.0F, 2.0F, 0.0F));
@@ -164,39 +160,11 @@ public class VoidFortressArmorModel extends HumanoidModel<HumanoidRenderState> {
         return LayerDefinition.create(mesh, 128, 64);
     }
 
-    private static int setCount(HumanoidRenderState state) {
-        int n = 0;
-        for (ItemStack stack : new ItemStack[] {state.headEquipment, state.chestEquipment, state.legsEquipment}) {
-            if (stack != null && GearContent.isVoidFortress(stack)) {
-                n++;
-            }
-        }
-        return n;
-    }
-
-    @Override
-    public void setupAnim(HumanoidRenderState state) {
-        super.setupAnim(state);
-        if (state instanceof ZombieRenderState zombie) {
-            AnimationUtils.animateZombieArms(this.leftArm, this.rightArm, zombie.isAggressive, zombie);
-        }
-        if (state instanceof ArmorStandRenderState stand) {
-            pose(this.head, stand.headPose);
-            pose(this.body, stand.bodyPose);
-            pose(this.leftArm, stand.leftArmPose);
-            pose(this.rightArm, stand.rightArmPose);
-            pose(this.leftLeg, stand.leftLegPose);
-            pose(this.rightLeg, stand.rightLegPose);
-        }
-        int set = setCount(state);
+    /** Shows the ornaments for the wearer's set size and sizes the helm so hats do not poke through. */
+    public void prepare(LivingEntity wearer) {
+        int set = GearContent.setCount(wearer);
         this.needTwo.forEach(p -> p.visible = set >= 2);
         this.needThree.forEach(p -> p.visible = set >= 3);
         this.head.xScale = this.head.yScale = this.head.zScale = 1.01F;
-    }
-
-    private static void pose(ModelPart part, Rotations rotations) {
-        part.xRot = (float) Math.toRadians(rotations.x());
-        part.yRot = (float) Math.toRadians(rotations.y());
-        part.zRot = (float) Math.toRadians(rotations.z());
     }
 }

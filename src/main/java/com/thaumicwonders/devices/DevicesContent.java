@@ -57,17 +57,17 @@ public final class DevicesContent {
             p -> p.stacksTo(1).rarity(Rarity.UNCOMMON));
 
     public static final Supplier<BlockEntityType<DimensionalRipperBlockEntity>> DIMENSIONAL_RIPPER_BE = TWRegistry.BLOCK_ENTITIES.register(
-            "dimensional_ripper", () -> new BlockEntityType<>(DimensionalRipperBlockEntity::new, DIMENSIONAL_RIPPER.get()));
+            "dimensional_ripper", () -> BlockEntityType.Builder.of(DimensionalRipperBlockEntity::new, DIMENSIONAL_RIPPER.get()).build(null));
     public static final Supplier<BlockEntityType<ResearchEngineBlockEntity>> RESEARCH_ENGINE_BE = TWRegistry.BLOCK_ENTITIES.register(
-            "research_engine", () -> new BlockEntityType<>(ResearchEngineBlockEntity::new, INSPIRATION_ENGINE.get(), MADNESS_ENGINE.get()));
+            "research_engine", () -> BlockEntityType.Builder.of(ResearchEngineBlockEntity::new, INSPIRATION_ENGINE.get(), MADNESS_ENGINE.get()).build(null));
     public static final Supplier<BlockEntityType<MeteorbBlockEntity>> METEORB_BE = TWRegistry.BLOCK_ENTITIES.register(
-            "meteorb", () -> new BlockEntityType<>(MeteorbBlockEntity::new, METEORB.get()));
+            "meteorb", () -> BlockEntityType.Builder.of(MeteorbBlockEntity::new, METEORB.get()).build(null));
     public static final Supplier<BlockEntityType<MeatyOrbBlockEntity>> MEATY_ORB_BE = TWRegistry.BLOCK_ENTITIES.register(
-            "meaty_orb", () -> new BlockEntityType<>(MeatyOrbBlockEntity::new, MEATY_ORB.get()));
+            "meaty_orb", () -> BlockEntityType.Builder.of(MeatyOrbBlockEntity::new, MEATY_ORB.get()).build(null));
     public static final Supplier<BlockEntityType<OreDivinerBlockEntity>> ORE_DIVINER_BE = TWRegistry.BLOCK_ENTITIES.register(
-            "ore_diviner", () -> new BlockEntityType<>(OreDivinerBlockEntity::new, ORE_DIVINER.get()));
+            "ore_diviner", () -> BlockEntityType.Builder.of(OreDivinerBlockEntity::new, ORE_DIVINER.get()).build(null));
     public static final Supplier<BlockEntityType<VoidBeaconBlockEntity>> VOID_BEACON_BE = TWRegistry.BLOCK_ENTITIES.register(
-            "void_beacon", () -> new BlockEntityType<>(VoidBeaconBlockEntity::new, VOID_BEACON.get()));
+            "void_beacon", () -> BlockEntityType.Builder.of(VoidBeaconBlockEntity::new, VOID_BEACON.get()).build(null));
 
     /** Client-only actions reached from common code (screens); set by the client class. */
     public interface ClientHooks {
@@ -75,7 +75,7 @@ public final class DevicesContent {
 
         void openTimewinder();
 
-        void openStructureDiviner();
+        void openStructureDiviner(com.thaumicwonders.data.DeviceRules.Diviner targets);
     }
 
     private static ClientHooks clientHooks = new ClientHooks() {
@@ -88,7 +88,7 @@ public final class DevicesContent {
         }
 
         @Override
-        public void openStructureDiviner() {
+        public void openStructureDiviner(com.thaumicwonders.data.DeviceRules.Diviner targets) {
         }
     };
 

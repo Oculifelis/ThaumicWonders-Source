@@ -9,7 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.network.ClientPacketDistributor;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 /** Client-only parts of the devices group: renderers and the selector screens. */
 public final class DevicesClient {
@@ -25,10 +25,10 @@ public final class DevicesClient {
                     case METEORB -> new SelectorScreen(Component.translatable("block.thaumaturgicwonders.meteorb"), "meteorb",
                             List.of(new SelectorScreen.Button(2, 24, 0, 144, 120), new SelectorScreen.Button(1, 0, 0, 120, 120),
                                     new SelectorScreen.Button(0, -24, 0, 96, 120)),
-                            id -> ClientPacketDistributor.sendToServer(new DevicesNetwork.OrbAction(pos, id)));
+                            id -> PacketDistributor.sendToServer(new DevicesNetwork.OrbAction(pos, id)));
                     case MEATY_ORB -> new SelectorScreen(Component.translatable("block.thaumaturgicwonders.meaty_orb"), "meaty_orb",
                             List.of(new SelectorScreen.Button(0, 0, 0, 120, 120)),
-                            id -> ClientPacketDistributor.sendToServer(new DevicesNetwork.OrbAction(pos, id)));
+                            id -> PacketDistributor.sendToServer(new DevicesNetwork.OrbAction(pos, id)));
                 };
                 Minecraft.getInstance().setScreen(screen);
             }
@@ -36,14 +36,12 @@ public final class DevicesClient {
             @Override
             public void openTimewinder() {
                 Minecraft.getInstance().setScreen(new SelectorScreen(Component.translatable("item.thaumaturgicwonders.timewinder"), "timewinder",
-                        SelectorScreen.radial(), id -> ClientPacketDistributor.sendToServer(new DevicesNetwork.TimewinderAction(id))));
+                        SelectorScreen.radial(), id -> PacketDistributor.sendToServer(new DevicesNetwork.TimewinderAction(id))));
             }
 
             @Override
-            public void openStructureDiviner() {
-                Minecraft.getInstance().setScreen(new SelectorScreen(Component.translatable("item.thaumaturgicwonders.structure_diviner"),
-                        "structure_diviner", SelectorScreen.radial(),
-                        id -> ClientPacketDistributor.sendToServer(new DevicesNetwork.StructureDivinerAction(id))));
+            public void openStructureDiviner(com.thaumicwonders.data.DeviceRules.Diviner rule) {
+                Minecraft.getInstance().setScreen(new DivinerScreen(rule, 0));
             }
         });
     }

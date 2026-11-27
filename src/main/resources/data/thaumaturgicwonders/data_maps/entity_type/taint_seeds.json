@@ -1,0 +1,22 @@
+{
+  "values": {
+    "thaumaturgicwonders:corruption_avatar": {
+      "peaceful": {
+        "limit": 0,
+        "prime_rolls": 0
+      },
+      "easy": {
+        "limit": 1,
+        "prime_rolls": 0
+      },
+      "normal": {
+        "limit": 2,
+        "prime_rolls": 1
+      },
+      "hard": {
+        "limit": 4,
+        "prime_rolls": 2
+      }
+    }
+  }
+}

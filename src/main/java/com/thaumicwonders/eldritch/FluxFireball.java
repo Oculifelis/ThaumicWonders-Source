@@ -7,7 +7,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile;
+import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
@@ -34,7 +34,7 @@ public class FluxFireball extends AbstractHurtingProjectile {
     }
 
     @Override
-    public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
+    public boolean hurt(DamageSource source, float amount) {
         return false;
     }
 
@@ -52,11 +52,11 @@ public class FluxFireball extends AbstractHurtingProjectile {
         Entity target = hit.getEntity();
         if (getOwner() instanceof LivingEntity shooter) {
             DamageSource source = damageSources().mobAttack(shooter);
-            if (target.hurtServer(server, source, (float) shooter.getAttributeValue(Attributes.ATTACK_DAMAGE)) && target.isAlive()) {
+            if (target.hurt(source, (float) shooter.getAttributeValue(Attributes.ATTACK_DAMAGE)) && target.isAlive()) {
                 EnchantmentHelper.doPostAttackEffects(server, target, source);
             }
         } else {
-            target.hurtServer(server, damageSources().magic(), 5.0F);
+            target.hurt(damageSources().magic(), 5.0F);
         }
     }
 

@@ -1,7 +1,11 @@
 {
   "type": "thaumaturgicwonders:catalyzation",
-  "stone": "thaumaturgicwonders:transmuter_stone",
-  "input": "thaumaturge:cluster_silver",
+  "stone": {
+    "item": "thaumaturgicwonders:transmuter_stone"
+  },
+  "input": {
+    "item": "thaumaturge:cluster_silver"
+  },
   "result": {
     "id": "thaumaturge:cluster_lead"
   },

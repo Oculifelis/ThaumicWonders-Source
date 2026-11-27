@@ -3,12 +3,22 @@
   "research": {
     "entry": "thaumaturgicwonders:cleansing_charm"
   },
-  "catalyst": "minecraft:ender_pearl",
+  "catalyst": {
+    "item": "minecraft:ender_pearl"
+  },
   "components": [
-    "thaumaturge:primordial_pearl",
-    "#c:ingots/gold",
-    "#c:ingots/gold",
-    "#c:ingots/gold"
+    {
+      "item": "thaumaturge:primordial_pearl"
+    },
+    {
+      "tag": "c:ingots/gold"
+    },
+    {
+      "tag": "c:ingots/gold"
+    },
+    {
+      "tag": "c:ingots/gold"
+    }
   ],
   "instability": 8,
   "aspects": [

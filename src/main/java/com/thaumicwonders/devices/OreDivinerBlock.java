@@ -1,5 +1,6 @@
 package com.thaumicwonders.devices;
 
+import net.minecraft.world.ItemInteractionResult;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -20,7 +21,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.network.PacketDistributor;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Ore Diviner: use it with an ore (anything in a {@code c:ores/*} item tag) to search 20 blocks around it for the
@@ -53,17 +54,17 @@ public class OreDivinerBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand,
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand,
             BlockHitResult hit) {
         if (!OreMatch.isOre(stack)) {
-            return InteractionResult.TRY_WITH_EMPTY_HAND;
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
         if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer && level.getBlockEntity(pos) instanceof OreDivinerBlockEntity diviner) {
             diviner.setSearchStack(stack);
             PacketDistributor.sendToAllPlayers(new DevicesNetwork.OreDivinerStop(pos));
             PacketDistributor.sendToPlayer(serverPlayer, new DevicesNetwork.OreDivinerSearch(pos, stack.copyWithCount(1)));
         }
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
     @Override

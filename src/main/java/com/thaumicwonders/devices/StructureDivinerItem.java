@@ -1,6 +1,8 @@
 package com.thaumicwonders.devices;
 
-import java.util.List;
+import net.minecraft.world.InteractionResultHolder;
+import com.thaumicwonders.data.DeviceRules.Diviner;
+import net.minecraft.resources.ResourceLocation;
 import java.util.Optional;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -19,7 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.LodestoneTracker;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.structure.Structure;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Structure Diviner: picks one of eight structure kinds on its screen and points at the nearest one in the current
@@ -27,23 +29,16 @@ import org.jspecify.annotations.Nullable;
  * instead of the original's NBT position. Each kind is a structure tag, {@code thaumaturgicwonders:structure_diviner/<kind>}.
  */
 public class StructureDivinerItem extends Item {
-    public static final List<String> KINDS = List.of("village", "temple", "mineshaft", "monument", "mansion", "stronghold", "fortress", "end_city");
-    public static final int SEARCH_RADIUS = 100;
-
     public StructureDivinerItem(Properties properties) {
         super(properties);
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         if (level.isClientSide()) {
-            DevicesContent.clientHooks().openStructureDiviner();
+            DevicesContent.clientHooks().openStructureDiviner(Diviner.of(player.getItemInHand(hand)));
         }
-        return InteractionResult.SUCCESS;
-    }
-
-    static TagKey<Structure> tag(String kind) {
-        return TagKey.create(Registries.STRUCTURE, com.thaumicwonders.ThaumicWonders.id("structure_diviner/" + kind));
+        return InteractionResultHolder.success(player.getItemInHand(hand));
     }
 
     private static @Nullable ItemStack held(Player player) {
@@ -56,18 +51,21 @@ public class StructureDivinerItem extends Item {
         return null;
     }
 
-    /** The server side of a button press: 0..7 search for that kind, anything else clears the target. */
-    static void act(ServerPlayer player, int target) {
+    /** Resolve the selected tag against the current pack after any intervening reload. */
+    static void act(ServerPlayer player, Optional<ResourceLocation> target) {
         ItemStack stack = held(player);
         if (stack == null) {
             return;
         }
-        if (target < 0 || target >= KINDS.size()) {
+        if (target.isEmpty()) {
             stack.remove(DataComponents.LODESTONE_TRACKER);
             return;
         }
-        ServerLevel level = player.level();
-        BlockPos found = level.findNearestMapStructure(tag(KINDS.get(target)), player.blockPosition(), SEARCH_RADIUS, false);
+        Diviner rule = Diviner.of(stack);
+        if (!rule.allows(target.get())) return;
+        ServerLevel level = (ServerLevel) player.level();
+        TagKey<Structure> tag = TagKey.create(Registries.STRUCTURE, target.get());
+        BlockPos found = level.findNearestMapStructure(tag, player.blockPosition(), rule.radius(), false);
         if (found == null) {
             stack.remove(DataComponents.LODESTONE_TRACKER);
             message(player, "event.structure_diviner.not_found");
@@ -93,6 +91,6 @@ public class StructureDivinerItem extends Item {
     }
 
     private static void message(ServerPlayer player, String key) {
-        player.sendOverlayMessage(Component.translatable(key).withStyle(ChatFormatting.DARK_PURPLE));
+        player.displayClientMessage(Component.translatable(key).withStyle(ChatFormatting.DARK_PURPLE), true);
     }
 }

@@ -2,11 +2,10 @@ package com.thaumicwonders.primordial.client;
 
 import com.thaumicwonders.ThaumicWonders;
 import com.thaumicwonders.primordial.SocketMenu;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 /**
@@ -15,10 +14,12 @@ import net.minecraft.world.entity.player.Inventory;
  * panel's last column and leaving the window too high; this draws the art's real 176 by 166.
  */
 public class SocketScreen extends AbstractContainerScreen<SocketMenu> {
-    private final Identifier texture;
+    private final ResourceLocation texture;
 
     private SocketScreen(SocketMenu menu, Inventory inventory, Component title, String name) {
-        super(menu, inventory, title, 176, 166);
+        super(menu, inventory, title);
+        this.imageWidth = 176;
+        this.imageHeight = 166;
         this.texture = ThaumicWonders.id("textures/gui/gui_" + name + ".png");
     }
 
@@ -31,12 +32,17 @@ public class SocketScreen extends AbstractContainerScreen<SocketMenu> {
     }
 
     @Override
-    public void extractBackground(GuiGraphicsExtractor g, int mouseX, int mouseY, float partialTicks) {
-        super.extractBackground(g, mouseX, mouseY, partialTicks);
-        g.blit(RenderPipelines.GUI_TEXTURED, texture, leftPos, topPos, 0.0F, 0.0F, imageWidth, imageHeight, 256, 256);
+    public void render(GuiGraphics g, int mouseX, int mouseY, float partialTicks) {
+        super.render(g, mouseX, mouseY, partialTicks);
+        renderTooltip(g, mouseX, mouseY);
     }
 
     @Override
-    protected void extractLabels(GuiGraphicsExtractor g, int mouseX, int mouseY) {
+    protected void renderBg(GuiGraphics g, float partialTicks, int mouseX, int mouseY) {
+        g.blit(texture, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics g, int mouseX, int mouseY) {
     }
 }

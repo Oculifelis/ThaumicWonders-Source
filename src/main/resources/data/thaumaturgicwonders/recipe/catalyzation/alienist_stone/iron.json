@@ -1,7 +1,11 @@
 {
   "type": "thaumaturgicwonders:catalyzation",
-  "stone": "thaumaturgicwonders:alienist_stone",
-  "input": "#c:ores/iron",
+  "stone": {
+    "item": "thaumaturgicwonders:alienist_stone"
+  },
+  "input": {
+    "tag": "c:ores/iron"
+  },
   "result": {
     "id": "thaumaturgicwonders:eldritch_cluster_iron"
   }

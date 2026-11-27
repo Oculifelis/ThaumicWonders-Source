@@ -3,7 +3,9 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 1.0,
-  "ingredient": "thaumaturgicwonders:eldritch_cluster_void",
+  "ingredient": {
+    "item": "thaumaturgicwonders:eldritch_cluster_void"
+  },
   "result": {
     "id": "thaumaturge:ingot_void",
     "count": 2

@@ -19,15 +19,15 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
+import com.thaumicwonders.util.ValueInput;
+import com.thaumicwonders.util.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -189,7 +189,7 @@ public class CoalescenceMatrixBlockEntity extends DeviceBlockEntity implements I
         int color = Aspects.resolve(server, TTAspects.VITIUM).value().color();
         Vec3 here = new Vec3(pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5);
         for (BlockPos p : pillars) {
-            Effects.boltStrike(server, new Vec3(p.getX() + 0.5, p.getY() + 1.0, p.getZ() + 0.5)).to(here).color(color).width(0.6F).send();
+            Effects.arcBolt(server, new Vec3(p.getX() + 0.5, p.getY() + 1.0, p.getZ() + 0.5)).to(here).color(color).width(0.6F).send();
         }
         server.playSound(null, pos, TTSounds.ZAP.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
         server.removeBlock(pos, false);
@@ -198,9 +198,9 @@ public class CoalescenceMatrixBlockEntity extends DeviceBlockEntity implements I
             server.explode(null, p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5, 2.0F, Level.ExplosionInteraction.BLOCK);
         }
         BuiltInRegistries.ENTITY_TYPE.getOptional(ThaumicWonders.id("corruption_avatar")).ifPresentOrElse(type -> {
-            Entity avatar = type.create(server, EntitySpawnReason.TRIGGERED);
+            Entity avatar = type.create(server);
             if (avatar != null) {
-                avatar.snapTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, server.getRandom().nextFloat() * 360.0F, 0.0F);
+                avatar.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, server.getRandom().nextFloat() * 360.0F, 0.0F);
                 server.addFreshEntity(avatar);
             }
         }, () -> ThaumicWonders.LOG.warn("Coalescence Matrix at {}: no thaumaturgicwonders:corruption_avatar entity registered", pos));
@@ -208,14 +208,16 @@ public class CoalescenceMatrixBlockEntity extends DeviceBlockEntity implements I
     }
 
     @Override
-    protected void saveAdditional(ValueOutput out) {
-        super.saveAdditional(out);
+    protected void saveAdditional(net.minecraft.nbt.CompoundTag outTag, net.minecraft.core.HolderLookup.Provider outReg) {
+        ValueOutput out = new ValueOutput(outTag, outReg);
+        super.saveAdditional(out.tag(), out.registries());
         out.putShort("progress", (short) progress);
     }
 
     @Override
-    protected void loadAdditional(ValueInput in) {
-        super.loadAdditional(in);
+    protected void loadAdditional(net.minecraft.nbt.CompoundTag inTag, net.minecraft.core.HolderLookup.Provider inReg) {
+        ValueInput in = new ValueInput(inTag, inReg);
+        super.loadAdditional(in.tag(), in.registries());
         progress = in.getShortOr("progress", (short) 0);
     }
 }

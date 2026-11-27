@@ -3,11 +3,19 @@
   "research": {
     "entry": "thaumaturgicwonders:void_portal"
   },
-  "catalyst": "thaumaturgicwonders:portal_anchor",
+  "catalyst": {
+    "item": "thaumaturgicwonders:portal_anchor"
+  },
   "components": [
-    "thaumaturge:primordial_pearl",
-    "thaumaturge:mirror",
-    "#c:ender_pearls"
+    {
+      "item": "thaumaturge:primordial_pearl"
+    },
+    {
+      "item": "thaumaturge:mirror"
+    },
+    {
+      "tag": "c:ender_pearls"
+    }
   ],
   "instability": 8,
   "aspects": [

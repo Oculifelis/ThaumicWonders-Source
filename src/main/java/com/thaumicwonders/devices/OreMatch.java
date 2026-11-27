@@ -6,7 +6,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Blocks;
+import com.thaumicwonders.ThaumicWonders;
+import com.thaumicwonders.data.DeviceRules;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 /**
@@ -14,10 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
  * when they share such a tag (item tags for the held stack, block tags for blocks in the world).
  */
 public final class OreMatch {
-    private static final String[][] COLORS = {
-            {"iron", "D8AF93"}, {"coal", "101010"}, {"redstone", "FF0000"}, {"gold", "FCEE4B"}, {"lapis", "1445BC"},
-            {"diamond", "5DECF5"}, {"emerald", "17DD62"}, {"quartz", "E5DED5"}, {"silver", "DAD9FD"}, {"lead", "6B6B6B"},
-            {"tin", "EFEFFB"}, {"copper", "FD9C55"}, {"amber", "FDB325"}, {"cinnabar", "9B0508"}};
+    private static final TagKey<Block> IGNORED = TagKey.create(Registries.BLOCK, ThaumicWonders.id("ore_diviner_ignored"));
 
     private OreMatch() {
     }
@@ -30,11 +30,11 @@ public final class OreMatch {
     }
 
     public static Set<String> names(ItemStack stack) {
-        return stack.isEmpty() ? Set.of() : names(stack.tags());
+        return stack.isEmpty() ? Set.of() : names(stack.getTags());
     }
 
     public static Set<String> names(BlockState state) {
-        return state.isAir() || state.is(Blocks.BEDROCK) ? Set.of() : names(state.tags());
+        return state.isAir() || state.is(IGNORED) ? Set.of() : names(state.getTags());
     }
 
     public static boolean isOre(ItemStack stack) {
@@ -55,14 +55,16 @@ public final class OreMatch {
 
     /** The original's ore colours, matched by keyword against the tag name. */
     public static int color(BlockState state) {
+        var palette = DevicesContent.ORE_DIVINER.get().builtInRegistryHolder().getData(DeviceRules.ORE_PALETTE);
+        if (palette == null) return 0xC0C0C0;
         for (String name : names(state)) {
             String n = name.toLowerCase(Locale.ROOT);
-            for (String[] entry : COLORS) {
-                if (n.contains(entry[0])) {
-                    return Integer.parseInt(entry[1], 16);
+            for (var entry : palette.colors()) {
+                if (n.contains(entry.keyword().toLowerCase(Locale.ROOT))) {
+                    return entry.rgb();
                 }
             }
         }
-        return 0xC0C0C0;
+        return palette.fallback();
     }
 }

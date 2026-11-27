@@ -38,7 +38,7 @@ public class PanaceaItem extends Item {
             bad.forEach(entity::removeEffect);
             if (enchanted) {
                 entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 400, 1));
-                entity.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 6000, 0));
+                entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 6000, 0));
                 entity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 6000, 0));
                 entity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 2400, 3));
                 entity.addEffect(new MobEffectInstance(TTMobEffects.WARP_WARD, 18000, 0, true, true));

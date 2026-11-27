@@ -3,14 +3,28 @@
   "research": {
     "entry": "thaumaturgicwonders:coalescence_matrix"
   },
-  "catalyst": "minecraft:gold_block",
+  "catalyst": {
+    "item": "minecraft:gold_block"
+  },
   "components": [
-    "thaumaturge:primordial_pearl",
-    "thaumaturge:inlay",
-    "thaumaturge:inlay",
-    "minecraft:nether_star",
-    "thaumaturge:inlay",
-    "thaumaturge:inlay"
+    {
+      "item": "thaumaturge:primordial_pearl"
+    },
+    {
+      "item": "thaumaturge:inlay"
+    },
+    {
+      "item": "thaumaturge:inlay"
+    },
+    {
+      "item": "minecraft:nether_star"
+    },
+    {
+      "item": "thaumaturge:inlay"
+    },
+    {
+      "item": "thaumaturge:inlay"
+    }
   ],
   "instability": 10,
   "aspects": [

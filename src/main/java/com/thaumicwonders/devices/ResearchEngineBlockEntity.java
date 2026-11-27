@@ -1,7 +1,6 @@
 package com.thaumicwonders.devices;
 
 import com.leclowndu93150.thaumaturge.api.aspect.AspectInstance;
-import com.leclowndu93150.thaumaturge.api.aspect.Aspects;
 import com.leclowndu93150.thaumaturge.api.aspect.IAspect;
 import com.leclowndu93150.thaumaturge.api.aspect.TTAspects;
 import com.leclowndu93150.thaumaturge.api.research.IResearchEntry;
@@ -12,6 +11,8 @@ import com.leclowndu93150.thaumaturge.content.research.note.ResearchNoteData;
 import com.leclowndu93150.thaumaturge.content.research.table.BlockEntityResearchTable;
 import com.leclowndu93150.thaumaturge.content.research.table.BlockResearchTable;
 import com.leclowndu93150.thaumaturge.content.research.table.MenuResearchTable;
+import com.thaumicwonders.data.EssentiaTanks;
+import com.thaumicwonders.data.EssentiaTanks.Tank;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
@@ -24,9 +25,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
-import org.jspecify.annotations.Nullable;
+import com.thaumicwonders.util.ValueInput;
+import com.thaumicwonders.util.ValueOutput;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The fuel tank and the "card" of an Inspiration or Madness Engine.
@@ -47,44 +48,21 @@ import org.jspecify.annotations.Nullable;
  */
 public class ResearchEngineBlockEntity extends EssentiaDeviceBlockEntity {
     public enum Kind {
-        INSPIRATION(TTAspects.COGNITIO, 5, 25, 0.25F, "card.induced_inspiration.text"),
-        MADNESS(TTAspects.ALIENIS, 10, 50, 0.35F, "card.induced_madness.text");
+        INSPIRATION(TTAspects.COGNITIO, "card.induced_inspiration.text"),
+        MADNESS(TTAspects.ALIENIS, "card.induced_madness.text");
 
-        private final ResourceKey<IAspect> aspect;
-        private final int cost;
-        private final int capacity;
-        private final float saveChance;
+        private final ResourceKey<IAspect> legacyAspect;
         private final String text;
 
-        Kind(ResourceKey<IAspect> aspect, int cost, int capacity, float saveChance, String text) {
-            this.aspect = aspect;
-            this.cost = cost;
-            this.capacity = capacity;
-            this.saveChance = saveChance;
+        Kind(ResourceKey<IAspect> legacyAspect, String text) {
+            this.legacyAspect = legacyAspect;
             this.text = text;
-        }
-
-        public ResourceKey<IAspect> aspect() {
-            return aspect;
-        }
-
-        public int cost() {
-            return cost;
-        }
-
-        public int capacity() {
-            return capacity;
-        }
-
-        /** The table's chance that an aspect placement is free while this engine is fuelled (two halves cap at 0.5). */
-        public float saveChance() {
-            return saveChance;
         }
     }
 
     private static final List<Direction> FACES = List.of(Direction.DOWN, Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST);
 
-    private int amount;
+    private final EssentiaTanks stored = new EssentiaTanks();
     /** The note on the table below that was last seen unfinished ({@code entry#index}). */
     private @Nullable String watchedNote;
 
@@ -96,21 +74,26 @@ public class ResearchEngineBlockEntity extends EssentiaDeviceBlockEntity {
         return getBlockState().getBlock() instanceof ResearchEngineBlock engine ? engine.kind() : Kind.INSPIRATION;
     }
 
+    private @Nullable Tank fuel() {
+        return EssentiaTanks.Profile.of(getBlockState()).slot(0, 1);
+    }
+
     public boolean isFueled() {
-        return amount >= kind().cost();
+        return stored.funded(fuel());
     }
 
     private boolean deductCost() {
-        if (!isFueled()) {
+        Tank fuel = fuel();
+        if (fuel == null || !stored.funded(fuel)) {
             return false;
         }
-        amount -= kind().cost();
+        stored.spend(fuel);
         sync();
         return true;
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, ResearchEngineBlockEntity be) {
-        if (++be.tickCounter % 5 == 0 && be.amount < be.kind().capacity()) {
+        if (++be.tickCounter % 5 == 0 && be.stored.room(be.fuel()) > 0) {
             be.fill(FACES, true);
         }
         be.watchTable((ServerLevel) level);
@@ -156,9 +139,11 @@ public class ResearchEngineBlockEntity extends EssentiaDeviceBlockEntity {
 
     private void activate(ServerLevel level, ServerPlayer player, ResearchNoteData note) {
         Kind kind = kind();
+        Tank fuel = fuel();
+        if (fuel == null) return;
         if (kind == Kind.MADNESS) {
             int points = Mth.nextInt(level.getRandom(), 20, 25);
-            AspectPoolAccess.grant(player, Aspects.resolve(level, TTAspects.ALIENIS), points);
+            AspectPoolAccess.grant(player, fuel.aspect(), points);
             WarpHelper.addWarp(player, 1, WarpType.NORMAL);
             WarpHelper.addWarp(player, 5, WarpType.TEMPORARY);
             player.sendSystemMessage(Component.translatable(kind.text));
@@ -178,8 +163,8 @@ public class ResearchEngineBlockEntity extends EssentiaDeviceBlockEntity {
             }
         }
         if (focus == null) {
-            // A note with no note aspects: fall back to the engine's own Cognitio.
-            focus = Aspects.resolve(level, TTAspects.COGNITIO);
+            // A note with no note aspects: fall back to the engine's fuel aspect.
+            focus = fuel.aspect();
             held = AspectPoolAccess.amount(player, focus);
         }
         int points = 5 + Math.min(held, 100) / 3;
@@ -188,7 +173,7 @@ public class ResearchEngineBlockEntity extends EssentiaDeviceBlockEntity {
     }
 
     private static Component aspectName(Holder<IAspect> aspect) {
-        return aspect.unwrapKey().map(k -> (Component) Component.translatable("aspect." + k.identifier().getNamespace() + "." + k.identifier().getPath()))
+        return aspect.unwrapKey().map(k -> (Component) Component.translatable("aspect." + k.location().getNamespace() + "." + k.location().getPath()))
                 .orElse(Component.literal(aspect.value().tag()));
     }
 
@@ -201,19 +186,19 @@ public class ResearchEngineBlockEntity extends EssentiaDeviceBlockEntity {
 
     @Override
     protected @Nullable Holder<IAspect> wantedOn(Direction face) {
-        return level == null ? null : Aspects.resolve(level, kind().aspect());
+        Tank tank = fuel();
+        return tank == null ? null : tank.aspect();
     }
 
     @Override
     protected int roomFor(Direction face) {
-        return kind().capacity() - amount;
+        return stored.room(fuel());
     }
 
     @Override
     protected int store(Holder<IAspect> aspect, int count, Direction face) {
-        int added = Math.min(count, kind().capacity() - amount);
-        amount += added;
-        return count - added;
+        Tank tank = fuel();
+        return tank != null && aspect.is(tank.key()) ? count - stored.add(tank, count) : count;
     }
 
     @Override
@@ -223,18 +208,21 @@ public class ResearchEngineBlockEntity extends EssentiaDeviceBlockEntity {
 
     @Override
     public int getEssentiaAmount(@Nullable Direction side) {
-        return amount;
+        Tank tank = fuel();
+        return tank == null ? 0 : stored.amount(tank.key());
     }
 
     @Override
-    protected void saveAdditional(ValueOutput out) {
-        super.saveAdditional(out);
-        out.putShort("essentia", (short) amount);
+    protected void saveAdditional(net.minecraft.nbt.CompoundTag outTag, net.minecraft.core.HolderLookup.Provider outReg) {
+        ValueOutput out = new ValueOutput(outTag, outReg);
+        super.saveAdditional(out.tag(), out.registries());
+        stored.save(out);
     }
 
     @Override
-    protected void loadAdditional(ValueInput in) {
-        super.loadAdditional(in);
-        amount = in.getShortOr("essentia", (short) 0);
+    protected void loadAdditional(net.minecraft.nbt.CompoundTag inTag, net.minecraft.core.HolderLookup.Provider inReg) {
+        ValueInput in = new ValueInput(inTag, inReg);
+        super.loadAdditional(in.tag(), in.registries());
+        stored.load(in, () -> stored.importAmount(kind().legacyAspect, in.getShortOr("essentia", (short) 0)));
     }
 }

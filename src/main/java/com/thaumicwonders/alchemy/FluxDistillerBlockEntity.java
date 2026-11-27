@@ -11,9 +11,9 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
-import org.jspecify.annotations.Nullable;
+import com.thaumicwonders.util.ValueInput;
+import com.thaumicwonders.util.ValueOutput;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Flux Distiller: sits on a Flux Capacitor and, every 20 ticks, moves one charge from the capacitor into itself. At
@@ -140,14 +140,16 @@ public class FluxDistillerBlockEntity extends AlchemyBlockEntity implements IEss
     }
 
     @Override
-    protected void saveAdditional(ValueOutput output) {
-        super.saveAdditional(output);
+    protected void saveAdditional(net.minecraft.nbt.CompoundTag outputTag, net.minecraft.core.HolderLookup.Provider outputReg) {
+        ValueOutput output = new ValueOutput(outputTag, outputReg);
+        super.saveAdditional(output.tag(), output.registries());
         output.putShort("essentia", (short) essentia);
     }
 
     @Override
-    protected void loadAdditional(ValueInput input) {
-        super.loadAdditional(input);
+    protected void loadAdditional(net.minecraft.nbt.CompoundTag inputTag, net.minecraft.core.HolderLookup.Provider inputReg) {
+        ValueInput input = new ValueInput(inputTag, inputReg);
+        super.loadAdditional(input.tag(), input.registries());
         essentia = input.getShortOr("essentia", (short) 0);
     }
 }

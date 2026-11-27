@@ -20,10 +20,14 @@
     " BS"
   ],
   "key": {
-    "B": "minecraft:bone",
-    "S": "#c:strings",
+    "B": {
+      "item": "minecraft:bone"
+    },
+    "S": {
+      "tag": "c:strings"
+    },
     "V": {
-      "neoforge:ingredient_type": "neoforge:components",
+      "type": "neoforge:components",
       "items": "thaumaturge:essentia_crystal",
       "components": {
         "thaumaturge:crystal_aspect": {

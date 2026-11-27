@@ -3,14 +3,28 @@
   "research": {
     "entry": "thaumaturgicwonders:structure_diviner"
   },
-  "catalyst": "minecraft:compass",
+  "catalyst": {
+    "item": "minecraft:compass"
+  },
   "components": [
-    "minecraft:ender_eye",
-    "minecraft:emerald",
-    "minecraft:ender_eye",
-    "minecraft:nether_bricks",
-    "minecraft:ender_eye",
-    "minecraft:prismarine_crystals"
+    {
+      "item": "minecraft:ender_eye"
+    },
+    {
+      "item": "minecraft:emerald"
+    },
+    {
+      "item": "minecraft:ender_eye"
+    },
+    {
+      "item": "minecraft:nether_bricks"
+    },
+    {
+      "item": "minecraft:ender_eye"
+    },
+    {
+      "item": "minecraft:prismarine_crystals"
+    }
   ],
   "instability": 6,
   "aspects": [

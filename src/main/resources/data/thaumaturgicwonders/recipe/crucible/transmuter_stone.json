@@ -3,7 +3,9 @@
   "research": {
     "entry": "thaumaturgicwonders:transmuter_stone"
   },
-  "catalyst": "thaumaturgicwonders:alchemist_stone",
+  "catalyst": {
+    "item": "thaumaturgicwonders:alchemist_stone"
+  },
   "aspects": [
     {
       "aspect": "thaumaturge:permutatio",

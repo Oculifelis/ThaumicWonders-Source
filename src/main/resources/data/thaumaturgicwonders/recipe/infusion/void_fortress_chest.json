@@ -3,15 +3,31 @@
   "research": {
     "entry": "thaumaturgicwonders:void_fortress_armor"
   },
-  "catalyst": "thaumaturge:void_chest",
+  "catalyst": {
+    "item": "thaumaturge:void_chest"
+  },
   "components": [
-    "thaumaturge:primordial_pearl",
-    "#c:plates/void_metal",
-    "#c:plates/void_metal",
-    "#c:plates/void_metal",
-    "#c:plates/void_metal",
-    "thaumaturge:salis_mundus",
-    "#c:leathers"
+    {
+      "item": "thaumaturge:primordial_pearl"
+    },
+    {
+      "tag": "c:plates/void_metal"
+    },
+    {
+      "tag": "c:plates/void_metal"
+    },
+    {
+      "tag": "c:plates/void_metal"
+    },
+    {
+      "tag": "c:plates/void_metal"
+    },
+    {
+      "item": "thaumaturge:salis_mundus"
+    },
+    {
+      "tag": "c:leathers"
+    }
   ],
   "instability": 8,
   "aspects": [

@@ -1,6 +1,7 @@
 package com.thaumicwonders.gear.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.thaumicwonders.ThaumicWonders;
 import com.thaumicwonders.gear.FlyingCarpetEntity;
@@ -13,21 +14,19 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
-import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.DyeColor;
 
 /** The laid-out Flying Carpet: ModelFlyingCarpet's single 28x16x1 slab, textured by the carpet's colour. */
-public class FlyingCarpetRenderer extends EntityRenderer<FlyingCarpetEntity, FlyingCarpetRenderer.State> {
+public class FlyingCarpetRenderer extends EntityRenderer<FlyingCarpetEntity> {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(ThaumicWonders.id("flying_carpet"), "main");
-    private static final Map<DyeColor, Identifier> TEXTURES = new EnumMap<>(DyeColor.class);
-    private static final Identifier RED = texture(DyeColor.RED);
+    private static final Map<DyeColor, ResourceLocation> TEXTURES = new EnumMap<>(DyeColor.class);
+    private static final ResourceLocation RED = texture(DyeColor.RED);
 
     static {
         for (DyeColor color : DyeColor.values()) {
@@ -35,20 +34,17 @@ public class FlyingCarpetRenderer extends EntityRenderer<FlyingCarpetEntity, Fly
         }
     }
 
-    private static Identifier texture(DyeColor color) {
+    private static ResourceLocation texture(DyeColor color) {
         // The original named light grey "silver".
         String name = color == DyeColor.LIGHT_GRAY ? "silver" : color.getSerializedName();
         return ThaumicWonders.id("textures/entity/flying_carpet_" + name + ".png");
     }
 
-    public static class State extends EntityRenderState {
-        public float yRot;
-        public Identifier texture = RED;
-    }
+    public static class Model extends EntityModel<FlyingCarpetEntity> {
+        private final ModelPart root;
 
-    public static class Model extends EntityModel<State> {
         public Model(ModelPart root) {
-            super(root);
+            this.root = root;
         }
 
         public static LayerDefinition create() {
@@ -56,6 +52,15 @@ public class FlyingCarpetRenderer extends EntityRenderer<FlyingCarpetEntity, Fly
             mesh.getRoot().addOrReplaceChild("carpet_base", CubeListBuilder.create().texOffs(0, 0).addBox(-14.0F, -9.0F, -3.0F, 28.0F, 16.0F, 1.0F),
                     PartPose.offsetAndRotation(0.0F, 3.0F, 1.0F, Mth.HALF_PI, 0.0F, 0.0F));
             return LayerDefinition.create(mesh, 128, 64);
+        }
+
+        @Override
+        public void setupAnim(FlyingCarpetEntity carpet, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        }
+
+        @Override
+        public void renderToBuffer(PoseStack pose, VertexConsumer consumer, int light, int overlay, int color) {
+            this.root.render(pose, consumer, light, overlay, color);
         }
     }
 
@@ -68,26 +73,19 @@ public class FlyingCarpetRenderer extends EntityRenderer<FlyingCarpetEntity, Fly
     }
 
     @Override
-    public State createRenderState() {
-        return new State();
-    }
-
-    @Override
-    public void extractRenderState(FlyingCarpetEntity carpet, State state, float partialTick) {
-        super.extractRenderState(carpet, state, partialTick);
-        state.yRot = carpet.getYRot(partialTick);
-        DyeColor color = carpet.getDyeColor();
-        state.texture = color == null ? RED : TEXTURES.get(color);
-    }
-
-    @Override
-    public void submit(State state, PoseStack pose, SubmitNodeCollector collector, CameraRenderState camera) {
+    public void render(FlyingCarpetEntity carpet, float entityYaw, float partialTick, PoseStack pose, MultiBufferSource buffers, int light) {
         pose.pushPose();
         pose.translate(0.0F, 0.375F, 0.0F);
-        pose.mulPose(Axis.YP.rotationDegrees(90.0F - state.yRot));
+        pose.mulPose(Axis.YP.rotationDegrees(90.0F - Mth.rotLerp(partialTick, carpet.yRotO, carpet.getYRot())));
         pose.scale(-1.0F, -1.0F, 1.0F);
-        collector.submitModel(this.model, state, pose, state.texture, state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor, null);
+        this.model.renderToBuffer(pose, buffers.getBuffer(this.model.renderType(this.getTextureLocation(carpet))), light, OverlayTexture.NO_OVERLAY);
         pose.popPose();
-        super.submit(state, pose, collector, camera);
+        super.render(carpet, entityYaw, partialTick, pose, buffers, light);
+    }
+
+    @Override
+    public ResourceLocation getTextureLocation(FlyingCarpetEntity carpet) {
+        DyeColor color = carpet.getDyeColor();
+        return color == null ? RED : TEXTURES.get(color);
     }
 }

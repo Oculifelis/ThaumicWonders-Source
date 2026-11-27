@@ -24,12 +24,24 @@
     "SZS"
   ],
   "key": {
-    "B": "#c:plates/brass",
-    "R": "thaumaturge:morphic_resonator",
-    "V": "thaumaturge:vis_resonator",
-    "M": "thaumaturge:mechanism_simple",
-    "S": "thaumaturge:stone_arcane",
-    "Z": "thaumaturge:brain"
+    "B": {
+      "tag": "c:plates/brass"
+    },
+    "R": {
+      "item": "thaumaturge:morphic_resonator"
+    },
+    "V": {
+      "item": "thaumaturge:vis_resonator"
+    },
+    "M": {
+      "item": "thaumaturge:mechanism_simple"
+    },
+    "S": {
+      "item": "thaumaturge:stone_arcane"
+    },
+    "Z": {
+      "item": "thaumaturge:brain"
+    }
   },
   "result": {
     "id": "thaumaturgicwonders:inspiration_engine"

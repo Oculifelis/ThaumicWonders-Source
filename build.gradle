@@ -10,20 +10,37 @@ base {
     archivesName = "${mod_id}-${minecraft_version}"
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 repositories {
+    mavenCentral()
     flatDir { dirs 'libs' }
+    maven {
+        name = 'Curios'
+        url = 'https://maven.theillusivec4.top/'
+        content { includeGroup 'top.theillusivec4.curios' }
+    }
+    maven {
+        name = 'JEI'
+        url = 'https://maven.blamejared.com/'
+        content { includeGroup 'mezz.jei' }
+    }
+    maven {
+        name = 'Modrinth'
+        url = 'https://api.modrinth.com/maven'
+        content { includeGroup 'maven.modrinth' }
+    }
 }
 
 dependencies {
-    // Local copies of the jars installed in the Simply NeoForged instance (not committed, see libs/README.md).
-    implementation files('libs/thaumaturge-26.1.2-NeoForge-1.1.0.jar')
-    // JEI is optional: compat/TWJeiPlugin only loads when JEI finds it.
-    compileOnly files('libs/jei-26.1.2-common-api-29.47.0.111.jar')
+    // Local copy, not committed (see libs/README.md).
+    implementation files('libs/thaumaturge-1.21.1-NeoForge-1.1.0.jar')
     // Curios API for the goggles and the charm (Thaumaturge needs Curios anyway).
-    implementation files('libs/curios-neoforge-15.0.0+26.1.2.jar')
-    runtimeOnly files('libs/lithostitched-1.8.1-neoforge-26.1.jar')
+    implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+    runtimeOnly "maven.modrinth:lithostitched:${lithostitched_version}"
+    // JEI is optional: compat/TWJeiPlugin only loads when JEI finds it.
+    compileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}") { transitive = false }
+    compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}") { transitive = false }
 }
 
 neoForge {
@@ -41,6 +58,7 @@ neoForge {
             programArgument '--nogui'
         }
         configureEach {
+            jvmArgument '-XX:ActiveProcessorCount=4'
             systemProperty 'forge.logging.markers', ''
             logLevel = org.slf4j.event.Level.INFO
         }
@@ -74,47 +92,4 @@ neoForge.ideSyncTask generateModMetadata
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
-}
-
-// Dedicated-server checks are compiled only for an explicit development test run.
-if (project.hasProperty('selftest')) {
-    sourceSets.main.java.srcDir 'src/selftest/java'
-    def coverageDir = layout.buildDirectory.dir('coverage-run').get().asFile
-    def coverageResult = layout.buildDirectory.file('coverage-result.json').get().asFile
-    neoForge.runs {
-        coverage {
-            server()
-            gameDirectory = coverageDir
-            programArgument '--nogui'
-            jvmArgument '-Xmx4G'
-            jvmArgument '-XX:ActiveProcessorCount=4'
-            systemProperty 'coverage.enabled', 'true'
-            systemProperty 'coverage.result', coverageResult.absolutePath
-            systemProperty 'coverage.resources', [file('src/main/resources')].collect { it.absolutePath }.join('|')
-        }
-    }
-    tasks.named('runCoverage') {
-        doFirst {
-            coverageResult.delete()
-            coverageDir.mkdirs()
-            new File(coverageDir, 'eula.txt').text = 'eula=true\n'
-            new File(coverageDir, 'server.properties').text = 'online-mode=false\nserver-port=0\nlevel-seed=0\ngenerate-structures=false\n'
-        }
-    }
-    tasks.register('coverageTest') {
-        group = 'verification'
-        description = 'Check registries, recipes, block placement/loot, item models and English names headlessly.'
-        dependsOn 'runCoverage'
-        doLast {
-            if (!coverageResult.isFile()) throw new GradleException('Missing SELFTEST result')
-            def result = new groovy.json.JsonSlurper().parse(coverageResult)
-            if (result.failed != 0 || result.passed == 0) throw new GradleException("SELFTEST failures: ${result.errors}")
-            logger.lifecycle("SELFTEST PASS: ${result.passed} checks, ${result.counts}")
-        }
-    }
-}
-
-// Keep development checks out of every archive, including explicit test builds.
-tasks.withType(Jar).configureEach {
-    exclude "com/thaumicwonders/validation/CoverageSelfTest*"
 }

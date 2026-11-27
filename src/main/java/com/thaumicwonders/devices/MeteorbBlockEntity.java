@@ -2,6 +2,7 @@ package com.thaumicwonders.devices;
 
 import com.leclowndu93150.thaumaturge.api.aspect.TTAspects;
 import com.leclowndu93150.thaumaturge.content.effect.Effects;
+import com.thaumicwonders.data.EssentiaTanks.Tank;
 import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -16,12 +17,9 @@ import net.minecraft.world.phys.Vec3;
  * Tanks of 50 (relative west Aer, east Aqua, back Potentia).
  */
 public class MeteorbBlockEntity extends OrbBlockEntity {
-    public static final int CAPACITY = 50;
-    public static final int MIN_FUEL = 50;
-
     public MeteorbBlockEntity(BlockPos pos, BlockState state) {
         super(DevicesContent.METEORB_BE.get(), pos, state, List.of(TTAspects.AER, TTAspects.AQUA, TTAspects.POTENTIA),
-                List.of("airEssentia", "waterEssentia", "energyEssentia"), CAPACITY);
+                List.of("airEssentia", "waterEssentia", "energyEssentia"));
     }
 
     @Override
@@ -30,29 +28,30 @@ public class MeteorbBlockEntity extends OrbBlockEntity {
             return;
         }
         ServerLevel level = (ServerLevel) this.level;
-        if (!has(target, MIN_FUEL)) {
+        Tank fuel = tank(target);
+        if (fuel == null || !stored.funded(fuel)) {
             status(player, "event.meteorb.unfueled");
             return;
         }
-        amounts[target] -= MIN_FUEL;
+        stored.spend(fuel);
         sync();
         int duration = (300 + level.getRandom().nextInt(600)) * 20;
         switch (target) {
-            case 0 -> level.getServer().setWeatherParameters(duration, 0, false, false);
-            case 1 -> level.getServer().setWeatherParameters(0, duration, true, false);
-            default -> level.getServer().setWeatherParameters(0, duration, true, true);
+            case 0 -> ((net.minecraft.server.level.ServerLevel) level).setWeatherParameters(duration, 0, false, false);
+            case 1 -> ((net.minecraft.server.level.ServerLevel) level).setWeatherParameters(0, duration, true, false);
+            default -> ((net.minecraft.server.level.ServerLevel) level).setWeatherParameters(0, duration, true, true);
         }
         Component used = Component.translatable("event.meteorb.used").withStyle(ChatFormatting.DARK_PURPLE);
         for (ServerPlayer p : level.players()) {
-            p.sendOverlayMessage(used);
+            p.displayClientMessage(used, true);
         }
-        skyBolt(level, worldPosition, aspect(target).value().color());
+        skyBolt(level, worldPosition, fuel.aspect().value().color());
     }
 
     /** The original's PacketMeteorbFx: an arc bolt from the orb straight up to the top of the world. */
     static void skyBolt(ServerLevel level, BlockPos pos, int color) {
         Vec3 from = Vec3.atCenterOf(pos);
-        Vec3 to = new Vec3(pos.getX() + 0.5, level.getMaxY() + 0.5, pos.getZ() + 0.5);
-        Effects.boltStrike(level, from).to(to).color(color).width(0.6F).send();
+        Vec3 to = new Vec3(pos.getX() + 0.5, level.getMaxBuildHeight() - 1 + 0.5, pos.getZ() + 0.5);
+        Effects.arcBolt(level, from).to(to).color(color).width(0.6F).send();
     }
 }

@@ -9,7 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
+import com.thaumicwonders.data.DestroyerProfile;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,22 +17,17 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 
 /**
  * The Primal Destroyer: a Voidflame sword that repairs itself, saps and burns what it hits, and hungers while carried.
  * Every second it is in the hotbar or offhand its hunger rises by one; at 600 it bites its wielder (12 damage of its
  * own type, Weakness and Hunger) and resets. Hits feed it 120, kills 600.
  */
-public class PrimalDestroyerItem extends Item {
-    public static final int MAX_HUNGER = 600;
-    private static final int HIT_FEED = 120;
-    private static final int KILL_FEED = 600;
-    private static final float HUNGER_DAMAGE = 12.0F;
-
+public class PrimalDestroyerItem extends SwordItem {
     public PrimalDestroyerItem(Properties props) {
-        super(props);
+        super(GearContent.VOIDFLAME, props);
     }
 
     public static int hunger(ItemStack stack) {
@@ -40,7 +35,11 @@ public class PrimalDestroyerItem extends Item {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, EquipmentSlot slot) {
+    public void inventoryTick(ItemStack stack, net.minecraft.world.level.Level anyLevel, Entity entity, int slotId, boolean selected) {
+        if (!(anyLevel instanceof ServerLevel level)) {
+            return;
+        }
+        EquipmentSlot slot = GearContent.wornSlot(entity, stack);
         if (!(entity instanceof ServerPlayer player) || entity.tickCount % 20 != 0) {
             return;
         }
@@ -51,12 +50,13 @@ public class PrimalDestroyerItem extends Item {
         if (!isEquipped(player, stack)) {
             return;
         }
+        DestroyerProfile rule = DestroyerProfile.of(stack);
+        if (rule == null) return;
         int hunger = hunger(stack);
-        if (hunger >= MAX_HUNGER) {
-            player.sendOverlayMessage(Component.translatable("event.primal_destroyer.hunger_full").withStyle(ChatFormatting.DARK_PURPLE));
-            player.hurtServer(level, level.damageSources().source(GearContent.DESTROYER_HUNGER), HUNGER_DAMAGE);
-            player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 60));
-            player.addEffect(new MobEffectInstance(MobEffects.HUNGER, 120));
+        if (hunger >= rule.hungerLimit()) {
+            player.displayClientMessage(Component.translatable("event.primal_destroyer.hunger_full").withStyle(ChatFormatting.DARK_PURPLE), true);
+            player.hurt(level.damageSources().source(GearContent.DESTROYER_HUNGER), rule.biteDamage());
+            rule.biteEffects().forEach(effect -> player.addEffect(new MobEffectInstance(effect)));
             stack.set(GearContent.HUNGER.get(), 0);
             // The research flag that reveals the Primal Destroyer's addendum.
             IPlayerKnowledge knowledge = KnowledgeAccess.of(player);
@@ -80,17 +80,15 @@ public class PrimalDestroyerItem extends Item {
     }
 
     @Override
-    public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         super.hurtEnemy(stack, target, attacker);
         if (attacker.level().isClientSide()) {
-            return;
+            return true;
         }
         // Sapping Greater and Voidflame.
-        target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 60));
-        target.addEffect(new MobEffectInstance(MobEffects.HUNGER, 120));
-        target.igniteForSeconds(3.0F);
-        int feed = target.isDeadOrDying() ? KILL_FEED : HIT_FEED;
-        stack.set(GearContent.HUNGER.get(), Math.max(0, hunger(stack) - feed));
+        DestroyerProfile rule = DestroyerProfile.of(stack);
+        if (rule != null) rule.afterHit(stack, target);
+        return true;
     }
 
     @Override
@@ -100,9 +98,10 @@ public class PrimalDestroyerItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, java.util.List<Component> tooltipList, TooltipFlag flag) {
+        java.util.function.Consumer<Component> tooltip = tooltipList::add;
         tooltip.accept(Component.translatable("enchantment.special.sapgreat").withStyle(ChatFormatting.GOLD));
         tooltip.accept(Component.translatable("enchantment.special.voidflame").withStyle(ChatFormatting.GOLD));
-        super.appendHoverText(stack, context, display, tooltip, flag);
+        super.appendHoverText(stack, context, tooltipList, flag);
     }
 }

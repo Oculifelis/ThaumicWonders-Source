@@ -26,16 +26,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
+import com.thaumicwonders.util.ValueInput;
+import com.thaumicwonders.util.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.transfer.ResourceHandler;
-import net.neoforged.neoforge.transfer.item.ItemResource;
-import net.neoforged.neoforge.transfer.transaction.Transaction;
-import org.jspecify.annotations.Nullable;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Void Beacon, as the original: holds up to 100 of one essentia (taken through its four sides), needs a clear view of
@@ -128,7 +127,8 @@ public class VoidBeaconBlockEntity extends EssentiaDeviceBlockEntity {
     }
 
     private boolean hasEnoughEssentia() {
-        return essentiaType != null && levels >= 0 && essentiaAmount >= requiredEssentia();
+        int cost = requiredEssentia();
+        return essentiaType != null && levels >= 0 && cost > 0 && essentiaAmount >= cost;
     }
 
     private boolean canMakeProgress() {
@@ -140,23 +140,18 @@ public class VoidBeaconBlockEntity extends EssentiaDeviceBlockEntity {
     }
 
     public int requiredEssentia() {
-        return switch (levels) {
-            case 4 -> 1;
-            case 3 -> 2;
-            case 2 -> 5;
-            case 1 -> 10;
-            default -> 20;
-        };
+        List<Integer> costs = getBlockState().getBlockHolder().getData(com.thaumicwonders.data.DeviceRules.BEACON_COST);
+        return costs == null ? 0 : costs.get(Math.clamp(levels, 0, 4));
     }
 
     private void updateBeam(Level level) {
         validPlacement = true;
         beamHeight = 0;
         BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
-        for (int y = worldPosition.getY() + 1; y < level.getMaxY() + 1; y++) {
+        for (int y = worldPosition.getY() + 1; y < level.getMaxBuildHeight() - 1 + 1; y++) {
             pos.set(worldPosition.getX(), y, worldPosition.getZ());
             BlockState state = level.getBlockState(pos);
-            if (state.getLightDampening() >= 15 && !state.is(Blocks.BEDROCK)) {
+            if (state.getLightBlock(level, pos) >= 15 && !state.is(Blocks.BEDROCK)) {
                 validPlacement = false;
                 beamHeight = 0;
                 return;
@@ -265,10 +260,10 @@ public class VoidBeaconBlockEntity extends EssentiaDeviceBlockEntity {
 
     private boolean canEject(ServerLevel level) {
         for (Direction face : Direction.Plane.HORIZONTAL) {
-            ResourceHandler<ItemResource> handler = level.getCapability(Capabilities.Item.BLOCK, worldPosition.relative(face), face.getOpposite());
+            IItemHandler handler = level.getCapability(Capabilities.ItemHandler.BLOCK, worldPosition.relative(face), face.getOpposite());
             if (handler != null) {
-                for (int slot = 0; slot < handler.size(); slot++) {
-                    if (handler.getResource(slot).isEmpty()) {
+                for (int slot = 0; slot < handler.getSlots(); slot++) {
+                    if (handler.getStackInSlot(slot).isEmpty()) {
                         return true;
                     }
                 }
@@ -281,23 +276,19 @@ public class VoidBeaconBlockEntity extends EssentiaDeviceBlockEntity {
         if (stack.isEmpty()) {
             return;
         }
-        int left = stack.getCount();
-        ItemResource resource = ItemResource.of(stack);
+        ItemStack remaining = stack.copy();
         for (Direction face : Direction.Plane.HORIZONTAL) {
-            ResourceHandler<ItemResource> handler = level.getCapability(Capabilities.Item.BLOCK, worldPosition.relative(face), face.getOpposite());
+            IItemHandler handler = level.getCapability(Capabilities.ItemHandler.BLOCK, worldPosition.relative(face), face.getOpposite());
             if (handler == null) {
                 continue;
             }
-            try (Transaction tx = Transaction.openRoot()) {
-                left -= handler.insert(resource, left, tx);
-                tx.commit();
-            }
-            if (left <= 0) {
+            remaining = ItemHandlerHelper.insertItemStacked(handler, remaining, false);
+            if (remaining.isEmpty()) {
                 return;
             }
         }
         // The original lost an item that found no room; drop it on top of the beacon instead.
-        Containers.dropItemStack(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, stack.copyWithCount(left));
+        Containers.dropItemStack(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, remaining);
     }
 
     // ---- essentia --------------------------------------------------------------------------------------------
@@ -345,8 +336,9 @@ public class VoidBeaconBlockEntity extends EssentiaDeviceBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(ValueOutput out) {
-        super.saveAdditional(out);
+    protected void saveAdditional(net.minecraft.nbt.CompoundTag outTag, net.minecraft.core.HolderLookup.Provider outReg) {
+        ValueOutput out = new ValueOutput(outTag, outReg);
+        super.saveAdditional(out.tag(), out.registries());
         if (essentiaType != null) {
             out.store("essentiaType", ResourceKey.codec(IAspect.REGISTRY_KEY), essentiaType);
             out.putShort("essentiaAmount", (short) essentiaAmount);
@@ -356,8 +348,9 @@ public class VoidBeaconBlockEntity extends EssentiaDeviceBlockEntity {
     }
 
     @Override
-    protected void loadAdditional(ValueInput in) {
-        super.loadAdditional(in);
+    protected void loadAdditional(net.minecraft.nbt.CompoundTag inTag, net.minecraft.core.HolderLookup.Provider inReg) {
+        ValueInput in = new ValueInput(inTag, inReg);
+        super.loadAdditional(in.tag(), in.registries());
         essentiaType = in.read("essentiaType", ResourceKey.codec(IAspect.REGISTRY_KEY)).orElse(null);
         essentiaAmount = essentiaType == null ? 0 : in.getShortOr("essentiaAmount", (short) 0);
         levels = in.getShortOr("levels", (short) -1);

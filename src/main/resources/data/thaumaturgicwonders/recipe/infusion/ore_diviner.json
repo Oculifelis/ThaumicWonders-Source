@@ -3,16 +3,34 @@
   "research": {
     "entry": "thaumaturgicwonders:ore_diviner"
   },
-  "catalyst": "minecraft:quartz_block",
+  "catalyst": {
+    "item": "minecraft:quartz_block"
+  },
   "components": [
-    "#c:ores/iron",
-    "#c:ores/gold",
-    "#c:ores/coal",
-    "#c:ores/redstone",
-    "#c:ores/lapis",
-    "#c:ores/diamond",
-    "#c:ores/emerald",
-    "#c:ores/cinnabar"
+    {
+      "tag": "c:ores/iron"
+    },
+    {
+      "tag": "c:ores/gold"
+    },
+    {
+      "tag": "c:ores/coal"
+    },
+    {
+      "tag": "c:ores/redstone"
+    },
+    {
+      "tag": "c:ores/lapis"
+    },
+    {
+      "tag": "c:ores/diamond"
+    },
+    {
+      "tag": "c:ores/emerald"
+    },
+    {
+      "tag": "c:ores/cinnabar"
+    }
   ],
   "instability": 6,
   "aspects": [

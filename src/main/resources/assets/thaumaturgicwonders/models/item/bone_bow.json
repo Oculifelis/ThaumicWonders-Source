@@ -72,5 +72,27 @@
         0.68
       ]
     }
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "thaumaturgicwonders:pulling": 1
+      },
+      "model": "thaumaturgicwonders:item/bone_bow_pulling_0"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:pulling": 1,
+        "thaumaturgicwonders:pull": 0.5
+      },
+      "model": "thaumaturgicwonders:item/bone_bow_pulling_1"
+    },
+    {
+      "predicate": {
+        "thaumaturgicwonders:pulling": 1,
+        "thaumaturgicwonders:pull": 0.75
+      },
+      "model": "thaumaturgicwonders:item/bone_bow_pulling_2"
+    }
+  ]
 }

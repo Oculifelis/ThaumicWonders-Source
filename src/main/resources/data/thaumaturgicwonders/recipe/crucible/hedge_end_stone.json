@@ -3,7 +3,9 @@
   "research": {
     "entry": "thaumaturgicwonders:end_hedge"
   },
-  "catalyst": "minecraft:stone",
+  "catalyst": {
+    "item": "minecraft:stone"
+  },
   "aspects": [
     {
       "aspect": "thaumaturge:terra",

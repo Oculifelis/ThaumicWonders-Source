@@ -39,7 +39,7 @@ public final class TWRegistry {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
     public static final DeferredRegister.DataComponents COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, MODID);
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, MODID);
-    public static final DeferredRegister.Entities ENTITIES = DeferredRegister.createEntities(MODID);
+    public static final DeferredRegister<net.minecraft.world.entity.EntityType<?>> ENTITIES = DeferredRegister.create(Registries.ENTITY_TYPE, MODID);
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, MODID);
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(Registries.RECIPE_SERIALIZER, MODID);
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Registries.RECIPE_TYPE, MODID);
@@ -47,6 +47,7 @@ public final class TWRegistry {
     public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(Registries.FLUID, MODID);
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT, MODID);
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENTS = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MODID);
+    public static final DeferredRegister<net.minecraft.world.item.ArmorMaterial> ARMOR_MATERIALS = DeferredRegister.create(Registries.ARMOR_MATERIAL, MODID);
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
     private static final List<Supplier<? extends Item>> TAB_ITEMS = new ArrayList<>();
@@ -74,7 +75,7 @@ public final class TWRegistry {
 
     /** A block with a plain block item in the tab. */
     public static <B extends Block> DeferredBlock<B> block(String name, Function<Block.Properties, B> factory, UnaryOperator<Block.Properties> props) {
-        DeferredBlock<B> block = BLOCKS.registerBlock(name, factory, props);
+        DeferredBlock<B> block = BLOCKS.register(name, () -> factory.apply(props.apply(Block.Properties.of())));
         TAB_ITEMS.add(ITEMS.registerSimpleBlockItem(block));
         return block;
     }
@@ -82,31 +83,38 @@ public final class TWRegistry {
     /** A block with its own block item class, in the tab. */
     public static <B extends Block, I extends BlockItem> DeferredBlock<B> block(String name, Function<Block.Properties, B> factory,
             UnaryOperator<Block.Properties> props, BlockItemFactory<I> itemFactory, UnaryOperator<Item.Properties> itemProps) {
-        DeferredBlock<B> block = BLOCKS.registerBlock(name, factory, props);
-        TAB_ITEMS.add(ITEMS.registerItem(name, p -> itemFactory.create(block.get(), p), p -> itemProps.apply(p.useBlockDescriptionPrefix())));
+        DeferredBlock<B> block = BLOCKS.register(name, () -> factory.apply(props.apply(Block.Properties.of())));
+        TAB_ITEMS.add(ITEMS.register(name, () -> itemFactory.create(block.get(), itemProps.apply(new Item.Properties()))));
         return block;
     }
 
     /** A block with no item (multiblock parts, placeholders, crops whose item is a seed). */
     public static <B extends Block> DeferredBlock<B> blockNoItem(String name, Function<Block.Properties, B> factory, UnaryOperator<Block.Properties> props) {
-        return BLOCKS.registerBlock(name, factory, props);
+        return BLOCKS.register(name, () -> factory.apply(props.apply(Block.Properties.of())));
     }
 
     /** A block whose block item stays out of the creative tab (the original's tab-less multiblock cores). */
     public static <B extends Block> DeferredBlock<B> blockHidden(String name, Function<Block.Properties, B> factory, UnaryOperator<Block.Properties> props) {
-        DeferredBlock<B> block = BLOCKS.registerBlock(name, factory, props);
+        DeferredBlock<B> block = BLOCKS.register(name, () -> factory.apply(props.apply(Block.Properties.of())));
         ITEMS.registerSimpleBlockItem(block);
         return block;
     }
 
     public static <I extends Item> DeferredItem<I> item(String name, Function<Item.Properties, I> factory, UnaryOperator<Item.Properties> props) {
-        DeferredItem<I> item = ITEMS.registerItem(name, factory, props);
+        DeferredItem<I> item = ITEMS.register(name, () -> factory.apply(props.apply(new Item.Properties())));
         TAB_ITEMS.add(item);
         return item;
     }
 
     public static DeferredItem<Item> item(String name) {
         return item(name, Item::new, p -> p);
+    }
+
+    /** An entity type built from the given builder settings. */
+    public static <E extends net.minecraft.world.entity.Entity> DeferredHolder<net.minecraft.world.entity.EntityType<?>, net.minecraft.world.entity.EntityType<E>> entity(
+            String name, net.minecraft.world.entity.EntityType.EntityFactory<E> factory, net.minecraft.world.entity.MobCategory category,
+            UnaryOperator<net.minecraft.world.entity.EntityType.Builder<E>> builder) {
+        return ENTITIES.register(name, () -> builder.apply(net.minecraft.world.entity.EntityType.Builder.of(factory, category)).build(MODID + ":" + name));
     }
 
     @FunctionalInterface
@@ -116,6 +124,7 @@ public final class TWRegistry {
 
     static void register(IEventBus bus) {
         BLOCKS.register(bus);
+        ARMOR_MATERIALS.register(bus);
         ITEMS.register(bus);
         COMPONENTS.register(bus);
         BLOCK_ENTITIES.register(bus);

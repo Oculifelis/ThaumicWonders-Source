@@ -49,23 +49,23 @@ public class BoneBowItem extends BowItem {
     }
 
     @Override
-    public boolean releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
+    public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
         if (!(entity instanceof Player player)) {
-            return false;
+            return;
         }
         ItemStack ammo = player.getProjectile(stack);
         if (ammo.isEmpty()) {
-            return false;
+            return;
         }
         int ticks = this.getUseDuration(stack, entity) - timeLeft;
         ticks = EventHooks.onArrowLoose(stack, level, player, ticks, true);
         if (ticks < 0) {
-            return false;
+            return;
         }
         boolean powered = isPowered(stack);
         float power = arrowVelocity(stack, ticks);
         if (power < 0.1F) {
-            return false;
+            return;
         }
         List<ItemStack> projectiles = draw(stack, ammo, player);
         if (level instanceof ServerLevel server && !projectiles.isEmpty()) {
@@ -75,7 +75,11 @@ public class BoneBowItem extends BowItem {
         level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F,
                 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F) + power * 0.5F);
         player.awardStat(Stats.ITEM_USED.get(this));
-        return true;
+    }
+
+    @Override
+    public boolean isValidRepairItem(ItemStack stack, ItemStack repair) {
+        return repair.is(net.minecraft.world.item.Items.BONE);
     }
 
     @Override

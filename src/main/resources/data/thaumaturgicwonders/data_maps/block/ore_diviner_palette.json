@@ -1,0 +1,65 @@
+{
+  "values": {
+    "thaumaturgicwonders:ore_diviner": {
+      "fallback": 12632256,
+      "colors": [
+        {
+          "keyword": "iron",
+          "rgb": 14200723
+        },
+        {
+          "keyword": "coal",
+          "rgb": 1052688
+        },
+        {
+          "keyword": "redstone",
+          "rgb": 16711680
+        },
+        {
+          "keyword": "gold",
+          "rgb": 16576075
+        },
+        {
+          "keyword": "lapis",
+          "rgb": 1328572
+        },
+        {
+          "keyword": "diamond",
+          "rgb": 6155509
+        },
+        {
+          "keyword": "emerald",
+          "rgb": 1564002
+        },
+        {
+          "keyword": "quartz",
+          "rgb": 15064789
+        },
+        {
+          "keyword": "silver",
+          "rgb": 14342653
+        },
+        {
+          "keyword": "lead",
+          "rgb": 7039851
+        },
+        {
+          "keyword": "tin",
+          "rgb": 15724539
+        },
+        {
+          "keyword": "copper",
+          "rgb": 16620629
+        },
+        {
+          "keyword": "amber",
+          "rgb": 16626469
+        },
+        {
+          "keyword": "cinnabar",
+          "rgb": 10159368
+        }
+      ]
+    }
+  }
+}

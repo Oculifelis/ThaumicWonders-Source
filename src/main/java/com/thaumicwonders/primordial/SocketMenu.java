@@ -39,7 +39,14 @@ public class SocketMenu extends AbstractContainerMenu {
         super(type, id);
         this.socket = socket;
         addSlot(new Socket(socket, 80, 29));
-        addStandardInventorySlots(inventory, 8, 84);
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 9; col++) {
+                addSlot(new Slot(inventory, col + row * 9 + 9, 8 + col * 18, 84 + row * 18));
+            }
+        }
+        for (int col = 0; col < 9; col++) {
+            addSlot(new Slot(inventory, col, 8 + col * 18, 142));
+        }
     }
 
     @Override
