@@ -1,0 +1,18 @@
+{
+  "values": {
+    "thaumaturgicwonders:corruption_avatar": [
+      {
+        "effect": "minecraft:strength",
+        "ticks": 200,
+        "base_amplifier": 3,
+        "per_rift": 1
+      },
+      {
+        "effect": "minecraft:haste",
+        "ticks": 200,
+        "base_amplifier": 0,
+        "per_rift": 1
+      }
+    ]
+  }
+}

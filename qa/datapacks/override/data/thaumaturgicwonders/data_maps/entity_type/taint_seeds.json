@@ -1,0 +1,10 @@
+{
+  "values": {
+    "thaumaturgicwonders:corruption_avatar": {
+      "easy": {
+        "limit": 3,
+        "prime_rolls": 9
+      }
+    }
+  }
+}

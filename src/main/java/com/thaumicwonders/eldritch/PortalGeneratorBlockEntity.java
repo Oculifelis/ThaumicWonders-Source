@@ -12,7 +12,8 @@ import com.leclowndu93150.thaumaturge.registry.TTSounds;
 import com.thaumicwonders.devices.DeviceBlockEntity;
 import java.text.DecimalFormat;
 import java.util.List;
-import java.util.function.Supplier;
+import com.thaumicwonders.data.EncounterRules;
+import com.thaumicwonders.data.EncounterRules.Portal;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
@@ -21,7 +22,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -217,64 +217,25 @@ public class PortalGeneratorBlockEntity extends DeviceBlockEntity implements IGo
 
     // ---- instability ----------------------------------------------------------------------------------------
 
-    /** A weighted choice: id, weight, and the stability it must be below to happen. */
-    private record Choice(int id, int weight, int required) {
-    }
-
-    private static final List<Choice> INSTABILITY = List.of(new Choice(0, 60, 0), new Choice(1, 35, 0), new Choice(2, 5, -50));
-    private static final List<Choice> INVADERS = List.of(new Choice(0, 40, 0), new Choice(1, 30, -20), new Choice(2, 20, -40),
-            new Choice(3, 7, -60), new Choice(4, 3, -80));
-    private static final List<Choice> SUBVERSIONS = List.of(new Choice(0, 75, -50), new Choice(1, 25, -75));
-
-    private static Choice choose(List<Choice> choices, RandomSource random) {
-        int total = choices.stream().mapToInt(Choice::weight).sum();
-        int roll = random.nextInt(total);
-        for (Choice c : choices) {
-            roll -= c.weight();
-            if (roll < 0) {
-                return c;
-            }
-        }
-        return choices.getLast();
-    }
-
     private void instabilityEvent(ServerLevel level) {
-        Choice event = choose(INSTABILITY, level.getRandom());
-        if (stability >= event.required()) {
-            return;
-        }
-        switch (event.id()) {
-            case 0 -> AuraHelper.polluteAura(level, worldPosition, (float) Math.sqrt(Math.abs(stability)), true);
-            case 1 -> spawnInvaders(level);
-            default -> subvert(level);
-        }
+        Portal rule = getBlockState().typeHolder().getData(EncounterRules.PORTAL);
+        if (rule == null) return;
+        rule.event(stability, level.getRandom()).ifPresent(event -> {
+            switch (event) {
+                case FLUX -> AuraHelper.polluteAura(level, worldPosition, (float) Math.sqrt(Math.abs(stability)), true);
+                case INVADERS -> rule.invader(stability, level.getRandom()).ifPresent(invader -> spawnInvaders(level, invader));
+                case SUBVERSION -> rule.subversion(stability, level.getRandom()).ifPresent(action -> subvert(level, action));
+            }
+        });
     }
 
-    private void spawnInvaders(ServerLevel level) {
-        Choice invader = choose(INVADERS, level.getRandom());
-        if (stability >= invader.required()) {
-            return;
-        }
-        float s = Math.abs(stability);
-        Supplier<? extends EntityType<? extends Mob>> type = switch (invader.id()) {
-            case 0 -> TTEntities.WISP;
-            case 1 -> () -> EntityType.ZOMBIFIED_PIGLIN;
-            case 2 -> () -> EntityType.ENDERMAN;
-            case 3 -> TTEntities.INHABITED_ZOMBIE;
-            default -> TTEntities.ELDRITCH_GUARDIAN;
-        };
-        int count = switch (invader.id()) {
-            case 0 -> 1 + (int) (s / 20.0F);
-            case 1 -> 1 + (int) (s / 30.0F);
-            case 2 -> 1 + (int) (s / 40.0F);
-            default -> 1;
-        };
+    private void spawnInvaders(ServerLevel level, EncounterRules.Invader invader) {
+        int count = invader.count(stability);
         RandomSource r = level.getRandom();
         BlockPos portalPos = worldPosition.above();
         boolean spawned = false;
         for (int i = 0; i < count; i++) {
-            Mob mob = type.get().create(level, EntitySpawnReason.EVENT);
-            if (mob == null) {
+            if (!(invader.entity().create(level, EntitySpawnReason.EVENT) instanceof Mob mob)) {
                 continue;
             }
             mob.snapTo(portalPos.getX() + r.nextGaussian() * 3.0, portalPos.getY() + r.nextGaussian() * 3.0,
@@ -289,13 +250,9 @@ public class PortalGeneratorBlockEntity extends DeviceBlockEntity implements IGo
         }
     }
 
-    private void subvert(ServerLevel level) {
-        Choice subversion = choose(SUBVERSIONS, level.getRandom());
-        if (stability >= subversion.required()) {
-            return;
-        }
+    private void subvert(ServerLevel level, EncounterRules.Subversion action) {
         RandomSource r = level.getRandom();
-        if (subversion.id() == 0) {
+        if (action == EncounterRules.Subversion.CRIMSON_PORTAL) {
             Mob portal = TTEntities.CULTIST_PORTAL_LESSER.get().create(level, EntitySpawnReason.EVENT);
             if (portal == null) {
                 return;

@@ -6,11 +6,16 @@ import com.leclowndu93150.thaumaturge.api.aspect.TTAspects;
 import com.leclowndu93150.thaumaturge.api.aura.AuraHelper;
 import com.leclowndu93150.thaumaturge.content.effect.Effects;
 import com.leclowndu93150.thaumaturge.content.particle.VisSparkleParticleOptions;
-import com.leclowndu93150.thaumaturge.registry.TTItems;
+import com.thaumicwonders.ThaumicWonders;
+import com.thaumicwonders.data.DeviceLoot;
+import com.thaumicwonders.data.EssentiaTanks;
+import com.thaumicwonders.data.EssentiaTanks.Tank;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
@@ -29,75 +34,70 @@ import org.jspecify.annotations.Nullable;
  * essentia is full; grains thrown in while it is not full are thrown back out.
  */
 public class AccretionChamberBlockEntity extends ChamberBlockEntity {
-    public static final int CAPACITY = 125;
-    /** The original's REQUIRED_FUEL sorted by name: the order the ports ask for essentia in. */
-    public static final List<ResourceKey<IAspect>> FUEL = List.of(TTAspects.AER, TTAspects.AQUA, TTAspects.IGNIS, TTAspects.ORDO,
-            TTAspects.PERDITIO, TTAspects.TERRA);
-
-    private final int[] essentia = new int[FUEL.size()];
+    private static final TagKey<Item> INPUTS = TagKey.create(Registries.ITEM, ThaumicWonders.id("accretion_inputs"));
+    /** Positional format in worlds written before fuel profiles were configurable. */
+    private static final List<ResourceKey<IAspect>> LEGACY_ORDER = List.of(TTAspects.AER, TTAspects.AQUA, TTAspects.IGNIS,
+            TTAspects.ORDO, TTAspects.PERDITIO, TTAspects.TERRA);
+    private final EssentiaTanks stored = new EssentiaTanks();
 
     public AccretionChamberBlockEntity(BlockPos pos, BlockState state) {
         super(PrimordialContent.ACCRETION_CHAMBER_BE.get(), pos, state);
     }
 
-    public boolean isEssentiaFull() {
-        for (int amount : essentia) {
-            if (amount < CAPACITY) {
-                return false;
-            }
-        }
-        return true;
+    private List<Tank> tanks() {
+        return EssentiaTanks.Profile.of(getBlockState()).tanks();
     }
 
-    /** The aspect the ports ask for now (the first one below capacity), or null when full. */
+    public boolean isEssentiaFull() {
+        List<Tank> tanks = tanks();
+        return !tanks.isEmpty() && tanks.stream().allMatch(stored::funded);
+    }
+
     public @Nullable ResourceKey<IAspect> currentSuction() {
-        for (int i = 0; i < FUEL.size(); i++) {
-            if (essentia[i] < CAPACITY) {
-                return FUEL.get(i);
-            }
+        for (Tank tank : tanks()) {
+            if (stored.room(tank) > 0) return tank.key();
+        }
+        return null;
+    }
+
+    private @Nullable Tank tankFor(ResourceKey<IAspect> aspect) {
+        for (Tank tank : tanks()) {
+            if (tank.key().equals(aspect)) return tank;
         }
         return null;
     }
 
     public int roomFor(ResourceKey<IAspect> aspect) {
-        int i = FUEL.indexOf(aspect);
-        return i < 0 ? 0 : CAPACITY - essentia[i];
+        return stored.room(tankFor(aspect));
     }
 
-    /** Adds essentia; returns the leftover that did not fit or is not wanted. */
     public int add(Holder<IAspect> aspect, int amount) {
-        for (int i = 0; i < FUEL.size(); i++) {
-            if (aspect.is(FUEL.get(i))) {
-                int added = Math.max(0, Math.min(amount, CAPACITY - essentia[i]));
-                essentia[i] += added;
-                if (added > 0) {
-                    sync();
-                }
-                return amount - added;
-            }
-        }
-        return amount;
+        Tank tank = aspect.unwrapKey().map(this::tankFor).orElse(null);
+        int added = stored.add(tank, amount);
+        if (added > 0) sync();
+        return amount - added;
     }
 
-    /** The aspect held most of, for tubes asking what the ports contain. */
     public @Nullable ResourceKey<IAspect> largest() {
-        int best = -1;
-        for (int i = 0; i < FUEL.size(); i++) {
-            if (essentia[i] > 0 && (best < 0 || essentia[i] > essentia[best])) {
-                best = i;
+        ResourceKey<IAspect> best = null;
+        int largest = 0;
+        for (Tank tank : tanks()) {
+            int amount = stored.amount(tank.key());
+            if (amount > largest) {
+                largest = amount;
+                best = tank.key();
             }
         }
-        return best < 0 ? null : FUEL.get(best);
+        return best;
     }
 
     public int amount(@Nullable ResourceKey<IAspect> aspect) {
-        int i = aspect == null ? -1 : FUEL.indexOf(aspect);
-        return i < 0 ? 0 : essentia[i];
+        return aspect == null ? 0 : stored.amount(aspect);
     }
 
     @Override
     protected boolean canRefine(ItemStack stack) {
-        return stack.is(PrimordialContent.PRIMORDIAL_GRAIN.get()) && isEssentiaFull();
+        return stack.is(INPUTS) && isEssentiaFull();
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, AccretionChamberBlockEntity be) {
@@ -125,12 +125,15 @@ public class AccretionChamberBlockEntity extends ChamberBlockEntity {
                 if (stack.isEmpty()) {
                     continue;
                 }
-                ItemStack result = resultFor(server, stack);
-                speedyTime--;
-                for (int i = 0; i < essentia.length; i++) {
-                    essentia[i] -= CAPACITY;
+                if (!stack.is(INPUTS)) {
+                    eject(stack.copy());
+                    stacks.set(slot, ItemStack.EMPTY);
+                    sync();
+                    continue;
                 }
-                eject(result.copy());
+                speedyTime--;
+                tanks().forEach(stored::spend);
+                DeviceLoot.roll(server, worldPosition, DeviceLoot.ACCRETION).forEach(this::eject);
                 Vec3 from = Vec3.atCenterOf(worldPosition);
                 Vec3 to = Vec3.atCenterOf(worldPosition.relative(outputSide(), 2));
                 int color = Aspects.resolve(server, TTAspects.PRAECANTATIO).value().color();
@@ -138,7 +141,7 @@ public class AccretionChamberBlockEntity extends ChamberBlockEntity {
                     Effects.spawn(server, new VisSparkleParticleOptions(to.x, to.y, to.z, color), from.x, from.y, from.z);
                 }
                 popSound();
-                stack.shrink(result.getCount());
+                stack.shrink(1);
                 if (stack.isEmpty()) {
                     stacks.set(slot, ItemStack.EMPTY);
                 }
@@ -170,28 +173,20 @@ public class AccretionChamberBlockEntity extends ChamberBlockEntity {
         return speedyTime > 0 ? 80 : 140;
     }
 
-    private static ItemStack resultFor(ServerLevel server, ItemStack stack) {
-        if (!stack.is(PrimordialContent.PRIMORDIAL_GRAIN.get())) {
-            return stack.copy();
-        }
-        int r = server.getRandom().nextInt(10);
-        ItemStack pearl = new ItemStack(TTItems.PRIMORDIAL_PEARL.get());
-        pearl.set(DataComponents.DAMAGE, r == 0 ? 5 : r <= 2 ? 6 : 7);
-        return pearl;
-    }
-
     @Override
     protected void saveAdditional(ValueOutput out) {
         super.saveAdditional(out);
-        out.putIntArray("essentia", essentia.clone());
+        stored.save(out);
     }
 
     @Override
     protected void loadAdditional(ValueInput in) {
         super.loadAdditional(in);
-        int[] saved = in.getIntArray("essentia").orElse(new int[0]);
-        for (int i = 0; i < essentia.length; i++) {
-            essentia[i] = i < saved.length ? saved[i] : 0;
-        }
+        stored.load(in, () -> {
+            int[] saved = in.getIntArray("essentia").orElse(new int[0]);
+            for (int i = 0; i < Math.min(saved.length, LEGACY_ORDER.size()); i++) {
+                stored.importAmount(LEGACY_ORDER.get(i), saved[i]);
+            }
+        });
     }
 }

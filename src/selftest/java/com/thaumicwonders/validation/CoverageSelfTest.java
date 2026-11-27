@@ -200,6 +200,14 @@ public final class CoverageSelfTest {
                 } finally { level.setBlock(pos, original, 2); }
             });
 
+            String ruleMode = System.getProperty("coverage.rules");
+            if (ruleMode != null) {
+                PackRulesSelfTest.run(level, ruleMode.equals("override"), (name, body) -> {
+                    counts.merge("packRuleGroups", 1, Integer::sum);
+                    test(name, body::run);
+                });
+            }
+
             JsonObject lang = json("assets/" + MOD + "/lang/en_us.json");
             for (Item item : items) test("item " + BuiltInRegistries.ITEM.getKey(item), () -> {
                 String key = item.getDescriptionId();

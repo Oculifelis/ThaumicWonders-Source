@@ -1,0 +1,17 @@
+{
+  "values": {
+    "thaumaturgicwonders:primal_arrow_earth": {
+      "damage_multiplier": 4,
+      "fire_damage": true,
+      "pierce_armor": true,
+      "infinity_roll": 1,
+      "effects": [
+        {
+          "id": "minecraft:glowing",
+          "duration": 41,
+          "amplifier": 1
+        }
+      ]
+    }
+  }
+}

@@ -1,5 +1,7 @@
 package com.thaumicwonders.primordial;
 
+import com.thaumicwonders.data.DeviceRules;
+import com.thaumicwonders.data.DeviceRules.Catalyst;
 import com.leclowndu93150.thaumaturge.api.aura.AuraHelper;
 import com.leclowndu93150.thaumaturge.content.effect.Effects;
 import com.leclowndu93150.thaumaturge.content.essentia.BellowsHelper;
@@ -38,7 +40,7 @@ public class CatalyzationChamberBlockEntity extends ChamberBlockEntity implement
     final Container socket = new SocketContainer(() -> equippedStone, s -> {
         equippedStone = s;
         sync();
-    }, s -> s.getItem() instanceof CatalystStoneItem, this);
+    }, PrimordialContent::isCatalystStone, this);
 
     public CatalyzationChamberBlockEntity(BlockPos pos, BlockState state) {
         super(PrimordialContent.CATALYZATION_CHAMBER_BE.get(), pos, state);
@@ -48,8 +50,8 @@ public class CatalyzationChamberBlockEntity extends ChamberBlockEntity implement
         return equippedStone;
     }
 
-    private @Nullable CatalystStoneItem stone() {
-        return equippedStone.getItem() instanceof CatalystStoneItem s ? s : null;
+    private @Nullable Catalyst stone() {
+        return equippedStone.isEmpty() ? null : equippedStone.typeHolder().getData(DeviceRules.CATALYST);
     }
 
     @Override
@@ -81,7 +83,7 @@ public class CatalyzationChamberBlockEntity extends ChamberBlockEntity implement
                 if (stack.isEmpty()) {
                     continue;
                 }
-                CatalystStoneItem stone = stone();
+                Catalyst stone = stone();
                 ItemStack result = stone == null ? ItemStack.EMPTY : CatalyzationRecipe.refine(server, equippedStone, stack);
                 if (result.isEmpty()) {
                     // As the original: with no stone (or a rejected item) the whole stack comes out unchanged.
@@ -136,11 +138,11 @@ public class CatalyzationChamberBlockEntity extends ChamberBlockEntity implement
     }
 
     /** Five sparkles in the stone's colour from the chamber out through the opening, and the lava pop. */
-    private void playEffects(ServerLevel server, @Nullable CatalystStoneItem stone) {
+    private void playEffects(ServerLevel server, @Nullable Catalyst stone) {
         if (stone != null) {
             Vec3 from = Vec3.atCenterOf(worldPosition);
             Vec3 to = Vec3.atCenterOf(worldPosition.relative(outputSide(), 2));
-            int color = stone.sparkleColor(server);
+            int color = stone.sparkle().value().color();
             for (int i = 0; i < 5; i++) {
                 Effects.spawn(server, new VisSparkleParticleOptions(to.x, to.y, to.z, color), from.x, from.y, from.z);
             }

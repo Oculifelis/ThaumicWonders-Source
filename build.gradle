@@ -24,6 +24,11 @@ dependencies {
     // Curios API for the goggles and the charm (Thaumaturge needs Curios anyway).
     implementation files('libs/curios-neoforge-15.0.0+26.1.2.jar')
     runtimeOnly files('libs/lithostitched-1.8.1-neoforge-26.1.jar')
+    // runServer -Pkubejstest: KubeJS, Rhino and Better Advanced Tooltips (KubeJS 8 crashes without it) from libs/,
+    // dev runs only, never in the jar
+    if (project.hasProperty('kubejstest')) {
+        runtimeOnly fileTree('libs') { include 'kubejs-*.jar', 'rhino-*.jar', 'better-advanced-tooltips-*.jar' }
+    }
 }
 
 neoForge {
@@ -39,6 +44,13 @@ neoForge {
             server()
             gameDirectory = project.file('run/server')
             programArgument '--nogui'
+            // -Pkubejstest: src/kubejstest/server_scripts/tw_kjstest.js changes Wonders data from a script, logs TWKJS
+            // lines and stops the server; without it the script is removed so it never lingers into other runs
+            if (project.hasProperty('kubejstest')) {
+                copy { from 'src/kubejstest/server_scripts'; into 'run/server/kubejs/server_scripts' }
+            } else {
+                delete 'run/server/kubejs/server_scripts/tw_kjstest.js'
+            }
         }
         configureEach {
             systemProperty 'forge.logging.markers', ''
@@ -101,6 +113,48 @@ if (project.hasProperty('selftest')) {
             new File(coverageDir, 'server.properties').text = 'online-mode=false\nserver-port=0\nlevel-seed=0\ngenerate-structures=false\n'
         }
     }
+    def ruleRuns = ['defaults', 'override'].collect { mode ->
+        def name = "rules${mode.capitalize()}"
+        def dir = layout.buildDirectory.dir("rules/${mode}").get().asFile
+        def result = new File(dir, 'result.json')
+        neoForge.runs.create(name) {
+            server()
+            gameDirectory = dir
+            programArgument '--nogui'
+            jvmArgument '-Xmx4G'
+            jvmArgument '-XX:ActiveProcessorCount=4'
+            systemProperty 'java.awt.headless', 'true'
+            systemProperty 'coverage.enabled', 'true'
+            systemProperty 'coverage.result', result.absolutePath
+            systemProperty 'coverage.resources', file('src/main/resources').absolutePath
+            systemProperty 'coverage.rules', mode
+        }
+        def run = tasks.named("run${name.capitalize()}") {
+            doFirst {
+                dir.mkdirs()
+                if (result.exists() && !result.delete()) throw new GradleException("Could not clear ${result}")
+                new File(dir, 'eula.txt').text = 'eula=true\n'
+                new File(dir, 'server.properties').text = 'online-mode=false\nserver-ip=127.0.0.1\nserver-port=0\nlevel-name=rule-world\nlevel-seed=0\ngenerate-structures=false\ninitial-enabled-packs=vanilla\n'
+                if (mode == 'override') project.sync {
+                    from 'qa/datapacks/override'
+                    into new File(dir, 'rule-world/datapacks/wonders_rules')
+                }
+            }
+            doLast {
+                if (!result.isFile()) throw new GradleException("Missing ${mode} result")
+                def checks = new groovy.json.JsonSlurper().parse(result)
+                if (checks.failed != 0 || checks.counts.packRuleGroups != 10) {
+                    throw new GradleException("${mode} rules: ${checks.errors}, ${checks.counts}")
+                }
+            }
+        }
+        run
+    }
+    ruleRuns[1].configure { mustRunAfter ruleRuns[0] }
+    tasks.register('checkPackRules') {
+        group = 'verification'
+        dependsOn ruleRuns
+    }
     tasks.register('coverageTest') {
         group = 'verification'
         description = 'Check registries, recipes, block placement/loot, item models and English names headlessly.'
@@ -116,5 +170,5 @@ if (project.hasProperty('selftest')) {
 
 // Keep development checks out of every archive, including explicit test builds.
 tasks.withType(Jar).configureEach {
-    exclude "com/thaumicwonders/validation/CoverageSelfTest*"
+    exclude "com/thaumicwonders/validation/**"
 }

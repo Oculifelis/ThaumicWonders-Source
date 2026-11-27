@@ -38,7 +38,8 @@ public class ResearchEngineBlock extends BaseEntityBlock implements IResearchTab
 
     @Override
     public float aspectSaveChance(Level level, BlockPos pos, BlockState state) {
-        return level.getBlockEntity(pos) instanceof ResearchEngineBlockEntity engine && engine.isFueled() ? kind.saveChance() : 0.0F;
+        return level.getBlockEntity(pos) instanceof ResearchEngineBlockEntity engine && engine.isFueled()
+                ? com.thaumicwonders.data.EssentiaTanks.Profile.of(state).saveChance() : 0.0F;
     }
 
     @Override

@@ -128,7 +128,8 @@ public class VoidBeaconBlockEntity extends EssentiaDeviceBlockEntity {
     }
 
     private boolean hasEnoughEssentia() {
-        return essentiaType != null && levels >= 0 && essentiaAmount >= requiredEssentia();
+        int cost = requiredEssentia();
+        return essentiaType != null && levels >= 0 && cost > 0 && essentiaAmount >= cost;
     }
 
     private boolean canMakeProgress() {
@@ -140,13 +141,8 @@ public class VoidBeaconBlockEntity extends EssentiaDeviceBlockEntity {
     }
 
     public int requiredEssentia() {
-        return switch (levels) {
-            case 4 -> 1;
-            case 3 -> 2;
-            case 2 -> 5;
-            case 1 -> 10;
-            default -> 20;
-        };
+        List<Integer> costs = getBlockState().typeHolder().getData(com.thaumicwonders.data.DeviceRules.BEACON_COST);
+        return costs == null ? 0 : costs.get(Math.clamp(levels, 0, 4));
     }
 
     private void updateBeam(Level level) {

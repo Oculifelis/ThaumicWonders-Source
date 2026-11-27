@@ -47,11 +47,11 @@ public final class GearHud implements GuiLayer {
         }
         int y = this.thaumaturgeOffset(mc, player);
         if (mainDestroyer) {
-            gauge(graphics, y, PrimalDestroyerItem.hunger(main), PrimalDestroyerItem.MAX_HUNGER, DESTROYER_COLOR, 128);
+            gauge(graphics, y, PrimalDestroyerItem.hunger(main), destroyerLimit(main), DESTROYER_COLOR, 128);
             y += GAUGE_HEIGHT;
         }
         if (offDestroyer) {
-            gauge(graphics, y, PrimalDestroyerItem.hunger(off), PrimalDestroyerItem.MAX_HUNGER, DESTROYER_COLOR, 128);
+            gauge(graphics, y, PrimalDestroyerItem.hunger(off), destroyerLimit(off), DESTROYER_COLOR, 128);
             y += GAUGE_HEIGHT;
         }
         if (carpet != null) {
@@ -76,6 +76,11 @@ public final class GearHud implements GuiLayer {
             // A layout change in Thaumaturge only moves our gauges; never break the HUD over it.
         }
         return y;
+    }
+
+    private static int destroyerLimit(ItemStack stack) {
+        var profile = com.thaumicwonders.data.DestroyerProfile.of(stack);
+        return profile == null ? 1 : profile.hungerLimit();
     }
 
     private static void gauge(GuiGraphicsExtractor graphics, int y, int value, int max, int color, int frameU) {

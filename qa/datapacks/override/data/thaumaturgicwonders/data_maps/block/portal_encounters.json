@@ -1,0 +1,28 @@
+{
+  "values": {
+    "thaumaturgicwonders:portal_generator": {
+      "events": [
+        {
+          "action": "invaders",
+          "weight": 1,
+          "below_stability": -5
+        }
+      ],
+      "invaders": [
+        {
+          "entity": "minecraft:chicken",
+          "weight": 1,
+          "below_stability": -5,
+          "stability_per_extra": 2
+        }
+      ],
+      "subversions": [
+        {
+          "action": "flux_rift",
+          "weight": 1,
+          "below_stability": 0
+        }
+      ]
+    }
+  }
+}

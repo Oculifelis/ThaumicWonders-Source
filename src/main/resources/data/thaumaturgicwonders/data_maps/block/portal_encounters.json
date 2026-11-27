@@ -1,0 +1,67 @@
+{
+  "values": {
+    "thaumaturgicwonders:portal_generator": {
+      "events": [
+        {
+          "action": "flux",
+          "weight": 60,
+          "below_stability": 0
+        },
+        {
+          "action": "invaders",
+          "weight": 35,
+          "below_stability": 0
+        },
+        {
+          "action": "subversion",
+          "weight": 5,
+          "below_stability": -50
+        }
+      ],
+      "invaders": [
+        {
+          "entity": "thaumaturge:wisp",
+          "weight": 40,
+          "below_stability": 0,
+          "stability_per_extra": 20
+        },
+        {
+          "entity": "minecraft:zombified_piglin",
+          "weight": 30,
+          "below_stability": -20,
+          "stability_per_extra": 30
+        },
+        {
+          "entity": "minecraft:enderman",
+          "weight": 20,
+          "below_stability": -40,
+          "stability_per_extra": 40
+        },
+        {
+          "entity": "thaumaturge:inhabited_zombie",
+          "weight": 7,
+          "below_stability": -60,
+          "stability_per_extra": 0
+        },
+        {
+          "entity": "thaumaturge:eldritch_guardian",
+          "weight": 3,
+          "below_stability": -80,
+          "stability_per_extra": 0
+        }
+      ],
+      "subversions": [
+        {
+          "action": "crimson_portal",
+          "weight": 75,
+          "below_stability": -50
+        },
+        {
+          "action": "flux_rift",
+          "weight": 25,
+          "below_stability": -75
+        }
+      ]
+    }
+  }
+}

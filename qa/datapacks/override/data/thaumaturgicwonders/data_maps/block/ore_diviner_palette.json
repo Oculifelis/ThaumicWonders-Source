@@ -1,0 +1,13 @@
+{
+  "values": {
+    "thaumaturgicwonders:ore_diviner": {
+      "fallback": 23,
+      "colors": [
+        {
+          "keyword": "iron",
+          "rgb": 42
+        }
+      ]
+    }
+  }
+}

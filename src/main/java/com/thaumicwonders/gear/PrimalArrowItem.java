@@ -44,6 +44,7 @@ public class PrimalArrowItem extends ArrowItem {
         if (infinity.isEmpty() || EnchantmentHelper.getItemEnchantmentLevel(infinity.get(), bow) <= 0) {
             return false;
         }
-        return living.getRandom().nextInt(3) == 0;
+        int roll = com.thaumicwonders.data.ArrowProfile.of(this).infinityRoll();
+        return roll > 0 && living.getRandom().nextInt(roll) == 0;
     }
 }

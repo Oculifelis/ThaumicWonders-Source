@@ -42,6 +42,10 @@ public class SelectorScreen extends Screen {
                 new Button(5, -23, 23, 97, 143), new Button(6, -32, 0, 88, 120), new Button(7, -23, -23, 97, 97));
     }
 
+    protected Component label(Button button) {
+        return Component.translatable(labelPrefix + button.id());
+    }
+
     private int baseX() {
         return (width - 16) / 2;
     }
@@ -58,7 +62,6 @@ public class SelectorScreen extends Screen {
 
     @Override
     public void extractRenderState(GuiGraphicsExtractor g, int mouseX, int mouseY, float partialTicks) {
-        super.extractRenderState(g, mouseX, mouseY, partialTicks);
         g.blit(RenderPipelines.GUI_TEXTURED, background, (width - 256) / 2, (height - 256) / 2, 0.0F, 0.0F, 256, 256, 256, 256);
         Button hovered = null;
         for (Button b : layout) {
@@ -71,8 +74,9 @@ public class SelectorScreen extends Screen {
             }
         }
         if (hovered != null) {
-            g.text(font, Component.translatable(labelPrefix + hovered.id()), baseX() + hovered.dx() + 19, baseY() + hovered.dy() + 4, 0xFFFFFFFF);
+            g.text(font, label(hovered), baseX() + hovered.dx() + 19, baseY() + hovered.dy() + 4, 0xFFFFFFFF);
         }
+        super.extractRenderState(g, mouseX, mouseY, partialTicks);
     }
 
     @Override

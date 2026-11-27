@@ -1,7 +1,7 @@
 package com.thaumicwonders.gear.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.thaumicwonders.gear.GearContent;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -33,7 +33,9 @@ public class GogglesCurioRenderer implements ICurioRenderer {
             this.model = new HumanoidModel<>(context.bakeLayer(ModelLayers.PLAYER_ARMOR.head()));
         }
         this.model.setupAnim(humanoid);
-        context.getEquipmentRenderer().renderLayers(EquipmentClientInfo.LayerType.HUMANOID, GearContent.GOGGLES_ASSET, this.model, humanoid,
+        var equipment = stack.get(DataComponents.EQUIPPABLE);
+        if (equipment == null || equipment.assetId().isEmpty()) return;
+        context.getEquipmentRenderer().renderLayers(EquipmentClientInfo.LayerType.HUMANOID, equipment.assetId().get(), this.model, humanoid,
                 stack, pose, collector, light, humanoid.outlineColor);
     }
 }

@@ -7,7 +7,7 @@
   "components": [
     "minecraft:diamond",
     "minecraft:ender_pearl",
-    "thaumaturge:quicksilver",
+    "#c:gems/quicksilver",
     {
       "neoforge:ingredient_type": "neoforge:components",
       "items": "thaumaturge:celestial_notes",

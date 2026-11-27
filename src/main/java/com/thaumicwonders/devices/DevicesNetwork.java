@@ -2,6 +2,8 @@ package com.thaumicwonders.devices;
 
 import com.thaumicwonders.ThaumicWonders;
 import io.netty.buffer.ByteBuf;
+import java.util.Optional;
+import net.minecraft.resources.Identifier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -36,11 +38,11 @@ public final class DevicesNetwork {
         }
     }
 
-    /** Structure Diviner button: 0..7 a structure kind, 8 clear. */
-    public record StructureDivinerAction(int target) implements CustomPacketPayload {
+    /** Structure Diviner selection carries the structure tag, or an empty selection to clear. */
+    public record StructureDivinerAction(Optional<Identifier> target) implements CustomPacketPayload {
         public static final Type<StructureDivinerAction> TYPE = new Type<>(ThaumicWonders.id("structure_diviner_action"));
-        public static final StreamCodec<ByteBuf, StructureDivinerAction> CODEC = ByteBufCodecs.VAR_INT.map(StructureDivinerAction::new,
-                StructureDivinerAction::target);
+        public static final StreamCodec<ByteBuf, StructureDivinerAction> CODEC = Identifier.STREAM_CODEC.apply(ByteBufCodecs::optional)
+                .map(StructureDivinerAction::new, StructureDivinerAction::target);
 
         @Override
         public Type<StructureDivinerAction> type() {
@@ -84,7 +86,7 @@ public final class DevicesNetwork {
     }
 
     static void register(RegisterPayloadHandlersEvent event) {
-        PayloadRegistrar registrar = event.registrar("1");
+        PayloadRegistrar registrar = event.registrar("2");
         registrar.playToServer(TimewinderAction.TYPE, TimewinderAction.CODEC, (p, ctx) -> {
             if (ctx.player() instanceof ServerPlayer player) {
                 TimewinderItem.act(player, p.target());

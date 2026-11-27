@@ -1,0 +1,12 @@
+{
+  "values": {
+    "thaumaturgicwonders:corruption_avatar": [
+      {
+        "effect": "minecraft:speed",
+        "ticks": 45,
+        "base_amplifier": 1,
+        "per_rift": 2
+      }
+    ]
+  }
+}

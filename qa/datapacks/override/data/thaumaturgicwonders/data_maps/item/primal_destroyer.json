@@ -1,0 +1,18 @@
+{
+  "values": {
+    "thaumaturgicwonders:primal_destroyer": {
+      "hunger_limit": 40,
+      "hit_feed": 3,
+      "kill_feed": 9,
+      "bite_damage": 1,
+      "fire_seconds": 0,
+      "bite_effects": [],
+      "hit_effects": [
+        {
+          "id": "minecraft:glowing",
+          "duration": 20
+        }
+      ]
+    }
+  }
+}

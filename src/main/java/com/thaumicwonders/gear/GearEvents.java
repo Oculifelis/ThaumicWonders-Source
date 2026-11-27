@@ -17,7 +17,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.damagesource.DamageContainer;
@@ -44,8 +45,7 @@ public final class GearEvents {
             return;
         }
         int set = GearContent.setCount(player);
-        double armor = set >= 3 ? 2.0 : set >= 2 ? 1.0 : 0.0;
-        double toughness = set >= 2 ? 1.0 : 0.0;
+        var bonus = com.thaumicwonders.data.EquipmentRules.fortress(player.level().registryAccess()).bonus(set);
         double warpshell = 0.0;
         if (set > 0) {
             IPlayerWarp warp = WarpHelper.getWarp(player);
@@ -53,8 +53,8 @@ public final class GearEvents {
                 warpshell = Math.min(100, warp.get(WarpType.PERMANENT)) / 25.0;
             }
         }
-        apply(player, Attributes.ARMOR, SET_ARMOR, armor);
-        apply(player, Attributes.ARMOR_TOUGHNESS, SET_TOUGHNESS, toughness);
+        apply(player, Attributes.ARMOR, SET_ARMOR, bonus.armor());
+        apply(player, Attributes.ARMOR_TOUGHNESS, SET_TOUGHNESS, bonus.toughness());
         apply(player, Attributes.ARMOR_TOUGHNESS, WARPSHELL, warpshell);
     }
 
@@ -71,13 +71,13 @@ public final class GearEvents {
     }
 
     /** The armour points of the Void Fortress pieces worn (helm 4, chest 9, legs 7). */
-    private static int voidFortressDefense(LivingEntity entity) {
-        int sum = 0;
+    private static float voidFortressDefense(LivingEntity entity) {
+        float sum = 0;
         for (EquipmentSlot slot : new EquipmentSlot[] {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS}) {
             ItemStack stack = entity.getItemBySlot(slot);
             if (GearContent.isVoidFortress(stack)) {
-                ArmorType type = slot == EquipmentSlot.HEAD ? ArmorType.HELMET : slot == EquipmentSlot.CHEST ? ArmorType.CHESTPLATE : ArmorType.LEGGINGS;
-                sum += GearContent.VOID_FORTRESS.defense().getOrDefault(type, 0);
+                var attributes = stack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+                sum += (float) attributes.compute(Attributes.ARMOR, 0, slot);
             }
         }
         return sum;
@@ -90,22 +90,19 @@ public final class GearEvents {
 
         // Primal Arrows: air and order pierce armour; fire arrows do fire damage, which the fireproof shrug off.
         if (source.getDirectEntity() instanceof PrimalArrowEntity arrow) {
-            switch (arrow.kind()) {
-                case AIR, ORDER -> event.addReductionModifier(DamageContainer.Reduction.ARMOR, (container, reduction) -> 0.0F);
-                case FIRE -> {
-                    if (target.fireImmune() || target.hasEffect(MobEffects.FIRE_RESISTANCE)) {
-                        event.setCanceled(true);
-                        return;
-                    }
-                }
-                default -> {
-                }
+            var rule = arrow.profile();
+            if (rule.pierceArmor()) {
+                event.addReductionModifier(DamageContainer.Reduction.ARMOR, (container, reduction) -> 0.0F);
+            }
+            if (rule.fireDamage() && (target.fireImmune() || target.hasEffect(MobEffects.FIRE_RESISTANCE))) {
+                event.setCanceled(true);
+                return;
             }
         }
 
         // Void Fortress: magic is absorbed at defense/35 per piece, fire and explosions at defense/20 (a full set
         // stops them, burning included) in place of plain armour; everything else goes through armour as usual.
-        int defense = voidFortressDefense(target);
+        float defense = voidFortressDefense(target);
         if (defense > 0) {
             if (source.is(Tags.DamageTypes.IS_MAGIC)) {
                 event.setAmount(event.getAmount() * (1.0F - Math.min(1.0F, defense / 35.0F)));

@@ -1,0 +1,105 @@
+{
+  "values": {
+    "thaumaturgicwonders:meteorb": {
+      "tanks": [
+        {
+          "aspect": "thaumaturge:aer",
+          "capacity": 50,
+          "cost": 50
+        },
+        {
+          "aspect": "thaumaturge:aqua",
+          "capacity": 50,
+          "cost": 50
+        },
+        {
+          "aspect": "thaumaturge:potentia",
+          "capacity": 50,
+          "cost": 50
+        }
+      ]
+    },
+    "thaumaturgicwonders:meaty_orb": {
+      "tanks": [
+        {
+          "aspect": "thaumaturge:victus",
+          "capacity": 250,
+          "cost": 250
+        },
+        {
+          "aspect": "thaumaturge:aqua",
+          "capacity": 250,
+          "cost": 250
+        },
+        {
+          "aspect": "thaumaturge:alienis",
+          "capacity": 250,
+          "cost": 250
+        }
+      ]
+    },
+    "thaumaturgicwonders:primordial_accretion_chamber": {
+      "tanks": [
+        {
+          "aspect": "thaumaturge:aer",
+          "capacity": 125,
+          "cost": 125
+        },
+        {
+          "aspect": "thaumaturge:aqua",
+          "capacity": 125,
+          "cost": 125
+        },
+        {
+          "aspect": "thaumaturge:ignis",
+          "capacity": 125,
+          "cost": 125
+        },
+        {
+          "aspect": "thaumaturge:ordo",
+          "capacity": 125,
+          "cost": 125
+        },
+        {
+          "aspect": "thaumaturge:perditio",
+          "capacity": 125,
+          "cost": 125
+        },
+        {
+          "aspect": "thaumaturge:terra",
+          "capacity": 125,
+          "cost": 125
+        }
+      ]
+    },
+    "thaumaturgicwonders:inspiration_engine": {
+      "tanks": [
+        {
+          "aspect": "thaumaturge:cognitio",
+          "capacity": 25,
+          "cost": 5
+        }
+      ],
+      "save_chance": 0.25
+    },
+    "thaumaturgicwonders:madness_engine": {
+      "tanks": [
+        {
+          "aspect": "thaumaturge:alienis",
+          "capacity": 50,
+          "cost": 10
+        }
+      ],
+      "save_chance": 0.35
+    },
+    "thaumaturgicwonders:dimensional_ripper": {
+      "tanks": [
+        {
+          "aspect": "thaumaturge:vitium",
+          "capacity": 250,
+          "cost": 50
+        }
+      ]
+    }
+  }
+}

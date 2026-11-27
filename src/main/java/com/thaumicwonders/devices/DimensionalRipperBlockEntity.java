@@ -1,6 +1,7 @@
 package com.thaumicwonders.devices;
 
-import com.leclowndu93150.thaumaturge.api.aspect.Aspects;
+import com.thaumicwonders.data.EssentiaTanks;
+import com.thaumicwonders.data.EssentiaTanks.Tank;
 import com.leclowndu93150.thaumaturge.api.aspect.IAspect;
 import com.leclowndu93150.thaumaturge.api.aspect.TTAspects;
 import com.leclowndu93150.thaumaturge.content.effect.Effects;
@@ -29,12 +30,10 @@ import org.jspecify.annotations.Nullable;
  * original).
  */
 public class DimensionalRipperBlockEntity extends EssentiaDeviceBlockEntity {
-    public static final int CAPACITY = 250;
-    public static final int MIN_FUEL = 50;
     public static final int DISTANCE = 10;
     private static final int RED = 0xFFFF0000;
 
-    private int amount;
+    private final EssentiaTanks stored = new EssentiaTanks();
 
     public DimensionalRipperBlockEntity(BlockPos pos, BlockState state) {
         super(DevicesContent.DIMENSIONAL_RIPPER_BE.get(), pos, state);
@@ -42,7 +41,7 @@ public class DimensionalRipperBlockEntity extends EssentiaDeviceBlockEntity {
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, DimensionalRipperBlockEntity be) {
         if (++be.tickCounter % 5 == 0) {
-            if (be.amount < CAPACITY) {
+            if (be.stored.room(be.fuel()) > 0) {
                 be.fill(List.of(be.facing().getOpposite()), true);
             }
             be.checkForActivation((ServerLevel) level);
@@ -57,8 +56,8 @@ public class DimensionalRipperBlockEntity extends EssentiaDeviceBlockEntity {
         return getBlockState().getValue(DimensionalRipperBlock.ENABLED);
     }
 
-    private Holder<IAspect> vitium() {
-        return Aspects.resolve(level, TTAspects.VITIUM);
+    private @Nullable Tank fuel() {
+        return EssentiaTanks.Profile.of(getBlockState()).slot(0, 1);
     }
 
     private void checkForActivation(ServerLevel level) {
@@ -67,19 +66,22 @@ public class DimensionalRipperBlockEntity extends EssentiaDeviceBlockEntity {
         if (!(level.getBlockEntity(otherPos) instanceof DimensionalRipperBlockEntity other) || other.facing() != facing.getOpposite()) {
             return;
         }
+        Tank tank = fuel();
+        Tank otherTank = other.fuel();
+        if (tank == null || otherTank == null) return;
         // The link sparkle (the original's block event 5): a vis sparkle in vitium's colour from here to the partner.
         Vec3 here = Vec3.atCenterOf(worldPosition);
         Vec3 there = Vec3.atCenterOf(otherPos);
-        Effects.spawn(level, new VisSparkleParticleOptions(there.x, there.y, there.z, vitium().value().color()), here.x, here.y, here.z);
-        if (!enabled() || !other.enabled() || amount < MIN_FUEL || other.amount < MIN_FUEL) {
+        Effects.spawn(level, new VisSparkleParticleOptions(there.x, there.y, there.z, tank.aspect().value().color()), here.x, here.y, here.z);
+        if (!enabled() || !other.enabled() || !stored.funded(tank) || !other.stored.funded(otherTank)) {
             return;
         }
         // Java int division, as the original (it rounds towards zero for negative coordinates).
         BlockPos target = new BlockPos((worldPosition.getX() + otherPos.getX()) / 2, (worldPosition.getY() + otherPos.getY()) / 2,
                 (worldPosition.getZ() + otherPos.getZ()) / 2);
-        int fuel = Math.min(amount, other.amount);
-        amount -= fuel;
-        other.amount -= fuel;
+        int fuel = Math.min(stored.amount(tank.key()), other.stored.amount(otherTank.key()));
+        stored.drain(tank, fuel);
+        other.stored.drain(otherTank, fuel);
         sync();
         other.sync();
         Vec3 targetCentre = Vec3.atCenterOf(target);
@@ -101,7 +103,7 @@ public class DimensionalRipperBlockEntity extends EssentiaDeviceBlockEntity {
             EntityFluxRift rift = close.getFirst();
             int oldSize = rift.currentSize();
             double oldFuel = oldSize * oldSize / 3.0;
-            int newSize = (int) Math.sqrt((oldFuel + 2 * fuel) * 3.0);
+            int newSize = (int) Math.sqrt((oldFuel + 2.0 * fuel) * 3.0);
             rift.resize(newSize);
             rift.adjustStability(-(newSize - oldSize));
         } else if (riftsWithin(level, centre, 32.0).isEmpty()) {
@@ -109,7 +111,7 @@ public class DimensionalRipperBlockEntity extends EssentiaDeviceBlockEntity {
             rift.reseed(level.getRandom().nextInt());
             rift.snapTo(centre.x, centre.y, centre.z, level.getRandom().nextInt(360), 0.0F);
             if (level.addFreshEntity(rift)) {
-                rift.resize((int) Math.sqrt(2 * fuel * 3.0));
+                rift.resize((int) Math.sqrt(2.0 * fuel * 3.0));
             }
         }
     }
@@ -128,44 +130,45 @@ public class DimensionalRipperBlockEntity extends EssentiaDeviceBlockEntity {
 
     @Override
     protected @Nullable Holder<IAspect> wantedOn(Direction face) {
-        return vitium();
+        Tank tank = fuel();
+        return tank == null ? null : tank.aspect();
     }
 
     @Override
     protected int roomFor(Direction face) {
-        return CAPACITY - amount;
+        return stored.room(fuel());
     }
 
     @Override
     protected int store(Holder<IAspect> aspect, int count, Direction face) {
-        int added = Math.min(count, CAPACITY - amount);
-        amount += added;
-        return count - added;
+        Tank tank = fuel();
+        return tank != null && aspect.is(tank.key()) ? count - stored.add(tank, count) : count;
     }
 
     @Override
     public @Nullable Holder<IAspect> getEssentiaType(@Nullable Direction side) {
-        return level == null ? null : vitium();
+        return wantedOn(facing().getOpposite());
     }
 
     @Override
     public int getEssentiaAmount(@Nullable Direction side) {
-        return amount;
+        return amount();
     }
 
     public int amount() {
-        return amount;
+        Tank tank = fuel();
+        return tank == null ? 0 : stored.amount(tank.key());
     }
 
     @Override
     protected void saveAdditional(ValueOutput out) {
         super.saveAdditional(out);
-        out.putShort("essentia", (short) amount);
+        stored.save(out);
     }
 
     @Override
     protected void loadAdditional(ValueInput in) {
         super.loadAdditional(in);
-        amount = in.getShortOr("essentia", (short) 0);
+        stored.load(in, () -> stored.importAmount(TTAspects.VITIUM, in.getShortOr("essentia", (short) 0)));
     }
 }

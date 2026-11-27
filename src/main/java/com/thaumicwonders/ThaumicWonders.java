@@ -30,6 +30,7 @@ public final class ThaumicWonders {
         PrimordialContent.init(modBus);
         GearContent.init(modBus);
         EldritchContent.init(modBus);
+        modBus.addListener(com.thaumicwonders.data.DeviceRules::register);
         TWRegistry.register(modBus);
         if (dist == Dist.CLIENT) {
             com.thaumicwonders.client.TWClient.init(modBus);

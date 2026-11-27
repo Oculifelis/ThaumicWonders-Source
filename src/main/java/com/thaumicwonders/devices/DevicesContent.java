@@ -75,7 +75,7 @@ public final class DevicesContent {
 
         void openTimewinder();
 
-        void openStructureDiviner();
+        void openStructureDiviner(com.thaumicwonders.data.DeviceRules.Diviner targets);
     }
 
     private static ClientHooks clientHooks = new ClientHooks() {
@@ -88,7 +88,7 @@ public final class DevicesContent {
         }
 
         @Override
-        public void openStructureDiviner() {
+        public void openStructureDiviner(com.thaumicwonders.data.DeviceRules.Diviner targets) {
         }
     };
 

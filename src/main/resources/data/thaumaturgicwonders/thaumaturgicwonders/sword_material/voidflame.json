@@ -1,0 +1,10 @@
+{
+  "incorrect_blocks": "minecraft:incorrect_for_netherite_tool",
+  "durability": 200,
+  "mining_speed": 8,
+  "damage_bonus": 8,
+  "enchantment_value": 20,
+  "repair_tag": "c:ingots/void_metal",
+  "attack_damage": 3,
+  "attack_speed": -2.4
+}

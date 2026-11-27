@@ -1,0 +1,63 @@
+{
+  "values": {
+    "thaumaturgicwonders:structure_diviner": {
+      "search_radius": 19,
+      "targets": [
+        {
+          "tag": "thaumaturgicwonders:qa/diviner",
+          "label": {
+            "text": "Archive"
+          }
+        },
+        {
+          "tag": "thaumaturgicwonders:structure_diviner/village",
+          "label": {
+            "translate": "thaumaturgicwonders.gui.structure_diviner.0"
+          }
+        },
+        {
+          "tag": "thaumaturgicwonders:structure_diviner/temple",
+          "label": {
+            "translate": "thaumaturgicwonders.gui.structure_diviner.1"
+          }
+        },
+        {
+          "tag": "thaumaturgicwonders:structure_diviner/mineshaft",
+          "label": {
+            "translate": "thaumaturgicwonders.gui.structure_diviner.2"
+          }
+        },
+        {
+          "tag": "thaumaturgicwonders:structure_diviner/monument",
+          "label": {
+            "translate": "thaumaturgicwonders.gui.structure_diviner.3"
+          }
+        },
+        {
+          "tag": "thaumaturgicwonders:structure_diviner/mansion",
+          "label": {
+            "translate": "thaumaturgicwonders.gui.structure_diviner.4"
+          }
+        },
+        {
+          "tag": "thaumaturgicwonders:structure_diviner/stronghold",
+          "label": {
+            "translate": "thaumaturgicwonders.gui.structure_diviner.5"
+          }
+        },
+        {
+          "tag": "thaumaturgicwonders:structure_diviner/fortress",
+          "label": {
+            "translate": "thaumaturgicwonders.gui.structure_diviner.6"
+          }
+        },
+        {
+          "tag": "thaumaturgicwonders:structure_diviner/end_city",
+          "label": {
+            "translate": "thaumaturgicwonders.gui.structure_diviner.7"
+          }
+        }
+      ]
+    }
+  }
+}

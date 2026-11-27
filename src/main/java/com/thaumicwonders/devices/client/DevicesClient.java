@@ -40,10 +40,8 @@ public final class DevicesClient {
             }
 
             @Override
-            public void openStructureDiviner() {
-                Minecraft.getInstance().setScreen(new SelectorScreen(Component.translatable("item.thaumaturgicwonders.structure_diviner"),
-                        "structure_diviner", SelectorScreen.radial(),
-                        id -> ClientPacketDistributor.sendToServer(new DevicesNetwork.StructureDivinerAction(id))));
+            public void openStructureDiviner(com.thaumicwonders.data.DeviceRules.Diviner rule) {
+                Minecraft.getInstance().setScreen(new DivinerScreen(rule, 0));
             }
         });
     }

@@ -1,0 +1,15 @@
+{
+  "durability_factor": 25,
+  "defense": {
+    "boots": 1,
+    "leggings": 1,
+    "chestplate": 1,
+    "helmet": 1
+  },
+  "enchantment_value": 25,
+  "toughness": 0,
+  "equip_sound": "minecraft:item.armor.equip_leather",
+  "repair_tag": "c:ingots/brass",
+  "asset": "thaumaturgicwonders:night_vision_goggles",
+  "fixed_durability": 77
+}

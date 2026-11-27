@@ -1,0 +1,85 @@
+{
+  "values": {
+    "thaumaturgicwonders:primordial_accretion_chamber": {
+      "tanks": [
+        {
+          "aspect": "thaumaturge:terra",
+          "capacity": 9,
+          "cost": 9
+        },
+        {
+          "aspect": "thaumaturge:aer",
+          "capacity": 3,
+          "cost": 3
+        }
+      ]
+    },
+    "thaumaturgicwonders:meteorb": {
+      "tanks": [
+        {
+          "aspect": "thaumaturge:ignis",
+          "capacity": 7,
+          "cost": 2
+        },
+        {
+          "aspect": "thaumaturge:aqua",
+          "capacity": 8,
+          "cost": 3
+        },
+        {
+          "aspect": "thaumaturge:victus",
+          "capacity": 9,
+          "cost": 4
+        }
+      ]
+    },
+    "thaumaturgicwonders:meaty_orb": {
+      "tanks": [
+        {
+          "aspect": "thaumaturge:ignis",
+          "capacity": 7,
+          "cost": 2
+        },
+        {
+          "aspect": "thaumaturge:aqua",
+          "capacity": 8,
+          "cost": 3
+        },
+        {
+          "aspect": "thaumaturge:victus",
+          "capacity": 9,
+          "cost": 4
+        }
+      ]
+    },
+    "thaumaturgicwonders:inspiration_engine": {
+      "tanks": [
+        {
+          "aspect": "thaumaturge:aqua",
+          "capacity": 7,
+          "cost": 2
+        }
+      ],
+      "save_chance": 0.75
+    },
+    "thaumaturgicwonders:madness_engine": {
+      "tanks": [
+        {
+          "aspect": "thaumaturge:aqua",
+          "capacity": 7,
+          "cost": 2
+        }
+      ],
+      "save_chance": 0.75
+    },
+    "thaumaturgicwonders:dimensional_ripper": {
+      "tanks": [
+        {
+          "aspect": "thaumaturge:terra",
+          "capacity": 12,
+          "cost": 3
+        }
+      ]
+    }
+  }
+}

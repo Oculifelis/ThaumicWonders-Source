@@ -1,0 +1,31 @@
+{
+  "values": {
+    "thaumaturgicwonders:primal_destroyer": {
+      "hunger_limit": 600,
+      "hit_feed": 120,
+      "kill_feed": 600,
+      "bite_damage": 12,
+      "fire_seconds": 3,
+      "bite_effects": [
+        {
+          "id": "minecraft:weakness",
+          "duration": 60
+        },
+        {
+          "id": "minecraft:hunger",
+          "duration": 120
+        }
+      ],
+      "hit_effects": [
+        {
+          "id": "minecraft:weakness",
+          "duration": 60
+        },
+        {
+          "id": "minecraft:hunger",
+          "duration": 120
+        }
+      ]
+    }
+  }
+}

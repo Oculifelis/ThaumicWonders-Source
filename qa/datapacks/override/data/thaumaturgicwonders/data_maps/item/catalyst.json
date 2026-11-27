@@ -1,0 +1,8 @@
+{
+  "values": {
+    "minecraft:stick": {
+      "flux_roll": 2,
+      "sparkle": "thaumaturge:aqua"
+    }
+  }
+}

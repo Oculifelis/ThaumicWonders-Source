@@ -1,5 +1,8 @@
 package com.thaumicwonders.eldritch;
 
+import com.thaumicwonders.data.EncounterRules;
+import com.thaumicwonders.data.EncounterRules.Seeds;
+import org.jspecify.annotations.Nullable;
 import com.leclowndu93150.thaumaturge.api.aspect.Aspects;
 import com.leclowndu93150.thaumaturge.api.aspect.TTAspects;
 import com.leclowndu93150.thaumaturge.api.aura.AuraHelper;
@@ -18,7 +21,6 @@ import java.util.List;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -156,26 +158,14 @@ public class CorruptionAvatar extends EntityThaumaturgeBoss implements RangedAtt
 
     /** Taint seeds: at most 1 / 2 / 4 within 16 blocks by difficulty, primes 0% / 10% / 20% of the time. */
     private void sowSeed(ServerLevel level) {
-        Difficulty difficulty = level.getDifficulty();
-        if (difficulty == Difficulty.PEACEFUL) {
-            return;
-        }
-        int maxSeeds = switch (difficulty) {
-            case EASY -> 1;
-            case HARD -> 4;
-            default -> 2;
-        };
-        int primeThreshold = switch (difficulty) {
-            case EASY -> -1;
-            case HARD -> 1;
-            default -> 0;
-        };
+        var rule = seedRule(level.getDifficulty());
+        if (rule == null || rule.limit() == 0) return;
         List<AbstractTaintSeed> seeds = level.getEntitiesOfClass(AbstractTaintSeed.class, getBoundingBox().inflate(16.0));
-        if (seeds.size() >= maxSeeds) {
+        if (seeds.size() >= rule.limit()) {
             return;
         }
         RandomSource r = getRandom();
-        boolean prime = r.nextInt(10) <= primeThreshold;
+        boolean prime = r.nextInt(10) < rule.primeRolls();
         Mob seed = (prime ? TTEntities.TAINT_SEED_PRIME.get() : TTEntities.TAINT_SEED.get()).create(level, EntitySpawnReason.MOB_SUMMONED);
         if (seed == null) {
             return;
@@ -190,6 +180,11 @@ public class CorruptionAvatar extends EntityThaumaturgeBoss implements RangedAtt
         }
     }
 
+    public @Nullable Seeds seedRule(net.minecraft.world.Difficulty difficulty) {
+        var limits = getType().builtInRegistryHolder().getData(EncounterRules.SEEDS);
+        return limits == null ? null : limits.get(difficulty);
+    }
+
     /** Flux rifts within 16 blocks: Strength 3+n and Haste n for 10 seconds, and an arc from each rift. */
     private void drawOnRifts(ServerLevel level) {
         List<EntityFluxRift> rifts = level.getEntitiesOfClass(EntityFluxRift.class, getBoundingBox().inflate(16.0));
@@ -197,14 +192,18 @@ public class CorruptionAvatar extends EntityThaumaturgeBoss implements RangedAtt
         if (n == 0) {
             return;
         }
-        addEffect(new MobEffectInstance(MobEffects.STRENGTH, 200, 3 + n));
-        addEffect(new MobEffectInstance(MobEffects.HASTE, 200, n));
+        applyRiftEffects(n);
         int color = vitiumColor(level);
         for (EntityFluxRift rift : rifts) {
             Effects.boltStrike(level, rift.position()).to(getEyePosition()).color(color).width(0.6F).send();
             rift.playSound(TTSounds.ZAP.get(), 1.0F, 1.0F);
         }
         EldritchContent.tellNearby(level, blockPosition(), 32.0, "event.corruption_avatar.empower");
+    }
+
+    public void applyRiftEffects(int count) {
+        var effects = getType().builtInRegistryHolder().getData(EncounterRules.RIFT_EFFECTS);
+        if (count > 0 && effects != null) effects.forEach(effect -> addEffect(effect.forRifts(count)));
     }
 
     // ---- damage ---------------------------------------------------------------------------------------------

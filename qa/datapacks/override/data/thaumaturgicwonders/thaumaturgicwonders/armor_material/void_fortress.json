@@ -1,0 +1,20 @@
+{
+  "durability_factor": 9,
+  "defense": {
+    "helmet": 13,
+    "chestplate": 4,
+    "leggings": 2,
+    "boots": 1
+  },
+  "enchantment_value": 15,
+  "toughness": 3,
+  "equip_sound": "minecraft:item.armor.equip_iron",
+  "repair_tag": "c:ingots/void_metal",
+  "asset": "thaumaturgicwonders:void_fortress",
+  "set_bonus": [
+    {
+      "armor": 3,
+      "toughness": 4
+    }
+  ]
+}

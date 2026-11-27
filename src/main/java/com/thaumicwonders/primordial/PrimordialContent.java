@@ -1,6 +1,5 @@
 package com.thaumicwonders.primordial;
 
-import com.leclowndu93150.thaumaturge.api.aspect.TTAspects;
 import com.leclowndu93150.thaumaturge.registry.TTBlocks;
 import com.leclowndu93150.thaumaturge.registry.TTItems;
 import com.thaumicwonders.ThaumicWonders;
@@ -51,9 +50,9 @@ public final class PrimordialContent {
 
     // ---- items ------------------------------------------------------------------------------------------------
     public static final DeferredItem<CatalystStoneItem> ALCHEMIST_STONE = TWRegistry.item("alchemist_stone",
-            p -> new CatalystStoneItem(p, 50, TTAspects.ORDO), p -> p.durability(63).enchantable(10));
+            p -> new CatalystStoneItem(p), p -> p.durability(63).enchantable(10));
     public static final DeferredItem<CatalystStoneItem> TRANSMUTER_STONE = TWRegistry.item("transmuter_stone",
-            p -> new CatalystStoneItem(p, 33, TTAspects.PERMUTATIO), p -> p.durability(63).enchantable(10));
+            p -> new CatalystStoneItem(p), p -> p.durability(63).enchantable(10));
     /** The nine eldritch clusters (the original's eldritch_cluster metas 0..8). */
     public static final Map<String, DeferredItem<Item>> ELDRITCH_CLUSTERS = new LinkedHashMap<>();
 
@@ -64,7 +63,7 @@ public final class PrimordialContent {
     }
 
     public static final DeferredItem<CatalystStoneItem> ALIENIST_STONE = TWRegistry.item("alienist_stone",
-            p -> new CatalystStoneItem(p, 10, TTAspects.VITIUM), p -> p.durability(63).enchantable(10).rarity(Rarity.UNCOMMON));
+            p -> new CatalystStoneItem(p), p -> p.durability(63).enchantable(10).rarity(Rarity.UNCOMMON));
     public static final DeferredItem<Item> PRIMORDIAL_GRAIN = TWRegistry.item("primordial_grain");
 
     // ---- blocks -----------------------------------------------------------------------------------------------
@@ -128,7 +127,7 @@ public final class PrimordialContent {
     }
 
     public static boolean isCatalystStone(ItemStack stack) {
-        return stack.getItem() instanceof CatalystStoneItem;
+        return stack.typeHolder().getData(com.thaumicwonders.data.DeviceRules.CATALYST) != null;
     }
 
     /** A Thaumaturge primordial pearl the accelerator takes: at least two uses left (damage below 7). */

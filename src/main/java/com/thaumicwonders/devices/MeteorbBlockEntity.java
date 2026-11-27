@@ -2,6 +2,7 @@ package com.thaumicwonders.devices;
 
 import com.leclowndu93150.thaumaturge.api.aspect.TTAspects;
 import com.leclowndu93150.thaumaturge.content.effect.Effects;
+import com.thaumicwonders.data.EssentiaTanks.Tank;
 import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -16,12 +17,9 @@ import net.minecraft.world.phys.Vec3;
  * Tanks of 50 (relative west Aer, east Aqua, back Potentia).
  */
 public class MeteorbBlockEntity extends OrbBlockEntity {
-    public static final int CAPACITY = 50;
-    public static final int MIN_FUEL = 50;
-
     public MeteorbBlockEntity(BlockPos pos, BlockState state) {
         super(DevicesContent.METEORB_BE.get(), pos, state, List.of(TTAspects.AER, TTAspects.AQUA, TTAspects.POTENTIA),
-                List.of("airEssentia", "waterEssentia", "energyEssentia"), CAPACITY);
+                List.of("airEssentia", "waterEssentia", "energyEssentia"));
     }
 
     @Override
@@ -30,11 +28,12 @@ public class MeteorbBlockEntity extends OrbBlockEntity {
             return;
         }
         ServerLevel level = (ServerLevel) this.level;
-        if (!has(target, MIN_FUEL)) {
+        Tank fuel = tank(target);
+        if (fuel == null || !stored.funded(fuel)) {
             status(player, "event.meteorb.unfueled");
             return;
         }
-        amounts[target] -= MIN_FUEL;
+        stored.spend(fuel);
         sync();
         int duration = (300 + level.getRandom().nextInt(600)) * 20;
         switch (target) {
@@ -46,7 +45,7 @@ public class MeteorbBlockEntity extends OrbBlockEntity {
         for (ServerPlayer p : level.players()) {
             p.sendOverlayMessage(used);
         }
-        skyBolt(level, worldPosition, aspect(target).value().color());
+        skyBolt(level, worldPosition, fuel.aspect().value().color());
     }
 
     /** The original's PacketMeteorbFx: an arc bolt from the orb straight up to the top of the world. */
